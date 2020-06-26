@@ -1,0 +1,12 @@
+Release/
+Debug/
+.vs/
+*.o
+*.d
+.DS_Store
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.map

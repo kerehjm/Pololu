@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+- UserStory/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    sudo apt-get install avr-libc
+    sudo apt-get install gcc-avr
+  displayName: 'Hack** install avr'
+
+- script: make clean
+  workingDirectory: $(Build.SourcesDirectory)/gcc
+  displayName: 'Make Clean Project'
+  condition: always()
+
+- script: make
+  displayName: 'Make Project'
+  workingDirectory: $(Build.SourcesDirectory)/gcc
+
+- script: sudo apt-get remove avr-libc gcc-avr
+  displayName: "cleanup avr libs"
+  condition: always()
