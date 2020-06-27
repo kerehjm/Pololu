@@ -1,4 +1,4 @@
-add_library(motors STATIC
+add_library(motors STATIC OBJECT
     src/motor.cpp
     src/motorFactory.cpp)
 

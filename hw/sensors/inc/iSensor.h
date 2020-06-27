@@ -9,10 +9,6 @@
 #ifndef __ISENSOR_H__
 #define __ISENSOR_H__
 
-#ifndef F_CPU
-#define F_CPU 20000000
-#endif
-
 #include <stdint.h>
 #include <util/delay.h>
 #include "iTimer.h"

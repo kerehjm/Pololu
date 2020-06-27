@@ -1,4 +1,4 @@
-add_library(leds STATIC
+add_library(leds STATIC OBJECT
     src/led.cpp
     src/ledFactory.cpp)
 

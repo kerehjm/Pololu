@@ -1,4 +1,4 @@
-add_library(pins STATIC
+add_library(pins STATIC OBJECT
     src/pinFactory.cpp
     src/pin.cpp
     src/pinPortMap.cpp)

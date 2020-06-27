@@ -1,4 +1,4 @@
-add_library(myDebug STATIC
+add_library(myDebug STATIC OBJECT
     src/myDebug.cpp)
 
 target_include_directories(myDebug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)

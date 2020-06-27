@@ -1,4 +1,4 @@
-add_library(buttons STATIC
+add_library(buttons STATIC OBJECT
     src/button.cpp
     src/buttonA.cpp
     src/buttonB.cpp

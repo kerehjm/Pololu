@@ -1,4 +1,4 @@
-add_library(timers STATIC
+add_library(timers STATIC OBJECT
     src/timer0.cpp
     src/timer1.cpp
     src/timer2.cpp
