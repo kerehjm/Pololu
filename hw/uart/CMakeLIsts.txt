@@ -1,5 +1,6 @@
 add_library(uart STATIC
-    uart.cpp)
+    src/uart.cpp)
 
-target_include_directories(uart PUBLIC ../pins) #TODO undestand why it has to be public
-target_link_libraries(uart PRIVATE pins)
+target_include_directories(uart PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+
+target_link_libraries(uart PUBLIC pins) #TODO why pins needs to be public
