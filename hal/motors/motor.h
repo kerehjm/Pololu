@@ -14,7 +14,7 @@
 #include "iMotor.h"
 #include "eMotorId.h"
 
-#include "debug.h"
+#include "myDebug.h"
 
 class Motor : public iMotor
 {

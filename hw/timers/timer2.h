@@ -9,6 +9,7 @@
 #ifndef __TIMER_2_H__
 #define __TIMER_2_H__
 
+#include <avr/io.h>
 #include "iTimer.h"
 
 enum eClockSourceTimer2

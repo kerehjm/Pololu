@@ -9,6 +9,7 @@
 #ifndef __TIMER1_H__
 #define __TIMER1_H__
 
+#include <avr/io.h>
 #include "iTimer.h"
 
 extern "C" void TIMER1_COMPA_vect(void) __attribute__ ((signal));

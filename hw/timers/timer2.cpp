@@ -7,7 +7,7 @@
 
 
 #include "timer2.h"
-#include "debug.h"
+//#include "myDebug.h"
 
 // default constructor
 Timer2::Timer2()
@@ -19,31 +19,31 @@ Timer2::Timer2()
     OCR2A = OCR2B = 0;
     
     start();
-    Debug::write(eDebugLevel::info, "Timer2 created");
+    //Debug::write(eDebugLevel::info, "Timer2 created");
 } //Timer_2
 
 // default destructor
 Timer2::~Timer2()
 {
-   Debug::write(eDebugLevel::info, "Timer2 destroyed");
+   //Debug::write(eDebugLevel::info, "Timer2 destroyed");
 } //~Timer_2
 
 void Timer2::start()
 {
     selectClock(eClockSourceTimer2::prescaler8Timer2);
-    Debug::write(eDebugLevel::info, "Timer2 start");
+    //Debug::write(eDebugLevel::info, "Timer2 start");
 }
 
 void Timer2::startInverted()
 {
-    Debug::write(eDebugLevel::info, "Timer2 start inverted");
+    //Debug::write(eDebugLevel::info, "Timer2 start inverted");
 }
 
 void Timer2::stop()
 {
     selectClock(eClockSourceTimer2::noClkSrcTimer2);
     
-    Debug::write(eDebugLevel::info, "Timer2 stop");
+    //Debug::write(eDebugLevel::info, "Timer2 stop");
 }
 
 void Timer2::setTop(uint8_t top)

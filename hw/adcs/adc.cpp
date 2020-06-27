@@ -6,7 +6,6 @@
 */
 
 #include "adc.h"
-#include "debug.h"
 
 // default constructor
 Adc::Adc()
@@ -27,8 +26,6 @@ void Adc::init()
     ADCSRA |= ( 1 << ADPS0 )|( 1 << ADPS1 )|( 1 << ADPS2 ); //128
     
     Adc::on(); //Turn on clock and enable adc
-    
-    Debug::write(eDebugLevel::debug, "adc init");
 }
 
 //Shut down the adc
@@ -39,8 +36,6 @@ void Adc::off() //Turn off adc b4 shurt down
     
     //Turn off adc to save power
     PRR |= ( 1 << PRADC ); //Disables adc clock
-    
-    Debug::write(eDebugLevel::debug, "adc off");
 }
 
 //Turn on the adc
@@ -51,8 +46,6 @@ void Adc::on()
 
     //Enable ADC
     ADCSRA |= ( 1 << ADEN );
-    
-    Debug::write(eDebugLevel::debug, "adc on");
 }
 
 //Get adc reading
@@ -69,8 +62,6 @@ uint8_t Adc::read(eAdcId channel)
     reading = ADCW;
     
     //adc_turnoff(); //Turn off to save power
-    
-    Debug::write(eDebugLevel::debug, "adc [%d] read: %d", channel, reading);
     
     return reading;
 }

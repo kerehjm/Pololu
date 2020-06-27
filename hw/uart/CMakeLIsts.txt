@@ -1,0 +1,5 @@
+add_library(uart STATIC
+    uart.cpp)
+
+target_include_directories(uart PUBLIC ../pins) #TODO undestand why it has to be public
+target_link_libraries(uart PRIVATE pins)

@@ -7,7 +7,7 @@
 
 
 #include "timer0.h"
-#include "debug.h"
+//#include "myDebug.h"
 
 volatile uint8_t Timer0::top = 0;
 volatile uint8_t Timer0::reload = 0;
@@ -20,31 +20,31 @@ Timer0::Timer0()
     selectWaveGenerationMode(eWaveGenerationMode::pwmPhaseCorrect);
     OCR0A = OCR0B = 0;
     start();
-    Debug::write(eDebugLevel::info, "Timer0 created");
+    //Debug::write(eDebugLevel::info, "Timer0 created");
 } //Timer_0
 
 // default destructor
 Timer0::~Timer0()
 {
-    Debug::write(eDebugLevel::info, "Timer0 destroyed");
+    //Debug::write(eDebugLevel::info, "Timer0 destroyed");
 } //~Timer_0
 
 void Timer0::start()
 {
     selectClock(eClockSourceTimer0::prescaler8Timer0);
-    Debug::write(eDebugLevel::info, "Timer0 start");
+    //Debug::write(eDebugLevel::info, "Timer0 start");
 }
 
 void Timer0::startInverted()
 {
-    Debug::write(eDebugLevel::info, "Timer0 start inverted");
+    //Debug::write(eDebugLevel::info, "Timer0 start inverted");
 }
 
 void Timer0::stop()
 {
     selectClock(eClockSourceTimer0::noClkSrcTimer0);
     
-    Debug::write(eDebugLevel::info, "Timer0 stop");
+    //Debug::write(eDebugLevel::info, "Timer0 stop");
 }
 
 void Timer0::setTop(uint8_t top)

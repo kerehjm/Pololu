@@ -6,7 +6,7 @@
 */
 
 
-#include "debug.h"
+#include "myDebug.h"
 
 bool Debug::isInitialised = false;
 eDebugLevel Debug::debugLevel = eDebugLevel::none;

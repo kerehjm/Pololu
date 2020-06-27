@@ -6,7 +6,7 @@
 */
 
 #include "timer1.h"
-#include "debug.h"
+//#include "myDebug.h"
 
 fPointer_t Timer1::timerCallback = nullptr;
 
@@ -20,7 +20,7 @@ Timer1::Timer1(fPointer_t timerCallback)
     //Initialize compare registers to TOP
     OCR1A = 0x4C4B; //Set compare value for 1 sec overflow
     
-    Debug::write(eDebugLevel::info, "Timer1 init");
+    //Debug::write(eDebugLevel::info, "Timer1 init");
 } //Timer1
 
 // default destructor
@@ -30,10 +30,10 @@ Timer1::~Timer1()
 } //~Timer1
 
 //Interrupt Service Routine for TIMER1 COMPA
-ISR(TIMER1_COMPA_vect)
-{
-    Timer1::timerCallback();
-}
+// ISR(TIMER1_COMPA_vect)
+// {
+//     Timer1::timerCallback();
+// }
 
 uint8_t Timer1::getCount()
 {
@@ -48,7 +48,7 @@ void Timer1::start()
     //Clock select - Internal pre-scaler 1024
     TCCR1B |= ( 1 << CS10 )|( 1 << CS12 ); //Start the timer Internal pre-scaler 1024
     
-    Debug::write(eDebugLevel::info, "Timer1 enable");
+    //Debug::write(eDebugLevel::info, "Timer1 enable");
 }
 
 void Timer1::startInverted()
