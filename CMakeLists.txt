@@ -8,6 +8,43 @@ set(AVR_PROGRAMMER_PORT /dev/ttyACM0)
 #set(AVR_PROGRAMMER_BAUDRATE 19200)
 set(PROGRAM_EEPROM False)
 
+#set build options
+set(AVR_RELEASE_BUILD_FLAGS
+    -Os
+    -Wall
+    -Werror
+    -std=c++11
+    -mmcu=${AVR_MCU}
+    -DF_CPU=${MCU_FREQ} 
+)
+
+set(AVR_DEBUG_BUILD_FLAGS
+    -g
+    -Wpedantic #Issue all the warnings demanded by strict ISO C and ISO C++
+    -Wall
+    -Wextra
+    -W
+    -O0
+    -Werror
+    -std=c++11
+    -mmcu=${AVR_MCU}
+    -DF_CPU=${MCU_FREQ} 
+)
+
+set(AVR_RELEASE_LINK_FLAGS
+    -W
+    -mrelax
+    --data-sections
+    -mmcu=${AVR_MCU}
+)
+
+set(AVR_DEBUG_LINK_FLAGS
+    -W
+    -mrelax
+    --data-sections
+    -mmcu=${AVR_MCU}
+)
+
 include(cmake/avr.cmake)
 
 project(pololu CXX)
@@ -15,20 +52,9 @@ project(pololu CXX)
 # call after project setup
 include(cmake/setup.cmake)
 
-add_compile_options(
-    -Wall
-    -std=c++11 
-    -mmcu=atmega328p
-)
-
-add_link_options(
-    -W
-    -mrelax
-    --data-sections
-)
-
 avr_add_executable(3pi 
-    app/main.cpp)
+    app/main.cpp
+)
 
 add_subdirectory(hw/pins)
 add_subdirectory(hw/adcs)

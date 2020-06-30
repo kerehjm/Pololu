@@ -5,6 +5,9 @@ add_library(buttons STATIC OBJECT
     src/buttonC.cpp
     src/buttonFactory.cpp)
 
+target_compile_options(buttons PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
+target_compile_options(buttons PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
+
 target_include_directories(buttons PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
 target_link_libraries(buttons PRIVATE pins)

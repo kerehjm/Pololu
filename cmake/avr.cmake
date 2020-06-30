@@ -18,9 +18,7 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-
 function(avr_add_executable_compilation EXECUTABLE)
-	
 	set(EXECUTABLE_ELF "${EXECUTABLE}.elf")
 	set(EXECUTABLE_HEX "${EXECUTABLE}.hex")
 	if(PROGRAM_EEPROM)
@@ -38,9 +36,10 @@ function(avr_add_executable_compilation EXECUTABLE)
 
 	# compile and link elf file
 	add_executable(${EXECUTABLE_ELF} ${ARGN})
-	set_target_properties(${EXECUTABLE_ELF} PROPERTIES 
-		COMPILE_FLAGS "-mmcu=${AVR_MCU} -DF_CPU=${MCU_FREQ} ${AVR_CFLAGS}"
-		LINK_FLAGS "-mmcu=${AVR_MCU} ${AVR_LFLAGS}")
+	target_compile_options(${EXECUTABLE_ELF} PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
+	target_compile_options(${EXECUTABLE_ELF} PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
+	target_link_options(${EXECUTABLE_ELF} PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_LINK_FLAGS}>")
+	target_link_options(${EXECUTABLE_ELF} PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_LINK_FLAGS}>")
 
 	# rule for program hex file
 	add_custom_command(OUTPUT ${EXECUTABLE_HEX} 
@@ -102,9 +101,8 @@ function(avr_add_library LIBRARY)
 		message(FATAL_ERROR "shared libraries are not supported")
 	endif(ARGV1 EQUAL SHARED)
 	add_library(${LIBRARY} ${ARGN})
-	set_target_properties(${LIBRARY} PROPERTIES 
-		COMPILE_FLAGS "-mmcu=${AVR_MCU} -DF_CPU=${MCU_FREQ} ${AVR_CFLAGS}"
-		LINK_FLAGS "-mmcu=${AVR_MCU} ${AVR_LFLAGS}")
+	target_compile_options(${LIBRARY} PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
+	target_compile_options(${LIBRARY} PRIVATE"$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
 endfunction(avr_add_library LIBRARY)
 
 function(avr_target_link_libraries TARGET)

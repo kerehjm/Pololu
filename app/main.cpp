@@ -65,6 +65,11 @@ int main(void)
     _delay_ms(5000);
     timer2->stop();
 
+    (void)(dir);
+    (void)(speed);
+    (void)(dir2);
+    (void)(speed2);
+
     while (1)
     {
     }
