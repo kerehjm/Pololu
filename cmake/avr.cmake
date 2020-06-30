@@ -7,21 +7,10 @@
 # AVR_PROGRAMMER_PORT : programmer port for avrdude (OS specific)
 # PROGRAM_EEPROM : enable eeprom programming (doesn't work on arduino)
 
-#generic avr flags
-set(AVR_CFLAGS "-ffunction-sections -fdata-sections" CACHE STRING "AVR compilation flags")
-set(AVR_LFLAGS "-Wl,--relax,--gc-sections" CACHE STRING "AVR link flags")
-
 #find toolchain programs
-find_program(AVR-GCC avr-gcc)
-find_program(AVR-GXX avr-g++)
 find_program(AVR-OBJCOPY avr-objcopy)
 find_program(AVR-SIZE avr-size)
 find_program(AVRDUDE avrdude)
-
-#define toolchain
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_C_COMPILER ${AVR-GCC})
-set(CMAKE_CXX_COMPILER ${AVR-GXX})
 
 #Release by default, because optimization 
 #is needed for delay functions to work properly

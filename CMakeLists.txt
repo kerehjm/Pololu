@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.5)
-project(pololu)
 
 #device dependent config, here for arduino uno on linux
 set(AVR_MCU atmega328p)
@@ -11,10 +10,22 @@ set(PROGRAM_EEPROM False)
 
 include(cmake/avr.cmake)
 
+project(pololu CXX)
+
+# call after project setup
+include(cmake/setup.cmake)
+
 add_compile_options(
     -Wall
     -std=c++11 
-    -mmcu=atmega328p)
+    -mmcu=atmega328p
+)
+
+add_link_options(
+    -W
+    -mrelax
+    --data-sections
+)
 
 avr_add_executable(3pi 
     app/main.cpp)

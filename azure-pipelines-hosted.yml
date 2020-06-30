@@ -11,24 +11,51 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+#install gcc-avr
 - script: |
     sudo apt-get install avr-libc
     sudo apt-get install gcc-avr
-  displayName: 'Hack** install avr'
+  displayName: 'install avr'
 
+#create unit test build folder
 - task: CmdLine@2
   inputs:
     script: 'mkdir -p build'
-
+    workingDirectory: $(Build.SourcesDirectory)/unitTest
+  displayName: 'create build folder for test build'
+  
+#configure gtest using cmake
 - task: CMake@1
   inputs:
-    cmakeArgs: '-DCMAKE_CXX_COMPILER=avr-gcc ..'
-    workingDirectory: $(Build.SourcesDirectory)/build
+    cmakeArgs: '-DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_COMPILER=g++ ..'
+    workingDirectory: $(Build.SourcesDirectory)/unitTest/build
+  displayName: 'configure google test with cmake'
 
+#build tests
 - script: make
-  displayName: 'Make Project'
+  displayName: 'build tests'
+  workingDirectory: $(Build.SourcesDirectory)/unitTest/build
+
+#create root build folder
+- task: CmdLine@2
+  inputs:
+    script: 'mkdir -p build'
+    workingDirectory: $(Build.SourcesDirectory)
+  displayName: 'create build folder'
+
+#configure cmake
+- task: CMake@1
+  inputs:
+    cmakeArgs: '-DCMAKE_CXX_COMPILER=avr-g++ ..'
+    workingDirectory: $(Build.SourcesDirectory)/build
+  displayName: 'configure main cmake'
+
+#build project
+- script: make
+  displayName: 'make project'
   workingDirectory: $(Build.SourcesDirectory)/build
 
+#uinstall gcc-avr
 - script: sudo apt-get remove avr-libc gcc-avr
   displayName: "cleanup avr libs"
   condition: always()
