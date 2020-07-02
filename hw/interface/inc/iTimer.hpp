@@ -48,13 +48,13 @@ class iTimer
 {
 //functions
 public:
-	virtual ~iTimer(){}
-	virtual void start() = 0;
-	virtual void startInverted() = 0;
-	virtual void stop() = 0;
-	virtual void setTop(uint8_t top) = 0;
-	virtual void setReload(uint8_t reload) = 0;
-	virtual uint8_t getCount() = 0;
+    virtual ~iTimer(){}
+    virtual void start() = 0;
+    virtual void startInverted() = 0;
+    virtual void stop() = 0;
+    virtual void setTop(uint8_t top) = 0;
+    virtual void setReload(uint8_t reload) = 0;
+    virtual uint8_t getCount() = 0;
 
 }; //iTimer
 

@@ -6,7 +6,7 @@
 */
 
 
-#include "timer2.h"
+#include "timer2.hpp"
 //#include "myDebug.h"
 
 // default constructor

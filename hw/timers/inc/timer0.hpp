@@ -9,7 +9,7 @@
 #ifndef __TIMER_0_H__
 #define __TIMER_0_H__
 
-#include "iTimer.h"
+#include "iTimer.hpp"
 #include <avr/io.h>
 
 enum eClockSourceTimer0

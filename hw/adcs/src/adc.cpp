@@ -5,7 +5,7 @@
 * Author: Mathew.Kuloba
 */
 
-#include "adc.h"
+#include "adc.hpp"
 
 // default constructor
 Adc::Adc()

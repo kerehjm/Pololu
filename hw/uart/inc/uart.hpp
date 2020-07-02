@@ -11,13 +11,14 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "pinFactory.h"
+#include "iUart.hpp"
+// configure pins at hw level
 
 #define UART_RX_BUFF_SIZE 128
 
 extern "C" void USART_RX_vect(void) __attribute__((interrupt));
 
-class Uart
+class Uart : public iUart
 {
 //variables
 public:
@@ -25,15 +26,16 @@ protected:
 private:
     static uint8_t uart_rx_buffer[UART_RX_BUFF_SIZE];
     static uint8_t uart_rx_in_count;
-    static iPin *txd;
+    // static iPin *txd;
 
 //functions
 public:
 	~Uart();
-    static void init();
-    static void enable();
-    static void disable();
-    static void write(uint8_t data);
+    static void create();
+    void init();
+    void enable();
+    void disable();
+    void write(uint8_t data);
 protected:
 private:
     friend void USART_RX_vect(void);

@@ -52,29 +52,32 @@ project(pololu CXX)
 # call after project setup
 include(cmake/setup.cmake)
 
-avr_add_executable(3pi 
-    app/main.cpp
-)
+# avr_add_executable(3pi 
+#     app/main.cpp
+# )
 
-add_subdirectory(hw/pins)
-add_subdirectory(hw/adcs)
+add_subdirectory(hw/interface)
+# add_subdirectory(hal/interface)
+# add_subdirectory(hw/pins)
+# add_subdirectory(hal/pins)
+# add_subdirectory(hw/adcs)
 add_subdirectory(hw/timers)
-add_subdirectory(hw/sensors)
+# add_subdirectory(hal/sensors)
 add_subdirectory(hw/uart)
-add_subdirectory(hal/myDebug)
-add_subdirectory(hal/motors)
-add_subdirectory(hal/leds)
-add_subdirectory(hal/buttons)
+# add_subdirectory(hal/myDebug)
+# add_subdirectory(hal/motors)
+# add_subdirectory(hal/leds)
+# add_subdirectory(hal/buttons)
 
-#private dependancies
-target_link_libraries(3pi.elf PRIVATE
-    pins
-    adcs
-    timers
-    sensors
-    uart
-    myDebug
-    leds
-    motors
-    buttons
-)
+# #private dependancies
+# target_link_libraries(3pi.elf PRIVATE
+#     pins
+#     adcs
+#     timers
+#     sensors
+#     uart
+#     myDebug
+#     leds
+#     motors
+#     buttons
+# )

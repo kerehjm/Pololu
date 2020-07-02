@@ -5,7 +5,7 @@
 * Author: Mathew.Kuloba
 */
 
-#include "timer1.h"
+#include "timer1.hpp"
 //#include "myDebug.h"
 
 fPointer_t Timer1::timerCallback = nullptr;

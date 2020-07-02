@@ -5,9 +5,9 @@
 * Author: Mathew.Kuloba
 */
 
-#include "uart.h"
+#include "uart.hpp"
 
-iPin *Uart::txd;
+// iPin *Uart::txd;
 
 ISR(USART_RX_vect)
 {
@@ -23,6 +23,11 @@ ISR(USART_RX_vect)
     }
     
     //serial.rxHandler();
+}
+
+void Uart::create()
+{
+    
 }
 
 void Uart::init()
@@ -43,7 +48,7 @@ void Uart::init()
     
     sei(); //enable global ints
     
-    Uart::txd = PinFactory::create(ePinId::PD1_UART0_TXD);
+    // Uart::txd = PinFactory::create(ePinId::PD1_UART0_TXD);
     
     enable();
 } //Uart
@@ -65,8 +70,8 @@ void Uart::write(uint8_t data)
 void Uart::enable()
 {
     UCSR0B |= (1 << TXEN0) | (1 << RXEN0); //Enable tx and TX
-    txd->output();
-    txd->set();
+    // txd->output();
+    // txd->set();
 }
 
 //Turn off uart

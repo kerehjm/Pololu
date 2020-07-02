@@ -11,9 +11,10 @@
 
 #include <avr/io.h>
 #include <stdint.h>
-#include "eAdcId.h"
+#include "iAdc.hpp"
+#include "eAdcId.hpp"
 
-class Adc
+class Adc : public iAdc
 {
 //variables
 public:
@@ -22,10 +23,10 @@ private:
 
 //functions
 public:
-    static void init();
-    static void on();
-    static void off();
-    static uint8_t read(eAdcId channel);
+    void init();
+    void on();
+    void off();
+    uint8_t read(eAdcId channel);
 protected:
 private:
     Adc();

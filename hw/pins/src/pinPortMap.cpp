@@ -5,7 +5,7 @@
 * Author: Mathew.Kuloba
 */
 
-#include "pinPortMap.h"
+#include "pinPortMap.hpp"
 
 // default constructor
 PinPortMap::PinPortMap()

@@ -6,7 +6,7 @@
 */
 
 
-#include "timer0.h"
+#include "timer0.hpp"
 //#include "myDebug.h"
 
 volatile uint8_t Timer0::top = 0;
