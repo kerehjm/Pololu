@@ -9,9 +9,6 @@
 #ifndef __TIMER_2_H__
 #define __TIMER_2_H__
 
-#include <avr/io.h>
-#include "iTimer.hpp"
-
 enum eClockSourceTimer2
 {
     noClkSrcTimer2,
@@ -24,7 +21,7 @@ enum eClockSourceTimer2
     prescaler1024Timer2
 };
 
-class Timer2 : public iTimer
+class Timer2 : public iTimerHw
 {
 //variables
 public:

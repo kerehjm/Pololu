@@ -9,7 +9,18 @@
 #ifndef __IADC_H__
 #define __IADC_H__
 
-#include "eAdcId.hpp"
+enum eAdcId
+{
+    adcChannel0,
+    adcChannel1,
+    adcChannel2,
+    adcChannel3,
+    adcChannel4,
+    adcChannel5,
+    adcChannel6,
+    adcChannel7,
+    adcChanneltemp
+}; //eAdcId
 
 class iAdc
 {

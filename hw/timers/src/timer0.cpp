@@ -5,7 +5,9 @@
 * Author: Mathew.Kuloba
 */
 
-
+#include <stdint.h>
+#include <avr/io.h>
+#include "iTimerHw.hpp"
 #include "timer0.hpp"
 //#include "myDebug.h"
 

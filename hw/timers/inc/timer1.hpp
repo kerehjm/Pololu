@@ -9,12 +9,9 @@
 #ifndef __TIMER1_H__
 #define __TIMER1_H__
 
-#include <avr/io.h>
-#include "iTimer.hpp"
-
 extern "C" void TIMER1_COMPA_vect(void) __attribute__ ((signal));
 
-class Timer1 : public iTimer
+class Timer1 : public iTimerHw
 {
 //variables
 public:

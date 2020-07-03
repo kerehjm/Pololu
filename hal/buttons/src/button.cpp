@@ -5,12 +5,13 @@
 * Author: Mathew.Kuloba
 */
 
-
-#include "button.h"
+#include "iButton.hpp"
+#include "button.hpp"
 
 // default constructor
-Button::Button()
+Button::Button(eButtonId button)
 {
+    this->button = button;
 } //Button
 
 // default destructor
@@ -20,5 +21,5 @@ Button::~Button()
 
 bool Button::isPressed()
 {
-    return pin->is_pin_set();
+    return false;
 }

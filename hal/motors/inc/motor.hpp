@@ -9,13 +9,6 @@
 #ifndef __MOTOR_H__
 #define __MOTOR_H__
 
-#include "iTimer.h"
-#include "pin.h"
-#include "iMotor.h"
-#include "eMotorId.h"
-
-#include "myDebug.h"
-
 class Motor : public iMotor
 {
 //variables
@@ -26,12 +19,14 @@ private:
     iPin *speed;
     iTimer *timer;
     eMotorId motorId;
+    iDebug * debug;
 
 //functions
 public:
     Motor();
 	~Motor();
     Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed);
+    Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDebug* debug);
     void off();
     void forward(uint8_t speed);
     void reverse(uint8_t speed);

@@ -5,5 +5,7 @@ add_library(myDebug STATIC OBJECT
 target_compile_options(myDebug PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
 target_compile_options(myDebug PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
 
-target_include_directories(myDebug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-target_link_libraries(myDebug PUBLIC uart)
+target_include_directories(myDebug PRIVATE inc)
+
+target_link_libraries(myDebug PRIVATE iHal)
+target_link_libraries(myDebug PRIVATE iHw)

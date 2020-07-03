@@ -9,6 +9,12 @@
 #ifndef __IBUTTON_H__
 #define __IBUTTON_H__
 
+enum class eButtonId
+{
+    a,
+    b,
+    c
+}; //eButtonId
 
 class iButton
 {
@@ -16,7 +22,6 @@ class iButton
 public:
 	virtual ~iButton(){}
 	virtual bool isPressed() = 0;
-
 }; //iButton
 
 #endif //__IBUTTON_H__

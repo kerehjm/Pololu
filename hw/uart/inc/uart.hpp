@@ -9,11 +9,6 @@
 #ifndef __UART_H__
 #define __UART_H__
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include "iUart.hpp"
-// configure pins at hw level
-
 #define UART_RX_BUFF_SIZE 128
 
 extern "C" void USART_RX_vect(void) __attribute__((interrupt));

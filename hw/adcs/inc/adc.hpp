@@ -9,11 +9,6 @@
 #ifndef __ADC_H__
 #define __ADC_H__
 
-#include <avr/io.h>
-#include <stdint.h>
-#include "iAdc.hpp"
-#include "eAdcId.hpp"
-
 class Adc : public iAdc
 {
 //variables

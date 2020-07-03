@@ -9,7 +9,11 @@
 #ifndef __IMOTOR_H__
 #define __IMOTOR_H__
 
-#include <stdint.h>
+enum class eMotorId
+{
+    motor_1,
+    motor_2
+}; //eMotorId
 
 class iMotor
 {

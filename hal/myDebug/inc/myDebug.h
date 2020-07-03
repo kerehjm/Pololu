@@ -9,10 +9,6 @@
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
-#include "uart.h"
-#include <stdio.h>
-#include <string.h>
-
 enum class eDebugLevel {
     all, debug, info, Error, none
 };
@@ -22,20 +18,21 @@ class Debug
 //variables
 public:
 protected:
-    static void checkInit();
-    static void init();
+    void checkInit();
+    void init();
 private:
     static bool isInitialised;
     static eDebugLevel debugLevel;
-    
+    iUart * uart;
 
 //functions
 public:
-    static void write(eDebugLevel level, const char *format, ...);
-    static void setLevel(eDebugLevel level);
+    Debug(iUart * uart);
+    ~Debug();
+    void write(eDebugLevel level, const char *format, ...);
+    void setLevel(eDebugLevel level);
 protected:
 private:
-    Debug();
 
 }; //Debug
 

@@ -9,22 +9,18 @@
 #ifndef __BUTTON_H__
 #define __BUTTON_H__
 
-#include <avr/io.h>
-#include "pinFactory.h"
-#include "iButton.h"
-
 class Button : public iButton
 {
 //variables
 public:
 protected:
-    iPin *pin;
 private:
+    eButtonId button;
 
 //functions
 public:
-	Button();
-	~Button();
+    Button(eButtonId button);
+    ~Button();
     bool isPressed();
 protected:
 private:

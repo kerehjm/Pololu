@@ -5,21 +5,28 @@
 * Author: Mathew.Kuloba
 */
 
-
+#include <stdio.h>
+#include <string.h>
+#include "iUart.hpp"
 #include "myDebug.h"
 
 bool Debug::isInitialised = false;
 eDebugLevel Debug::debugLevel = eDebugLevel::none;
 
+Debug::Debug(iUart *uart)
+{
+    this->uart = uart;
+}
+
 void Debug::init()
 {
-    Uart::init();
+    uart->init();
     //setLevel(eDebugLevel::all);
 }
 
 void Debug::write(eDebugLevel level, const char *format, ...)
 {
-    cli();
+    //cli();
     char buffer[256];
     va_list args;
     va_start (args, format);
@@ -31,14 +38,14 @@ void Debug::write(eDebugLevel level, const char *format, ...)
     int i =0;
     while (buffer[i] != '\0')
     {
-        Uart::write(buffer[i++]);
+        uart->write(buffer[i++]);
     }
-    Uart::write('\n');
+    uart->write('\n');
     //--------------
     
     va_end (args);
     
-    sei();
+    //sei();
 }
 
 void Debug::setLevel(eDebugLevel level)

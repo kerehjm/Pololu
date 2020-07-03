@@ -1,17 +1,22 @@
 /* 
-* iTimer.h
+* iTimerHw.h
 *
 * Created: 17/05/2020 13:39:10
 * Author: Mathew.Kuloba
 */
 
 
-#ifndef __ITIMER_H__
-#define __ITIMER_H__
-
-#include <stdint.h>
+#ifndef __ITIMERHW_H__
+#define __ITIMERHW_H__
 
 typedef void (*fPointer_t)();
+
+enum class eTimerId
+{
+    tmr0,
+    tmr1,
+    tmr2
+}; //eTimerId
 
 enum eInterrupts
 {
@@ -44,11 +49,11 @@ enum eWaveGenerationMode
     fastPwm2 = 7
 };
 
-class iTimer
+class iTimerHw
 {
 //functions
 public:
-    virtual ~iTimer(){}
+    virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;
     virtual void stop() = 0;
@@ -56,6 +61,6 @@ public:
     virtual void setReload(uint8_t reload) = 0;
     virtual uint8_t getCount() = 0;
 
-}; //iTimer
+}; //iTimerHw
 
-#endif //__ITIMER_H__
+#endif //__ITIMERHW_H__

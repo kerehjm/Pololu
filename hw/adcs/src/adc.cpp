@@ -5,6 +5,9 @@
 * Author: Mathew.Kuloba
 */
 
+#include <avr/io.h>
+#include <stdint.h>
+#include "iAdc.hpp"
 #include "adc.hpp"
 
 // default constructor

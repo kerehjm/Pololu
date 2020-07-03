@@ -5,13 +5,8 @@
 * Author: Mathew.Kuloba
 */
 
-
 #ifndef __LED_H__
 #define __LED_H__
-
-#include "iPin.h"
-#include "eLedId.h"
-#include "iLed.h"
 
 class Led : public iLed
 {
@@ -23,9 +18,9 @@ private:
 
 //functions
 public:
-    Led();
-	Led(iPin *ledPin);
-	~Led();
+    static iLed *create(eLedId ledId);
+    Led(iPin *ledPin);
+    ~Led();
     void on();
     void off();
     void toggle();

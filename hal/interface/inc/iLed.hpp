@@ -9,12 +9,17 @@
 #ifndef __ILED_H__
 #define __ILED_H__
 
+enum class eLedId
+{
+    green,
+    red
+}; //eLedId
 
 class iLed
 {
 //functions
 public:
-	virtual ~iLed(){}
+    virtual ~iLed(){}
     virtual void on() = 0;
     virtual void off() = 0;
     virtual void toggle() = 0;

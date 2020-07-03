@@ -23,13 +23,13 @@ private:
 //functions
 public:
     ~PinHw();
-    void init(ePinId pinId);
-    void set(ePinId pinId);
-    void reset(ePinId pinId);
-    void toggle(ePinId pinId);
-    void output(ePinId pinId);
-    void input(ePinId pinId);
-    bool is_pin_set(ePinId pinId);
+    void init(eHwPinId pinId);
+    void set(eHwPinId pinId);
+    void reset(eHwPinId pinId);
+    void toggle(eHwPinId pinId);
+    void output(eHwPinId pinId);
+    void input(eHwPinId pinId);
+    bool is_pin_set(eHwPinId pinId);
 protected:
 private:
     PinHw();

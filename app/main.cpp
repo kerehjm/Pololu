@@ -7,14 +7,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "pinFactory.h"
-#include "ledFactory.h"
-#include "motorFactory.h"
-#include "sensorFactory.h"
-#include "buttonFactory.h"
-#include "timerFactory.h"
-#include "adc.h"
-#include "myDebug.h"
+#include "iPin.hpp"
+#include "iLed.hpp"
+#include "iMotor.hpp"
+#include "iSensor.hpp"
+#include "iButton.hpp"
+#include "iTimer.hpp"
+#include "iDebug.hpp"
 #include <util/delay.h>
 
 void * operator new(size_t size);
@@ -48,35 +47,7 @@ void __cxa_pure_virtual(void) {};
 
 int main(void)
 {
-    Debug::setLevel(eDebugLevel::all);
-    iPin *dir = PinFactory::create(ePinId::PD6_MOTOR1_DIRECTION);
-    iPin *speed = PinFactory::create(ePinId::PD5_MOTOR1_SPEED);
-   
-    iPin *dir2 = PinFactory::create(ePinId::PB3_MOTOR2_DIRECTION);
-    iPin *speed2 = PinFactory::create(ePinId::PD3_MOTOR2_SPEED);
-   
-    iTimer * timer0 = TimerFactory::create(eTimerId::tmr0, nullptr);
-    iTimer * timer2 = TimerFactory::create(eTimerId::tmr2, nullptr);
-    timer0->setReload(50);
-    timer2->setReload(50);
-    
-    _delay_ms(5000);
-    timer0->stop();
-    _delay_ms(5000);
-    timer2->stop();
-
-    (void)(dir);
-    (void)(speed);
-    (void)(dir2);
-    (void)(speed2);
-
     while (1)
     {
     }
 }
-
-// void fn(void)
-// {
-//    // Debug::write(eDebugLevel::debug, "timer in main");
-// }
-
