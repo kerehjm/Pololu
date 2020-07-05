@@ -11,6 +11,7 @@
 // default constructor
 ProximitySensor::ProximitySensor(iPin *pin, iPin *power, iTimer *timer)
 {
+    (void)(pin);
     this->sensor = sensor;
     this->power = power;
     this->timer = timer;

@@ -28,6 +28,9 @@ private:
 public:
 	Sensor();
 	~Sensor();
+	uint8_t read();
+	void charge();
+	void discharge();
 protected:
 private:
 	Sensor( const Sensor &c );

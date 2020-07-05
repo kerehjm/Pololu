@@ -26,6 +26,7 @@ void Debug::init()
 
 void Debug::write(eDebugLevel level, const char *format, ...)
 {
+    (void)(level);
     //cli();
     char buffer[256];
     va_list args;

@@ -17,3 +17,18 @@ Sensor::Sensor()
 Sensor::~Sensor()
 {
 } //~Sensor
+
+uint8_t Sensor::read()
+{
+    return 0;
+}
+
+void Sensor::charge()
+{
+
+}
+
+void Sensor::discharge()
+{
+
+}

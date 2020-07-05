@@ -24,7 +24,7 @@ set(AVR_DEBUG_BUILD_FLAGS
     -Wall
     -Wextra
     -W
-    -O0
+    -O1
     -Werror
     -std=c++11
     -mmcu=${AVR_MCU}

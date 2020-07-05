@@ -66,9 +66,9 @@ void Timer1::stop()
 
 void Timer1::setTop(uint8_t top)
 {
-    
+    (void)(top);
 }
 void Timer1::setReload(uint8_t reload)
 {
-    
+    (void)(reload);
 }

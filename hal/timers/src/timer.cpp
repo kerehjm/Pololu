@@ -22,6 +22,7 @@ Timer::~Timer()
 
 void Timer::start(uint8_t count)
 {
+    (void)(count);
 }
 
 void Timer::stop()
@@ -30,6 +31,7 @@ void Timer::stop()
 
 void Timer::reload(uint8_t count)
 {
+    (void)(count);
 }
 
 uint8_t Timer::getCount()

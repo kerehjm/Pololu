@@ -5,12 +5,13 @@
 * Author: Mathew.Kuloba
 */
 
-#include "PinHw.hpp"
+#include "pinHw.hpp"
 
 PinPortMap PinHw::pin;
 
 void PinHw::init(eHwPinId pinId)
 {
+    (void)(pinId);
     // switch (pinId)
     //  {
     //      case eHwPinId::PB0_LCD_RW             : pin = new Pin( PinPortMap(PB0, &PORTB, &DDRB), ePinDir::OUTPUT, ePinState::LOW ); break;
@@ -43,30 +44,36 @@ void PinHw::init(eHwPinId pinId)
 
 void PinHw::set(eHwPinId pinId)
 {
-    *pin.port |= (1 << pin.num);
+    (void)(pinId);
+    *pin.port |= (1U << pin.num);
 }
 
 void PinHw::reset(eHwPinId pinId)
 {
-    *pin.port &= ~(1 << pin.num);
+    (void)(pinId);
+    *pin.port &= ~(1U << pin.num);
 }
 
 void PinHw::toggle(eHwPinId pinId)
 {
-    *pin.port ^= (1 << pin.num);
+    (void)(pinId);
+    *pin.port ^= (1U << pin.num);
 }
 
 void PinHw::input(eHwPinId pinId)
 {
-    *pin.ddr &= ~(1 << pin.num);
+    (void)(pinId);
+    *pin.ddr &= ~(1U << pin.num);
 }
 
 void PinHw::output(eHwPinId pinId)
 {
-    *pin.ddr |= (1 << pin.num);
+    (void)(pinId);
+    *pin.ddr |= (1U << pin.num);
 }
 
 bool PinHw::is_pin_set(eHwPinId pinId)
 {
-    return (*pin.port & (1 << pin.num));
+    (void)(pinId);
+    return (*pin.port & (1U << pin.num));
 }
