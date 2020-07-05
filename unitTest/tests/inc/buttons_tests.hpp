@@ -4,5 +4,5 @@
 
 TEST(ButtonsTest, isPressed) {
     Button button(eButtonId::a);
-    ASSERT_TRUE(button.isPressed());
+    ASSERT_FALSE(button.isPressed());
 }
