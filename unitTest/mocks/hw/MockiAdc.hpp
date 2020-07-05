@@ -17,7 +17,7 @@ enum eAdcId
     adcChanneltemp
 }; //eAdcId
 
-class mockIAdc : public iAdc
+class MockiAdc : public iAdc
 {
 public:
     MOCK_METHOD0(init, void());

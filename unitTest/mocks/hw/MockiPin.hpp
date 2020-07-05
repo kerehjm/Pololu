@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include "iPinHw.hpp"
 
-class mockIPinHw : public iPinHw
+class MockiPin : public iPinHw
 {
 public:
     MOCK_METHOD1(init, void(eHwPinId pinId));

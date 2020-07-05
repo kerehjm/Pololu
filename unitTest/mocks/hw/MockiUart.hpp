@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include "iUart.hpp"
 
-class mockIUart : public iUart
+class MockiUart : public iUart
 {
 public:
     MOCK_METHOD0(init, void());

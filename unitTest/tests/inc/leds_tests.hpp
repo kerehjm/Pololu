@@ -3,11 +3,12 @@
 #include "iPin.hpp"
 #include "led.hpp"
 
-#include "mockIPin.hpp"
+#include "mockiPin.hpp"
+
 using ::testing::AtLeast; 
 
 TEST(LedsTest, pinResetOnCreation) {
-    mockIPin pin;
+    MockiPin pin;
 
     EXPECT_CALL(pin, reset())
         .Times(AtLeast(1));
@@ -16,10 +17,7 @@ TEST(LedsTest, pinResetOnCreation) {
 }
 
 TEST(LedsTest, pinSetWhenTurnedOn) {
-    mockIPin pin;
-
-    EXPECT_CALL(pin, reset())
-        .Times(AtLeast(1));
+    MockiPin pin;
 
     Led led(&pin);
 

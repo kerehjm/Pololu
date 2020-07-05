@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include "iTimerHw.h"
 
-class mockITimerHw : public iTimerHw
+class MockiTimerHw : public iTimerHw
 {
 public:
     MOCK_METHOD0(start, void());
