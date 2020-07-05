@@ -9,8 +9,6 @@
 #ifndef __REFLECTANCESENSOR_H__
 #define __REFLECTANCESENSOR_H__
 
-#include "sensor.hpp"
-
 class ReflectanceSensor : public Sensor
 {
 //variables

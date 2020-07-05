@@ -9,8 +9,6 @@
 #ifndef __PROXIMITYSENSOR_H__
 #define __PROXIMITYSENSOR_H__
 
-#include "sensor.hpp"
-
 class ProximitySensor : public Sensor
 {
 //variables

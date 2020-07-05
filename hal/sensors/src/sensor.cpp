@@ -5,7 +5,10 @@
 * Author: Mathew.Kuloba
 */
 
-
+#include <stdint.h>
+#include "iSensor.hpp"
+#include "iTimer.hpp"
+#include "iPin.hpp"
 #include "sensor.hpp"
 
 // default constructor

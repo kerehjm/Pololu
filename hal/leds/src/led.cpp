@@ -11,7 +11,7 @@
 
 Led::~Led()
 {
-    delete(ledPin);
+    //delete(ledPin); TODO investigate how to free
 } //~Led
 
 Led::Led(iPin *ledPin)

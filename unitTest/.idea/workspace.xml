@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95bf70c6-569d-496b-b7b6-13083fd3c831" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../example/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../example/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tests.cpp" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1139" y="-890" key="SettingsEditor" timestamp="1593941339238">
+      <screen x="670" y="-1057" width="1920" height="1057" />
+    </state>
+    <state x="1139" y="-890" key="SettingsEditor/0.23.1440.833/670.-1057.1920.1057/-1250.-1057.1920.1057@670.-1057.1920.1057" timestamp="1593941339238" />
+  </component>
+</project>

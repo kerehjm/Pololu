@@ -9,6 +9,16 @@
 #ifndef __ISENSOR_H__
 #define __ISENSOR_H__
 
+enum class eSensorId
+{
+    rl0,
+    rl1,
+    rl2,
+    rl3,
+    rl4,
+    prx
+}; //eSensorId
+
 class iSensor
 {
 //functions

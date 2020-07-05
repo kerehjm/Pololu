@@ -9,11 +9,6 @@
 #ifndef __SENSOR_H__
 #define __SENSOR_H__
 
-#include <util/delay.h>
-#include "iSensor.hpp"
-#include "iTimer.hpp"
-#include "iPin.hpp"
-
 class Sensor : public iSensor
 {
 //variables

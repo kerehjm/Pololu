@@ -26,25 +26,25 @@ void Debug::init()
 
 void Debug::write(eDebugLevel level, const char *format, ...)
 {
-    (void)(level);
-    //cli();
-    char buffer[256];
-    va_list args;
-    va_start (args, format);
-    memset(buffer, '\0', sizeof(buffer));
-    vsnprintf (buffer, sizeof(buffer), format, args);
+    // (void)(level);
+    // //cli();
+    // char buffer[256];
+    // va_list args;
+    // va_start (args, format);
+    // memset(buffer, '\0', sizeof(buffer));
+    // vsnprintf (buffer, sizeof(buffer), format, args);
     
-    //print buffer
-    //--------------
-    int i =0;
-    while (buffer[i] != '\0')
-    {
-        uart->write(buffer[i++]);
-    }
-    uart->write('\n');
-    //--------------
+    // //print buffer
+    // //--------------
+    // int i =0;
+    // while (buffer[i] != '\0')
+    // {
+    //     uart->write(buffer[i++]);
+    // }
+    // uart->write('\n');
+    // //--------------
     
-    va_end (args);
+    // va_end (args);
     
     //sei();
 }
