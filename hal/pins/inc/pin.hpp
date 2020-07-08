@@ -9,38 +9,25 @@
 #ifndef __PIN_H__
 #define __PIN_H__
 
-enum ePinState: volatile uint8_t
-{
-    LOW,
-    HIGH
-};
-enum ePinDir: volatile uint8_t
-{
-    INPUT,
-    OUTPUT
-};
-
 class Pin : public iPin
 {
 //variables
 public:
 protected:
 private:
-    ePinId pin;
+    ePinId pinId;
+    iPinHw * pinHw;
 
 //functions
 public:
-    Pin();
-	Pin(ePinId pinId);
-	~Pin();
+    Pin(ePinId pinId, iPinHw * pinHw, ePinDir pinDir, ePinState pinState);
+    ~Pin();
     void set();
     void reset();
     void toggle();
     void output();
     void input();
-    bool is_pin_set();
-    void setDir(ePinDir dir);
-    void setState(ePinState state);
+    bool isSet();
 protected:
 private:
 

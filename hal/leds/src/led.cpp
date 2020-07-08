@@ -5,6 +5,7 @@
 * Author: Mathew.Kuloba
 */
 
+#include <stdint.h>
 #include "iPin.hpp"
 #include "iLed.hpp"
 #include "led.hpp"

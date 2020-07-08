@@ -40,14 +40,14 @@ class iPinHw
 {
 //functions
 public:
+    static iPinHw * create(eHwPinId hwPinId);
     virtual ~iPinHw(){}
-    virtual void init(eHwPinId pinId) = 0;
-    virtual void set(eHwPinId pinId) = 0;
-    virtual void reset(eHwPinId pinId) = 0;
-    virtual void toggle(eHwPinId pinId) = 0;
-    virtual void output(eHwPinId pinId) = 0;
-    virtual void input(eHwPinId pinId) = 0;
-    virtual bool is_pin_set(eHwPinId pinId) = 0;
+    virtual void set() = 0;
+    virtual void reset() = 0;
+    virtual void toggle() = 0;
+    virtual void output() = 0;
+    virtual void input() = 0;
+    virtual bool isSet() = 0;
 }; //iPinHw
 
 #endif //__IPINHW_H__

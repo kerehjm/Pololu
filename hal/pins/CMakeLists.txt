@@ -1,5 +1,6 @@
 add_library(pins STATIC OBJECT
     src/pin.cpp
+    src/pinFactory
 )
 
 target_compile_options(pins PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

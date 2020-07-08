@@ -1,6 +1,7 @@
 add_library(hwPin STATIC OBJECT
     src/pinHw.cpp
     src/pinPortMap.cpp
+    src/hwPinFactory.cpp
 )
 
 target_compile_options(hwPin PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
