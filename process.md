@@ -32,6 +32,8 @@ https://cliutils.gitlab.io/modern-cmake/modern-cmake.pdf
 
 http://mariobadr.com/creating-a-header-only-library-with-cmake.html
 
+https://www.codeproject.com/Articles/363338/Factory-Pattern-in-Cplusplus
+
 
 cmake .. -DCMAKE_CXX_STANDARD=14 -DCMAKE_CXX_COMPILER=avr-g++ -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*;-fix"
 

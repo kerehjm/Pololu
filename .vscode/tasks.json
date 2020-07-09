@@ -1,0 +1,192 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Test Build",
+                "Test Run",
+                "App Build",
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
+        },
+        {
+            "label": "Test",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Test Build",
+                "Test Run"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
+        },
+        {
+            "label": "Config",
+            "dependsOn": [
+                "App Config",
+                "Test Config"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "App Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                ".",
+                "--clean-first"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Test Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                ".",
+                "--clean-first"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/unitTest/build"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+        },
+        {
+            "label": "Test Run",
+            "type": "shell",
+            "command": "./runTest",
+            "args": [
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/unitTest/build"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "App Config",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-DCMAKE_CXX_STANDARD=14",
+                "-DCMAKE_CXX_COMPILER=avr-g++",
+                "-DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF",
+                "-DCMAKE_BUILD_TYPE=Release",
+                ".."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "dependsOn": "Delete App Cache"
+        },
+        {
+            "label": "Delete App Cache",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "-v",
+                "*"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Test Config",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-DCMAKE_CXX_STANDARD=14",
+                "-DCMAKE_CXX_COMPILER=g++",
+                "-DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF",
+                "-DCMAKE_BUILD_TYPE=Release",
+                ".."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/unitTest/build/"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "dependsOn": "Delete Test Cache"
+        },
+        {
+            "label": "Delete Test Cache",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "-v",
+                "*"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/unitTest/build/"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        }
+    ]
+}

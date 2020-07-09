@@ -1,13 +1,13 @@
-#ifndef __MOCKIPIN_H__
-#define __MOCKIPIN_H__
+#ifndef __MOCKIPINHW_H__
+#define __MOCKIPINHW_H__
 
 #include <gmock/gmock.h>
-#include "iPin.hpp"
+#include "iPinHw.hpp"
 
-class MockiPin : public iPin
+class MockiPinHw : public iPinHw
 {
 public:
-    MOCK_METHOD3(create, iPin*(ePinId pinId, ePinDir pinDir, ePinState pinState));
+    MOCK_METHOD1(create, iPinHw*(eHwPinId hwPinId));
     MOCK_METHOD0(set, void());
     MOCK_METHOD0(reset, void());
     MOCK_METHOD0(toggle, void());
@@ -16,4 +16,4 @@ public:
     MOCK_METHOD0(isSet, bool());
 };
 
-#endif //__MOCKIPIN_H__
+#endif //__MOCKIPINHW_H__
