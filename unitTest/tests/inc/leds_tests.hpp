@@ -1,50 +1,52 @@
 #include <gtest/gtest.h>
+#include <stdint.h>
 #include "iLed.hpp"
-#include "iPinHw.hpp"
+#include "iPin.hpp"
 #include "led.hpp"
 
-#include "mockiPinHw.hpp"
+#include "mockiPin.hpp"
 
-using ::testing::AtLeast; 
+using ::testing::AtLeast;
 
 TEST(LedsTest, pinResetOnCreation) {
-    MockiPinHw pinHw;
+    MockiPin pin;
 
-    EXPECT_CALL(pinHw, reset())
-        .Times(AtLeast(1));
+    EXPECT_CALL(pin, reset())
+        .Times(1);
 
-    Led led(&pinHw);
+    Led led(&pin);
 }
 
 TEST(LedsTest, pinSetWhenTurnedOn) {
-    MockiPinHw pinHw;
+    MockiPin pin;
 
-    Led led(&pinHw);
+    EXPECT_CALL(pin, reset())
+        .Times(1);
+    EXPECT_CALL(pin, set())
+        .Times(1);
 
-    EXPECT_CALL(pinHw, set())
-        .Times(AtLeast(1));
-
+    Led led(&pin);
     led.on();
 }
 
 TEST(LedsTest, pinResetWhenTurnedOff) {
-    MockiPinHw pinHw;
+    MockiPin pin;
 
-    Led led(&pinHw);
+    EXPECT_CALL(pin, reset())
+        .Times(2);
 
-    EXPECT_CALL(pinHw, reset())
-        .Times(AtLeast(1));
-
+    Led led(&pin);
     led.off();
 }
 
 TEST(LedsTest, pinTogglesWhenToggled) {
-    MockiPinHw pinHw;
+    MockiPin pin;
 
-    Led led(&pinHw);
+    EXPECT_CALL(pin, reset())
+        .Times(1);
+    EXPECT_CALL(pin, toggle())
+        .Times(1);
 
-    EXPECT_CALL(pinHw, toggle())
-        .Times(AtLeast(1));
-
+    Led led(&pin);
     led.toggle();
 }

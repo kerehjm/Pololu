@@ -7,7 +7,6 @@
 class MockiPin : public iPin
 {
 public:
-    MOCK_METHOD3(create, iPin*(ePinId pinId, ePinDir pinDir, ePinState pinState));
     MOCK_METHOD0(set, void());
     MOCK_METHOD0(reset, void());
     MOCK_METHOD0(toggle, void());

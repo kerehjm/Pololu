@@ -19,6 +19,7 @@ class iLed
 {
 //functions
 public:
+    static iLed * create(eLedId ledId);
     virtual ~iLed(){}
     virtual void on() = 0;
     virtual void off() = 0;

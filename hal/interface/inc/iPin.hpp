@@ -38,12 +38,12 @@ enum class ePinId
     PD7_GREEN_LED
 }; //ePinId
 
-enum ePinState: volatile uint8_t
+enum class ePinState: volatile uint8_t
 {
     LOW,
     HIGH
 };
-enum ePinDir: volatile uint8_t
+enum class ePinDir: volatile uint8_t
 {
     INPUT,
     OUTPUT

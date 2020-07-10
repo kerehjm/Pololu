@@ -14,12 +14,12 @@ class Led : public iLed
 public:
 protected:
 private:
-    iPinHw *ledPin;
+    iPin *ledPin;
 
 //functions
 public:
     static iLed *create(eLedId ledId);
-    Led(iPinHw *ledPin);
+    Led(iPin *ledPin);
     ~Led();
     void on();
     void off();
