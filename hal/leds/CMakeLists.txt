@@ -1,5 +1,6 @@
 add_library(leds STATIC OBJECT
     src/led.cpp
+    src/ledFactory.cpp
 )
 
 target_compile_options(leds PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

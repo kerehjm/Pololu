@@ -7,7 +7,8 @@ set(TEST_BUILD_FLAGS
     -O0
     -Wall
     -Werror
-    -std=c++11
+    -std=c++14
+    -DGOOGLE_TEST
 )
 
 include(cmake/config-gtest.cmake)
@@ -17,7 +18,10 @@ add_executable(runTest
     app/main.cpp
 )
 
-target_compile_options(runTest PRIVATE ${TEST_BUILD_FLAGS})
+add_definitions(-DGOOGLE_TEST) #path for static functions
+
+# target_compile_options(runTest PRIVATE ${TEST_BUILD_FLAGS})
+add_compile_options(${TEST_BUILD_FLAGS}) #use this to override libraries build flags
 target_link_libraries(runTest PRIVATE #link to source libraries
     gtest_main
     gmock_main
@@ -28,6 +32,7 @@ target_link_libraries(runTest PRIVATE #link to source libraries
     iHw
     buttons
     leds
+    pins
 )
 
 #add source subirectories

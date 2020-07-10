@@ -38,17 +38,29 @@ enum class ePinId
     PD7_GREEN_LED
 }; //ePinId
 
+enum class ePinState: volatile uint8_t
+{
+    LOW,
+    HIGH
+};
+enum class ePinDir: volatile uint8_t
+{
+    INPUT,
+    OUTPUT
+};
+
 class iPin
 {
 //functions
 public:
-	virtual ~iPin(){}
+    static iPin * create(ePinId pinId, ePinDir pinDir, ePinState pinState);
+    virtual ~iPin(){}
     virtual void set() = 0;
     virtual void reset() = 0;
     virtual void toggle() = 0;
     virtual void output() = 0;
     virtual void input() = 0;
-    virtual bool is_pin_set() = 0;
+    virtual bool isSet() = 0;
 
 }; //iPin
 

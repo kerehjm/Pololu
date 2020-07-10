@@ -6,11 +6,8 @@
 */
 
 
-#ifndef __PIN_H__
-#define __PIN_H__
-
-#include "iPinHw.hpp"
-#include "pinPortMap.hpp"
+#ifndef __PINHW_H__
+#define __PINHW_H__
 
 class PinHw : public iPinHw
 {
@@ -18,22 +15,21 @@ class PinHw : public iPinHw
 public:
 protected:
 private:
-    static PinPortMap pin;
+    PinPortMap * pinPortMap;
 
 //functions
 public:
+    PinHw(PinPortMap * pinPortMap);
     ~PinHw();
-    void init(eHwPinId pinId);
-    void set(eHwPinId pinId);
-    void reset(eHwPinId pinId);
-    void toggle(eHwPinId pinId);
-    void output(eHwPinId pinId);
-    void input(eHwPinId pinId);
-    bool is_pin_set(eHwPinId pinId);
+    void set();
+    void reset();
+    void toggle();
+    void output();
+    void input();
+    bool isSet();
 protected:
 private:
-    PinHw();
 
 }; //PinHw
 
-#endif //__PIN_H__
+#endif //__PINHW_H__

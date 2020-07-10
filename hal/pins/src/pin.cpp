@@ -10,65 +10,60 @@
 #include "iPinHw.hpp"
 #include "pin.hpp"
 
-Pin::Pin()
-{
-    
-}
 Pin::~Pin()
 {
 } //~Pin
 
-Pin::Pin(ePinId pinId)
+Pin::Pin(ePinId pinId, iPinHw * pinHw, ePinDir pinDir, ePinState pinState)
 {
-    pin = pinId;
-}
+    this->pinId = pinId;
+    this->pinHw = pinHw;
 
-void Pin::set()
-{
-
-}
-
-void Pin::reset()
-{
-}
-
-void Pin::toggle()
-{
-}
-
-void Pin::input()
-{
-}
-
-void Pin::output()
-{
-}
-
-bool Pin::is_pin_set()
-{
-    return 0;
-}
-
-void Pin::setDir(ePinDir dir)
-{
-    if (dir == ePinDir::INPUT)
+    // update hw state
+    if (ePinDir::OUTPUT == pinDir)
     {
-        input();
+        pinHw->output();
+    } 
+    else 
+    {
+        pinHw->input();
     }
-    else
+    if (ePinState::HIGH == pinState)
     {
-        output();
+        pinHw->set();
+    } 
+    else 
+    {
+        pinHw->reset();
     }
 }
 
-void Pin::setState(ePinState state)
+inline void Pin::set()
 {
-    if (state == ePinState::HIGH)
-    {
-        set();
-    }
-    else
-    {
-        reset();
-    }
+    pinHw->set();
+}
+
+inline void Pin::reset()
+{
+    pinHw->reset();
+}
+
+inline void Pin::toggle()
+{
+    pinHw->toggle();
+}
+
+inline void Pin::input()
+{
+    pinHw->input();
+}
+
+inline void Pin::output()
+{
+    pinHw->output();
+}
+
+inline bool Pin::isSet()
+{
+    return pinHw->isSet();
 }
