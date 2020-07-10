@@ -12,6 +12,7 @@ iPin * iPin::create(ePinId pinId, ePinDir pinDir, ePinState pinState)
     iPin * pin = nullptr;
     iPinHw * pinHw = nullptr;
 
+#ifndef GOOGLE_TEST // unit tests dont like static functions called in a static functions
     switch (pinId)
     {
         case ePinId::PB0_LCD_RW             : pinHw = iPinHw::create( eHwPinId::PB0_LCD_RW          ); break;
@@ -40,7 +41,7 @@ iPin * iPin::create(ePinId pinId, ePinDir pinDir, ePinState pinState)
         case ePinId::PD7_LCD_DB7            : pinHw = iPinHw::create( eHwPinId::PD7_LCD_DB7         ); break;
         case ePinId::PD7_GREEN_LED          : pinHw = iPinHw::create( eHwPinId::PD7_LCD_DB7         ); break;
     }
-
+#endif
     pin = new Pin(pinId, pinHw, pinDir, pinState);
     return pin;
 }

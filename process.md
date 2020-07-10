@@ -49,3 +49,4 @@ http://www.mariobadr.com/using-clang-tidy-with-cmake-36.html
 
 https://stackoverflow.com/questions/3065154/undefined-reference-to-vtable/3065223#3065223
 
+https://testing.googleblog.com/2008/12/static-methods-are-death-to-testability.html
