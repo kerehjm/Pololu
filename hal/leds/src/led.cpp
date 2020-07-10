@@ -6,7 +6,7 @@
 */
 
 #include <stdint.h>
-#include "iPin.hpp"
+#include "iPinHw.hpp"
 #include "iLed.hpp"
 #include "led.hpp"
 
@@ -15,7 +15,7 @@ Led::~Led()
     //delete(ledPin); TODO investigate how to free
 } //~Led
 
-Led::Led(iPin *ledPin)
+Led::Led(iPinHw *ledPin)
 {
     this->ledPin = ledPin;
     this->off();

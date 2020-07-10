@@ -12,7 +12,7 @@ iPin * iPin::create(ePinId pinId, ePinDir pinDir, ePinState pinState)
     iPin * pin = nullptr;
     iPinHw * pinHw = nullptr;
 
-#ifndef GOOGLE_TEST // unit tests dont like static functions called in a static functions
+#ifndef GOOGLE_TEST // unit tests dont like static functions called in a static functions because they cant be mocked
     switch (pinId)
     {
         case ePinId::PB0_LCD_RW             : pinHw = iPinHw::create( eHwPinId::PB0_LCD_RW          ); break;
