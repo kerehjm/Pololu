@@ -9,7 +9,8 @@
 #include <string.h>
 #include <stdarg.h>
 #include "iUart.hpp"
-#include "myDebug.h"
+#include "iDebug.hpp"
+#include "myDebug.hpp"
 
 bool Debug::isInitialised = false;
 eDebugLevel Debug::debugLevel = eDebugLevel::none;
@@ -17,12 +18,11 @@ eDebugLevel Debug::debugLevel = eDebugLevel::none;
 Debug::Debug(iUart *uart)
 {
     this->uart = uart;
+    uart->enable();
 }
 
-void Debug::init()
+Debug::~Debug()
 {
-    uart->init();
-    //setLevel(eDebugLevel::all);
 }
 
 void Debug::write(eDebugLevel level, const char *format, ...)
@@ -54,14 +54,14 @@ void Debug::setLevel(eDebugLevel level)
 {
     checkInit();
     debugLevel = level;
-    isInitialised = true;
 }
 
 void Debug::checkInit()
 {
     if (false == isInitialised)
     {
-        init();
+        uart->enable();
+        isInitialised = true;
     }
 }
 

@@ -33,6 +33,7 @@ target_link_libraries(runTest PRIVATE #link to source libraries
     buttons
     leds
     pins
+    myDebug
 )
 
 #add source subirectories

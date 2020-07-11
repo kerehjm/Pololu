@@ -9,7 +9,7 @@
 #include <avr/io.h>
 #include "iTimerHw.hpp"
 #include "timer2.hpp"
-//#include "myDebug.h"
+//#include "myDebug.hpp"
 
 // default constructor
 Timer2::Timer2()
