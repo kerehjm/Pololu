@@ -9,7 +9,7 @@
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
-class Debug
+class Debug : public iDebug
 {
 //variables
 public:
@@ -17,16 +17,14 @@ protected:
     void checkInit();
     void init();
 private:
-    static bool isInitialised;
-    static eDebugLevel debugLevel;
+    eDebugLevel debugLevel;
     iUart * uart;
 
 //functions
 public:
-    Debug(iUart * uart);
+    Debug(iUart * uart, eDebugLevel level);
     ~Debug();
-    void write(eDebugLevel level, const char *format, ...);
-    void setLevel(eDebugLevel level);
+    void log(eDebugLevel level, const char *format, ...);
 protected:
 private:
 

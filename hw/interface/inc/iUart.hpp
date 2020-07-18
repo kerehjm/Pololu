@@ -15,6 +15,7 @@ class iUart
 {
 //functions
 public:
+    static iUart * create();
     virtual ~iUart(){}
     virtual void enable() = 0;
     virtual void disable() = 0;

@@ -12,12 +12,10 @@
 #include "iDebug.hpp"
 #include "myDebug.hpp"
 
-bool Debug::isInitialised = false;
-eDebugLevel Debug::debugLevel = eDebugLevel::none;
-
-Debug::Debug(iUart *uart)
+Debug::Debug(iUart *uart, eDebugLevel level)
 {
     this->uart = uart;
+    this->debugLevel = level;
     uart->enable();
 }
 
@@ -25,43 +23,29 @@ Debug::~Debug()
 {
 }
 
-void Debug::write(eDebugLevel level, const char *format, ...)
+void Debug::log(eDebugLevel level, const char *format, ...)
 {
-    (void)(level);
-    //cli();
-    char buffer[256];
-    va_list args;
-    va_start (args, format);
-    memset(buffer, '\0', sizeof(buffer));
-    vsnprintf (buffer, sizeof(buffer), format, args);
-    
-    //print buffer
-    //--------------
-    int i =0;
-    while (buffer[i] != '\0')
+    if (this->debugLevel >= level)
     {
-        uart->write(buffer[i++]);
-    }
-    uart->write('\n');
-    //--------------
-    
-    va_end (args);
-    
-    //sei();
-}
-
-void Debug::setLevel(eDebugLevel level)
-{
-    checkInit();
-    debugLevel = level;
-}
-
-void Debug::checkInit()
-{
-    if (false == isInitialised)
-    {
-        uart->enable();
-        isInitialised = true;
+        //cli();
+        char buffer[256];
+        va_list args;
+        va_start (args, format);
+        memset(buffer, '\0', sizeof(buffer));
+        vsnprintf (buffer, sizeof(buffer), format, args);
+        
+        //print buffer
+        //--------------
+        int i =0;
+        while (buffer[i] != '\0')
+        {
+            uart->write(buffer[i++]);
+        }
+        uart->write('\n');
+        //--------------
+        
+        va_end (args);
+        
+        //sei();
     }
 }
-

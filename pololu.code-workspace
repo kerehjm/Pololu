@@ -26,6 +26,7 @@
 					}
 				}
 			]
-		}
+		},
+		"testMate.cpp.test.executables": "unitTest/{build,Build,BUILD,out,Out,OUT}/**/*{test,Test,TEST}*"
 	}
 }

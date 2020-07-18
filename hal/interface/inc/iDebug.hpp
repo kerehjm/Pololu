@@ -10,11 +10,11 @@
 #define __IDEBUG_H__
 
 enum class eDebugLevel {
-    all,
-    debug,
-    info,
+    none,
     Error,
-    none
+    info,
+    debug,
+    all
 };
 
 class iDebug
@@ -22,8 +22,8 @@ class iDebug
 //functions
 public:
     ~iDebug(){}
-    virtual void write(eDebugLevel level, const char *format, ...) = 0;
-    virtual void setLevel(eDebugLevel level) = 0;
+    static iDebug * create(eDebugLevel level);
+    virtual void log(eDebugLevel level, const char *format, ...) = 0;
 protected:
 private:
 
