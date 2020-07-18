@@ -5,13 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "gtest",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${cwd}/build/runTest",
+            "program": "${workspaceFolder}/unitTest/build/runTest",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/unitTests",
+            "cwd": "${workspaceFolder}/unitTest/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "3pi",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "3pi.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb"

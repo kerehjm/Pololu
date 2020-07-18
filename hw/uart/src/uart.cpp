@@ -11,6 +11,7 @@
 #include "uart.hpp"
 
 // iPin *Uart::txd;
+bool Uart::isInitialised = false; //TODO maybe do this in hw level
 
 ISR(USART_RX_vect)
 {
@@ -28,32 +29,30 @@ ISR(USART_RX_vect)
     //serial.rxHandler();
 }
 
-void Uart::create()
-{
-    
-}
-
 void Uart::init()
 {
-    //Set baud rate
-    UBRR0H = 0;
-    UBRR0L = 129;
+    if (!isInitialised)
+    {
+        //Set baud rate
+        UBRR0H = 0;
+        UBRR0L = 129;
 
-    //Select frame format
-    UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01); //Select 8 data bits in a frame
+        //Select frame format
+        UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01); //Select 8 data bits in a frame
 
-    //Enable tx/rx
-    UCSR0B |= (1 << RXEN0); //Enable rx
-    UCSR0B |= (1 << TXEN0); //Enable tx
+        //Enable tx/rx
+        UCSR0B |= (1 << RXEN0); //Enable rx
+        UCSR0B |= (1 << TXEN0); //Enable tx
 
-    //Enable rx int
-    UCSR0B |= (1 << RXCIE0); //Enable rx int
-    
-    sei(); //enable global ints
-    
-    // Uart::txd = PinFactory::create(ePinId::PD1_UART0_TXD);
-    
-    enable();
+        //Enable rx int
+        UCSR0B |= (1 << RXCIE0); //Enable rx int
+        
+        sei(); //enable global ints
+        
+        // Uart::txd = PinFactory::create(ePinId::PD1_UART0_TXD);
+        
+        enable();
+    }
 } //Uart
 
 // default destructor

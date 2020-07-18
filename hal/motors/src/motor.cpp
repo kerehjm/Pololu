@@ -26,7 +26,7 @@ Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed)
     this->timer = timer;
     //this->off();
     
-    debug->write(eDebugLevel::debug, "Motor [%d] init", motorId);
+    debug->log(eDebugLevel::debug, "Motor [%d] init", motorId);
 } //MotorPinControl
 
 Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDebug * debug)
@@ -37,7 +37,7 @@ Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDeb
     this->timer = timer;
     //this->off();
     
-    debug->write(eDebugLevel::debug, "Motor [%d] init", motorId);
+    debug->log(eDebugLevel::debug, "Motor [%d] init", motorId);
 } //MotorPinControl
 
 void Motor::off()
@@ -46,7 +46,7 @@ void Motor::off()
     this->speed->reset();
     timer->stop();
     
-    debug->write(eDebugLevel::debug, "motor [%d] off", motorId);
+    debug->log(eDebugLevel::debug, "motor [%d] off", motorId);
 }
 
 void Motor::forward(uint8_t speed)
@@ -56,7 +56,7 @@ void Motor::forward(uint8_t speed)
     timer->reload(speed);
     //timer->start();
     
-    debug->write(eDebugLevel::debug, "motor [%d] forward", motorId);
+    debug->log(eDebugLevel::debug, "motor [%d] forward", motorId);
 }
 
 void Motor::reverse(uint8_t speed)
@@ -66,7 +66,7 @@ void Motor::reverse(uint8_t speed)
     timer->reload(speed);
     //timer->startInverted();
     
-    debug->write(eDebugLevel::debug, "motor [%d] reverse", motorId);
+    debug->log(eDebugLevel::debug, "motor [%d] reverse", motorId);
 }
 
 void Motor::brake()
@@ -76,5 +76,5 @@ void Motor::brake()
     timer->reload(0);
     timer->stop();
     
-    debug->write(eDebugLevel::debug, "motor [%d] brake", motorId);
+    debug->log(eDebugLevel::debug, "motor [%d] brake", motorId);
 }

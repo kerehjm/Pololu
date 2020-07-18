@@ -21,12 +21,12 @@ protected:
 private:
     static uint8_t uart_rx_buffer[UART_RX_BUFF_SIZE];
     static uint8_t uart_rx_in_count;
+    static bool isInitialised;
     // static iPin *txd;
 
 //functions
 public:
 	~Uart();
-    static void create();
     void init();
     void enable();
     void disable();

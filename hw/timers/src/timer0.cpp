@@ -9,7 +9,7 @@
 #include <avr/io.h>
 #include "iTimerHw.hpp"
 #include "timer0.hpp"
-//#include "myDebug.h"
+//#include "myDebug.hpp"
 
 volatile uint8_t Timer0::top = 0;
 volatile uint8_t Timer0::reload = 0;
