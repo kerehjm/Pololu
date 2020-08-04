@@ -20,8 +20,9 @@ class iButton
 {
 //functions
 public:
-	virtual ~iButton(){}
-	virtual bool isPressed() = 0;
+    static iButton * create(eButtonId buttonId);
+    virtual ~iButton(){}
+    virtual bool isPressed() = 0;
 }; //iButton
 
 #endif //__IBUTTON_H__

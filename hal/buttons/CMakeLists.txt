@@ -8,4 +8,4 @@ target_compile_options(buttons PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_
 target_include_directories(buttons PUBLIC inc)
 
 target_link_libraries(buttons PRIVATE iHal)
-# target_link_libraries(buttons PRIVATE iHw)
+target_link_libraries(buttons PRIVATE iHw)

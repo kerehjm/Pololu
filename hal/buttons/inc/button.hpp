@@ -9,21 +9,28 @@
 #ifndef __BUTTON_H__
 #define __BUTTON_H__
 
-class Button : public iButton
+class Button : public iButton, public iSubject
 {
 //variables
 public:
 protected:
 private:
-    eButtonId button;
+    static const uint8_t MAX_NO_OF_OBSERVERS = 10;
+    eButtonId buttonId;
+    iButtonHw * buttonHw;
+    iObserver* observers[MAX_NO_OF_OBSERVERS] = {}; // observers
 
 //functions
 public:
-    Button(eButtonId button);
+    Button(eButtonId buttonId, iButtonHw * buttonHw);
     ~Button();
-    bool isPressed();
+    bool isPressed() override;
+    bool add(iObserver * observer) override;
+    void remove(iObserver * observer) override;
+    void notify() override;
 protected:
 private:
+    bool observerExists(iObserver* observer);
 
 }; //Button
 
