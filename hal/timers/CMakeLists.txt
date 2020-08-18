@@ -1,11 +1,11 @@
-add_library(timers STATIC OBJECT
+add_library(halTimers STATIC OBJECT
     src/timer.cpp
 )
 
-target_compile_options(timers PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
-target_compile_options(timers PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
+target_compile_options(halTimers PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
+target_compile_options(halTimers PRIVATE "$<$<CONFIG:RELEASE>:${AVR_RELEASE_BUILD_FLAGS}>")
 
-target_include_directories(timers PRIVATE inc)
+target_include_directories(halTimers PRIVATE inc)
 
-target_link_libraries(timers PRIVATE iHal)
-target_link_libraries(timers PRIVATE iHw)
+target_link_libraries(halTimers PRIVATE iHal)
+target_link_libraries(halTimers PRIVATE iHw)

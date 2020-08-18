@@ -26,7 +26,8 @@ extern "C" int __cxa_guard_acquire(__guard *);
 extern "C" void __cxa_guard_release (__guard *);
 extern "C" void __cxa_guard_abort (__guard *);
 
-extern "C" void __cxa_pure_virtual(void);
+// extern "C" void __cxa_pure_virtual(void);
+extern "C" void __cxa_pure_virtual() { while (1); }
 
 void * operator new(size_t size)
 {
