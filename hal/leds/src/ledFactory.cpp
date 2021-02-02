@@ -6,16 +6,15 @@
 iLed * iLed::create(eLedId ledId)
 {
     iLed * led = nullptr;
+    iPin * ledPin = nullptr;
     if (eLedId::green == ledId)
     {
-        iPin * ledPin = iPin::create(ePinId::PD7_GREEN_LED, ePinDir::OUTPUT, ePinState::LOW);
-        (void)(ledPin);
+        ledPin = iPin::create(ePinId::PD7_GREEN_LED, ePinDir::OUTPUT, ePinState::LOW);
     }
     else
     {
-        iPin * ledPin = iPin::create(ePinId::PD1_RED_LED, ePinDir::OUTPUT, ePinState::LOW);
-        (void)(ledPin);
+        ledPin = iPin::create(ePinId::PD1_RED_LED, ePinDir::OUTPUT, ePinState::LOW);
     }
-    (void)(led);
-    return nullptr;
+    led = new Led(ledPin);
+    return led;
 }

@@ -46,6 +46,12 @@ void operator delete(void* ptr, unsigned int size)
 
 int main()
 {
+    iLed * led = iLed::create(eLedId::red);
+    led->on();
+
+    iTimer * timer = iTimer::create(eTimerId::counter);
+    timer->start(12);
+
     while (1)
     {
     }

@@ -11,30 +11,33 @@
 #include "timer.hpp"
 
 // default constructor
-Timer::Timer()
+Timer::Timer(iTimerHw * timerHw)
 {
-} //Timer_0
+    this->timerHw = timerHw;
+}
 
 // default destructor
 Timer::~Timer()
 {
+    delete(timerHw);
 } //~Timer
 
 void Timer::start(uint8_t count)
 {
-    (void)(count);
+    timerHw->start();
 }
 
 void Timer::stop()
 {
+    timerHw->stop();
 }
 
 void Timer::reload(uint8_t count)
 {
-    (void)(count);
+    timerHw->setReload(count);
 }
 
 uint8_t Timer::getCount()
 {
-    return 0;
+    return timerHw->getCount();
 }

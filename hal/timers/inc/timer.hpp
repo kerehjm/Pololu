@@ -15,10 +15,11 @@ class Timer : public iTimer
 public:
 protected:
 private:
+    iTimerHw * timerHw;
 
 //functions
 public:
-    Timer();
+    Timer(iTimerHw * timerHw);
     ~Timer();
     void start(uint8_t count);
     void stop();

@@ -9,11 +9,18 @@
 #ifndef __ITIMER_H__
 #define __ITIMER_H__
 
+enum class eTimerId
+{
+    counter,
+    pwm
+}; //eTimerId
+
 class iTimer
 {
 //functions
 public:
     virtual ~iTimer(){}
+    static iTimer * create(eTimerId timerId);
     virtual void start(uint8_t count) = 0;
     virtual void stop() = 0;
     virtual void reload(uint8_t count) = 0;

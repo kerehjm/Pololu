@@ -11,7 +11,7 @@
 
 typedef void (*fPointer_t)();
 
-enum class eTimerId
+enum class eTimerHwId
 {
     tmr0,
     tmr1,
@@ -49,10 +49,31 @@ enum eWaveGenerationMode
     fastPwm2 = 7
 };
 
+enum ePrescaler
+{
+    noClkSrc,
+    noPreScaler,
+    prescaler8,
+    prescaler64,
+    prescaler256,
+    prescaler1024
+};
+
+struct registers_t
+{
+    uint8_t * ocra;
+    uint8_t * ocrb;
+    uint8_t * tcnt;
+    uint8_t * tccra;
+    uint8_t * tccrb;
+};
+
 class iTimerHw
 {
 //functions
 public:
+    static iTimerHw * createCounter(eTimerHwId hwTimerId);;
+    static iTimerHw * createPwm(eTimerHwId hwTimerId);
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;

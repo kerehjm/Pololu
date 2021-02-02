@@ -1,5 +1,6 @@
 add_library(timers STATIC OBJECT
     src/timer.cpp
+    src/timerFactory.cpp
 )
 
 target_compile_options(timers PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")
