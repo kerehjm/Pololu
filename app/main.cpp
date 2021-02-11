@@ -44,15 +44,24 @@ void operator delete(void* ptr, unsigned int size)
     free(ptr);
 }
 
+iLed * led;
+iTimer * timer;
+void time(void);
+
 int main()
 {
-    iLed * led = iLed::create(eLedId::red);
-    led->on();
+    led = iLed::create(eLedId::red);
+    led->off();
 
-    iTimer * timer = iTimer::create(eTimerId::counter);
-    timer->start(12);
+    timer = iTimer::create(eTimerId::counter, time);
+    timer->start(0x4C4B);
 
     while (1)
     {
     }
+}
+
+void time(void)
+{
+    led->toggle();
 }

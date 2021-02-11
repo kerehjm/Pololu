@@ -22,9 +22,10 @@ Timer::~Timer()
     delete(timerHw);
 } //~Timer
 
-void Timer::start(uint8_t count)
+void Timer::start(uint16_t count)
 {
     timerHw->start();
+    timerHw->setTop(count);
 }
 
 void Timer::stop()
@@ -32,7 +33,7 @@ void Timer::stop()
     timerHw->stop();
 }
 
-void Timer::reload(uint8_t count)
+void Timer::reload(uint16_t count)
 {
     timerHw->setReload(count);
 }

@@ -1,26 +1,43 @@
 #include <stdint.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "iTimerHw.hpp"
 #include "timerHw.hpp"
 
-uint8_t * ocra = nullptr;
-uint8_t * ocrb = nullptr;
-uint8_t * tcnt = nullptr;
+uint16_t * ocra = nullptr;
+uint16_t * ocrb = nullptr;
+
+uint16_t * tcnt = nullptr;
 uint8_t * tccra = nullptr;
 uint8_t * tccrb = nullptr;
 ePrescaler prescaler = ePrescaler::noClkSrc;
 
+TimerHw * TimerHw::vector_table[eInterruptId::max] = {nullptr};
+void (*handler)(void) = nullptr;
+
 // default constructor
-TimerHw::TimerHw(volatile uint8_t * ocra, volatile uint8_t * ocrb, volatile uint8_t * tcnt, volatile uint8_t * tccra, volatile uint8_t * tccrb,
-                 eoutputCompareMode AcompareMode, eoutputCompareMode BcompareMode, eWaveGenerationMode waveGenMode, ePrescaler prescaler)
+TimerHw::TimerHw(volatile uint16_t * ocra, volatile uint16_t * ocrb, volatile uint16_t * tcnt, volatile uint8_t * tccra, volatile uint8_t * tccrb,
+                 eoutputCompareMode AcompareMode, eoutputCompareMode BcompareMode, eWaveGenerationMode waveGenMode, ePrescaler prescaler, eInterruptId intId, void(*isr)(void))
 {
     selectCompareOutputMode(eOutput::A, AcompareMode);
     selectCompareOutputMode(eOutput::B, BcompareMode);
     selectWaveGenerationMode(waveGenMode);
+    
     this->ocra = ocra;
     this->ocrb = ocrb;
     *this->ocra = *this->ocrb = 0;
+
+    this->tccra = tccra;
+    this->tccrb = tccrb;
+
+    this->tcnt = 0;
     this->prescaler = prescaler;
+
+    TimerHw::vector_table[intId] = this;
+    this->handler = isr;
+
+   TIMSK1 |= (1 << OCIE1A); // Enable CTC interrupt
+   sei(); //  Enable global interrupts
 }
 
 // default destructor
@@ -86,4 +103,19 @@ void TimerHw::selectWaveGenerationMode(eWaveGenerationMode waveGenMode)
         *tccrb &= ~(1 << 3);
     }
     *tccra = (*tccra & 0b11111100) | (waveGenMode & 0b00000011);
+}
+
+void TIMER0_COMPA_vect(void)
+{
+    TimerHw::vector_table[0]->handler();
+}
+
+void TIMER1_COMPA_vect(void)
+{
+    TimerHw::vector_table[1]->handler();
+}
+
+void TIMER2_COMPA_vect(void)
+{
+    TimerHw::vector_table[2]->handler();
 }

@@ -20,10 +20,10 @@ class iTimer
 //functions
 public:
     virtual ~iTimer(){}
-    static iTimer * create(eTimerId timerId);
-    virtual void start(uint8_t count) = 0;
+    static iTimer * create(eTimerId timerId, void (*callback)(void));
+    virtual void start(uint16_t count) = 0;
     virtual void stop() = 0;
-    virtual void reload(uint8_t count) = 0;
+    virtual void reload(uint16_t count) = 0;
     virtual uint8_t getCount() = 0;
 }; //iTimer
 

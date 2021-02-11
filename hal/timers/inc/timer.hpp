@@ -21,9 +21,9 @@ private:
 public:
     Timer(iTimerHw * timerHw);
     ~Timer();
-    void start(uint8_t count);
+    void start(uint16_t count);
     void stop();
-    void reload(uint8_t reload);
+    void reload(uint16_t reload);
     uint8_t getCount();
 protected:
 private:

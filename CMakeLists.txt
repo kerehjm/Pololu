@@ -59,7 +59,7 @@ target_link_libraries(3pi.elf PRIVATE
     hwAdc
     hwPin
     hwTimer
-    HwUart
+    hwUart
     buttons
     leds
     motors

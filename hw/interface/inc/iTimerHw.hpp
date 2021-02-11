@@ -18,6 +18,14 @@ enum class eTimerHwId
     tmr2
 }; //eTimerId
 
+enum eInterruptId
+{
+    timer0_compa,
+    timer1_compa,
+    timer2_compa,
+    max
+}; //eInterruptId
+
 enum eInterrupts
 {
     overflow,
@@ -61,9 +69,9 @@ enum ePrescaler
 
 struct registers_t
 {
-    uint8_t * ocra;
-    uint8_t * ocrb;
-    uint8_t * tcnt;
+    uint16_t * ocra;
+    uint16_t * ocrb;
+    uint16_t * tcnt;
     uint8_t * tccra;
     uint8_t * tccrb;
 };
@@ -72,8 +80,8 @@ class iTimerHw
 {
 //functions
 public:
-    static iTimerHw * createCounter(eTimerHwId hwTimerId);;
-    static iTimerHw * createPwm(eTimerHwId hwTimerId);
+    static iTimerHw * createCounter(eTimerHwId hwTimerId, void (*callback)(void));;
+    static iTimerHw * createPwm(eTimerHwId hwTimerId, void (*callback)(void));
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;
