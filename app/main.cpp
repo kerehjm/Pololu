@@ -54,7 +54,7 @@ int main()
     led->off();
 
     timer = iTimer::create(eTimerId::counter, time);
-    timer->start(0x4C4B);
+    timer->start();
 
     while (1)
     {

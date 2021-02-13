@@ -4,34 +4,33 @@
 #include "iTimerHw.hpp"
 #include "timerHw.hpp"
 
-uint16_t * ocra = nullptr;
-uint16_t * ocrb = nullptr;
-
-uint16_t * tcnt = nullptr;
-uint8_t * tccra = nullptr;
-uint8_t * tccrb = nullptr;
-ePrescaler prescaler = ePrescaler::noClkSrc;
-
 TimerHw * TimerHw::vector_table[eInterruptId::max] = {nullptr};
-void (*handler)(void) = nullptr;
 
 // default constructor
-TimerHw::TimerHw(volatile uint16_t * ocra, volatile uint16_t * ocrb, volatile uint16_t * tcnt, volatile uint8_t * tccra, volatile uint8_t * tccrb,
-                 eoutputCompareMode AcompareMode, eoutputCompareMode BcompareMode, eWaveGenerationMode waveGenMode, ePrescaler prescaler, eInterruptId intId, void(*isr)(void))
+TimerHw::TimerHw(registers_t &registers,
+                 eoutputCompareMode AcompareMode, eoutputCompareMode BcompareMode,
+                 eWaveGenerationMode waveGenMode, ePrescaler prescaler,
+                 eInterruptId intId, uint16_t frequency, void(*isr)(void))
 {
+    this->top = frequency;
+    this->reload = 0;
+
+    this->registers.ocra = registers.ocra;
+    this->registers.ocrb = registers.ocrb;
+    this->registers.tccra = registers.tccra;
+    this->registers.tccrb = registers.tccrb;
+    this->registers.tcnt = registers.tcnt;
+
+    *this->registers.ocra = frequency;
+    *this->registers.ocrb = 0;
+    *this->registers.tccra = 0;
+    *this->registers.tccrb = 0;
+    *this->registers.tcnt = 0;
+    this->prescaler = prescaler;
+
     selectCompareOutputMode(eOutput::A, AcompareMode);
     selectCompareOutputMode(eOutput::B, BcompareMode);
     selectWaveGenerationMode(waveGenMode);
-    
-    this->ocra = ocra;
-    this->ocrb = ocrb;
-    *this->ocra = *this->ocrb = 0;
-
-    this->tccra = tccra;
-    this->tccrb = tccrb;
-
-    this->tcnt = 0;
-    this->prescaler = prescaler;
 
     TimerHw::vector_table[intId] = this;
     this->handler = isr;
@@ -59,63 +58,69 @@ void TimerHw::stop()
     selectClock(ePrescaler::noClkSrc);
 }
 
-void TimerHw::setTop(uint8_t top)
+void TimerHw::setTop(uint16_t top)
 {
-    *ocra = top;
+    TimerHw::top = top;
 }
-void TimerHw::setReload(uint8_t reload)
+void TimerHw::setReload(uint16_t reload)
 {
-    *ocrb = reload;
+    TimerHw::reload = reload;
 }
 
-uint8_t TimerHw::getCount()
+uint16_t TimerHw::getCount()
 {
-    return *tcnt;
+    return *registers.tcnt;
 }
 
 //Private function
 
 void TimerHw::selectClock(ePrescaler clockSource)
 {
-    *tccrb = (*tccrb & 0b11111000) | clockSource;
+    *registers.tccrb = (*registers.tccrb & 0b11111000) | clockSource;
 }
 
 void TimerHw::selectCompareOutputMode(eOutput output, eoutputCompareMode compareMode)
 {
     if (output == eOutput::A)
     {
-        *tccra = (*tccra & 0b00111111) | (compareMode << 6);
+        *registers.tccra = (*registers.tccra & 0b00111111) | (compareMode << 6);
     }
     else
     {
-        *tccra = (*tccra & 0b11001111) | (compareMode << 4);
+        *registers.tccra = (*registers.tccra & 0b11001111) | (compareMode << 4);
     }
 }
 
 void TimerHw::selectWaveGenerationMode(eWaveGenerationMode waveGenMode)
 {
-    if (waveGenMode & 0b00000100)
+    *registers.tccra = (*registers.tccra & 0b11111100) | (waveGenMode & 0b00000011);
+    *registers.tccrb = (*registers.tccrb & 0b11100111) | ((waveGenMode << 1) & 0b00011000);
+}
+
+void TimerHw::intHandler(eInterruptId intId)
+{
+    if (intId == eInterruptId::timer1_compa)
     {
-        *tccrb |= (1 << 3);
+        if (handler != nullptr)
+        {
+            handler();
+        }
     }
-    else
-    {
-        *tccrb &= ~(1 << 3);
-    }
-    *tccra = (*tccra & 0b11111100) | (waveGenMode & 0b00000011);
+    // *registers.ocra = TimerHw::top;
+    // *registers.ocrb = TimerHw::reload;
 }
 
 void TIMER0_COMPA_vect(void)
 {
-    TimerHw::vector_table[0]->handler();
+    TimerHw::vector_table[0]->intHandler(timer0_compa);
 }
 
 void TIMER1_COMPA_vect(void)
 {
-    TimerHw::vector_table[1]->handler();
+    TimerHw::vector_table[1]->intHandler(timer1_compa);
 }
 
 void TIMER2_COMPA_vect(void)
 {
-    TimerHw::vector_table[2]->handler();
+    TimerHw::vector_table[2]->intHandler(timer2_compa);
 }

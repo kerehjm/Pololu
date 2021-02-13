@@ -21,10 +21,10 @@ private:
 public:
     Timer(iTimerHw * timerHw);
     ~Timer();
-    void start(uint16_t count);
+    void start();
     void stop();
     void reload(uint16_t reload);
-    uint8_t getCount();
+    uint16_t getCount();
 protected:
 private:
 

@@ -44,17 +44,16 @@ enum eoutputCompareMode
     normalCompare,
     toggleOnCompare,
     clearClearOnCompare,
-    setOnCompare
+    setOnCompare 
 };
 
 enum eWaveGenerationMode
 {
     normalGeneration,
-    pwmPhaseCorrect,
-    ctc,
-    fastPwm,
-    pwmPhaseCorrect2 = 5,
-    fastPwm2 = 7
+    ctc = 4,
+    pwmPhaseFrequencyCorrect = 9,
+    pwmPhaseCorrect = 11,
+    fastPwm = 15
 };
 
 enum ePrescaler
@@ -67,28 +66,19 @@ enum ePrescaler
     prescaler1024
 };
 
-struct registers_t
-{
-    uint16_t * ocra;
-    uint16_t * ocrb;
-    uint16_t * tcnt;
-    uint8_t * tccra;
-    uint8_t * tccrb;
-};
-
 class iTimerHw
 {
 //functions
 public:
-    static iTimerHw * createCounter(eTimerHwId hwTimerId, void (*callback)(void));;
+    static iTimerHw * createCounter(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));;
     static iTimerHw * createPwm(eTimerHwId hwTimerId, void (*callback)(void));
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;
     virtual void stop() = 0;
-    virtual void setTop(uint8_t top) = 0;
-    virtual void setReload(uint8_t reload) = 0;
-    virtual uint8_t getCount() = 0;
+    virtual void setTop(uint16_t top) = 0;
+    virtual void setReload(uint16_t reload) = 0;
+    virtual uint16_t getCount() = 0;
 
 }; //iTimerHw
 
