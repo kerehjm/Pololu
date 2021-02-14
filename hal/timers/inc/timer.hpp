@@ -23,7 +23,8 @@ public:
     ~Timer();
     void start();
     void stop();
-    void reload(uint16_t reload);
+    void setFrequency(uint16_t frequency);
+    void setDutyCycle(uint16_t dutyCycle);
     uint16_t getCount();
 protected:
 private:

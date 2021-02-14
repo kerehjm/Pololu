@@ -53,7 +53,7 @@ void Motor::forward(uint8_t speed)
 {
     this->direction->set();
     this->speed->reset();
-    timer->reload(speed);
+    timer->setDutyCycle(speed);
     //timer->start();
     
     debug->log(eDebugLevel::debug, "motor [%d] forward", motorId);
@@ -63,7 +63,7 @@ void Motor::reverse(uint8_t speed)
 {
     this->direction->reset();
     this->speed->set();
-    timer->reload(speed);
+    timer->setDutyCycle(speed);
     //timer->startInverted();
     
     debug->log(eDebugLevel::debug, "motor [%d] reverse", motorId);
@@ -73,7 +73,7 @@ void Motor::brake()
 {
     this->direction->set();
     this->speed->set();
-    timer->reload(0);
+    timer->setDutyCycle(0);
     timer->stop();
     
     debug->log(eDebugLevel::debug, "motor [%d] brake", motorId);

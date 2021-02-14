@@ -32,9 +32,14 @@ void Timer::stop()
     timerHw->stop();
 }
 
-void Timer::reload(uint16_t count)
+void Timer::setFrequency(uint16_t frequency)
 {
-    timerHw->setReload(count);
+    timerHw->setTop(frequency);
+}
+
+void Timer::setDutyCycle(uint16_t dutyCycle)
+{
+    timerHw->setReload(dutyCycle);
 }
 
 uint16_t Timer::getCount()

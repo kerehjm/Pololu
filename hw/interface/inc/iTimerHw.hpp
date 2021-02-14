@@ -18,7 +18,7 @@ enum class eTimerHwId
     tmr2
 }; //eTimerId
 
-enum eInterruptId
+enum class eInterruptId
 {
     timer0_compa,
     timer1_compa,
@@ -26,20 +26,20 @@ enum eInterruptId
     max
 }; //eInterruptId
 
-enum eInterrupts
+enum class eInterrupts
 {
     overflow,
     outputCompareMatchA,
     outputCompareMatchB
 };
 
-enum eOutput
+enum class eOutput
 {
     A,
     B
 };
 
-enum eoutputCompareMode
+enum class  eoutputCompareMode
 {
     normalCompare,
     toggleOnCompare,
@@ -47,7 +47,7 @@ enum eoutputCompareMode
     setOnCompare 
 };
 
-enum eWaveGenerationMode
+enum class eWaveGenerationMode : unsigned
 {
     normalGeneration,
     ctc = 4,
@@ -56,7 +56,15 @@ enum eWaveGenerationMode
     fastPwm = 15
 };
 
-enum ePrescaler
+enum class eWaveGenerationMode_Tmr0
+{
+    normalGeneration,
+    pwmPhaseCorrect,
+    ctc = 2,
+    fastPwm = 3,
+};
+
+enum class  ePrescaler_ext
 {
     noClkSrc,
     noPreScaler,
@@ -66,12 +74,48 @@ enum ePrescaler
     prescaler1024
 };
 
+enum class ePrescaler
+{
+    noClkSrc,
+    noPreScaler,
+    prescaler8,
+    prescaler32,
+    prescaler64,
+    prescaler128,
+    prescaler256,
+    prescaler1024
+};
+
+struct registers_t
+{
+    volatile uint8_t * ocra;
+    volatile uint8_t * ocrb;
+    volatile uint8_t * tcnt;
+    volatile uint8_t * tccra;
+    volatile uint8_t * tccrb;
+
+    registers_t() {};
+
+    registers_t(volatile uint8_t * ocra, volatile uint8_t * ocrb,
+        volatile uint8_t * tcnt,
+        volatile uint8_t * tccra, volatile uint8_t * tccrb)
+    {
+        this->ocra = ocra;
+        this->ocrb = ocrb;
+        this->tcnt = tcnt;
+        this->tccra = tccra;
+        this->tccrb = tccrb;
+    }
+};
+
 class iTimerHw
 {
 //functions
 public:
-    static iTimerHw * createCounter(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));;
-    static iTimerHw * createPwm(eTimerHwId hwTimerId, void (*callback)(void));
+    static iTimerHw * createCounter_CTC(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));
+    static iTimerHw * createCounter_FastPwm(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));
+    static iTimerHw * createPwm(eTimerHwId hwTimerId, uint16_t frequency);
+    static registers_t getRegisters(eTimerHwId hwTimerId);
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;

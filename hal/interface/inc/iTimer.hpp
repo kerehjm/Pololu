@@ -12,7 +12,9 @@
 enum class eTimerId
 {
     counter,
-    pwm
+    counter_2,
+    pwm,
+    pwm2
 }; //eTimerId
 
 class iTimer
@@ -20,10 +22,11 @@ class iTimer
 //functions
 public:
     virtual ~iTimer(){}
-    static iTimer * create(eTimerId timerId, void (*callback)(void));
+    static iTimer * create(eTimerId timerId, void (*callback)(void)= nullptr);
     virtual void start() = 0;
     virtual void stop() = 0;
-    virtual void reload(uint16_t count) = 0;
+    virtual void setFrequency(uint16_t frequency) = 0;
+    virtual void setDutyCycle(uint16_t dutyCycle) = 0;
     virtual uint16_t getCount() = 0;
 }; //iTimer
 
