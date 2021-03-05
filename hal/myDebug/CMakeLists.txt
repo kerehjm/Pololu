@@ -1,5 +1,6 @@
 add_library(myDebug STATIC OBJECT
     src/myDebug.cpp
+    src/debugFactory.cpp
 )
 
 target_compile_options(myDebug PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

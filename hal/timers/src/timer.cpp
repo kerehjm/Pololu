@@ -11,7 +11,7 @@
 #include "timer.hpp"
 
 // default constructor
-Timer::Timer(iTimerHw * timerHw)
+Timer::Timer(iTimerHw<uint16_t> * timerHw)
 {
     this->timerHw = timerHw;
 }
@@ -44,5 +44,7 @@ void Timer::setDutyCycle(uint16_t dutyCycle)
 
 uint16_t Timer::getCount()
 {
-    return timerHw->getCount();
+    uint16_t count = 0;
+    timerHw->getCount(count);
+    return count;
 }

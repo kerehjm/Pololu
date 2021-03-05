@@ -6,6 +6,6 @@ iDebug * iDebug::create(eDebugLevel level)
 {
     iDebug * debug = nullptr;
     iUart * uart = iUart::create();
-
     debug = new Debug(uart, level);
+    return debug;
 }

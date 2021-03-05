@@ -7,10 +7,10 @@
 
 #include <string.h>
 #include <stdint.h>
-#include "iTimer.hpp"
 #include "iPin.hpp"
 #include "iMotor.hpp"
 #include "iDebug.hpp"
+#include "iTimerHw.hpp"
 #include "motor.hpp"
 
 // default destructor
@@ -18,7 +18,7 @@ Motor::~Motor()
 {
 } //~Motor
 
-Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed)
+Motor::Motor(eMotorId motorId, iTimerHw<uint8_t> *timer, iPin *direction, iPin *speed)
 {
     this->motorId = motorId;
     this->direction = direction;
@@ -29,7 +29,7 @@ Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed)
     debug->log(eDebugLevel::debug, "Motor [%d] init", motorId);
 } //MotorPinControl
 
-Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDebug * debug)
+Motor::Motor(eMotorId motorId, iTimerHw<uint8_t> *timer, iPin *direction, iPin *speed, iDebug * debug)
 {
     this->motorId = motorId;
     this->direction = direction;
@@ -53,7 +53,7 @@ void Motor::forward(uint8_t speed)
 {
     this->direction->set();
     this->speed->reset();
-    timer->setDutyCycle(speed);
+    timer->setReload(speed);
     //timer->start();
     
     debug->log(eDebugLevel::debug, "motor [%d] forward", motorId);
@@ -63,7 +63,7 @@ void Motor::reverse(uint8_t speed)
 {
     this->direction->reset();
     this->speed->set();
-    timer->setDutyCycle(speed);
+    timer->setReload(speed);
     //timer->startInverted();
     
     debug->log(eDebugLevel::debug, "motor [%d] reverse", motorId);
@@ -71,9 +71,10 @@ void Motor::reverse(uint8_t speed)
 
 void Motor::brake()
 {
+    uint8_t dc = 0;
     this->direction->set();
     this->speed->set();
-    timer->setDutyCycle(0);
+    timer->setReload(dc);
     timer->stop();
     
     debug->log(eDebugLevel::debug, "motor [%d] brake", motorId);

@@ -46,6 +46,26 @@ void operator delete(void* ptr, unsigned int size)
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
+
+void timer1_ctc_2hz(void)
+{
+    // set up timer with prescaler = 64 and CTC mode
+    TCCR1B |= (1 << WGM12)|(1 << CS12);
+  
+    // initialize counter
+    TCNT1 = 0;
+  
+    // initialize compare value
+    OCR1A = 19530;
+  
+    // enable compare interrupt
+    TIMSK1 |= (1 << OCIE1A);
+  
+    // enable global interrupts
+    sei();
+}
+
 void pwm_init()
 {
     TCCR2A |= (1<<WGM20)|(1<<COM2A1)|(1<<COM2A1);
@@ -65,18 +85,30 @@ void pwm_init()
 
 void time(void);
 
+iLed * led;
+iTimer * timer;
+iDebug * debugg;
+
 int main()
 {
-    iPin::create(ePinId::PB3_MOTOR2_DIRECTION, ePinDir::OUTPUT, ePinState::LOW);
-    iPin::create(ePinId::PD3_MOTOR2_SPEED, ePinDir::OUTPUT, ePinState::LOW);
+    led = iLed::create(eLedId::red);
+    led->on();
 
-    iPin::create(ePinId::PD6_MOTOR1_DIRECTION, ePinDir::OUTPUT, ePinState::LOW);
-    iPin::create(ePinId::PD5_MOTOR1_SPEED, ePinDir::OUTPUT, ePinState::LOW);
+    timer = iTimer::create(eTimerId::counter, time);
+    // timer->start();
 
-    iTimer::create(eTimerId::pwm);
-    iTimer::create(eTimerId::pwm2);
+    // debugg = iDebug::create(eDebugLevel::all);
+    // debugg->log(eDebugLevel::debug, "motor [%d] off", 1);
 
     while (1)
     {
+        
     }
+}
+
+
+void time(void)
+{
+    led->toggle();
+    // debugg->log(eDebugLevel::debug, "motor [%d] off", 1);
 }

@@ -9,8 +9,6 @@
 #ifndef __ITIMERHW_H__
 #define __ITIMERHW_H__
 
-typedef void (*fPointer_t)();
-
 enum class eTimerHwId
 {
     tmr0,
@@ -23,6 +21,9 @@ enum class eInterruptId
     timer0_compa,
     timer1_compa,
     timer2_compa,
+    timer0_compb,
+    timer1_compb,
+    timer2_compb,
     max
 }; //eInterruptId
 
@@ -47,7 +48,7 @@ enum class  eoutputCompareMode
     setOnCompare 
 };
 
-enum class eWaveGenerationMode : unsigned
+enum class eWaveGenerationMode
 {
     normalGeneration,
     ctc = 4,
@@ -64,7 +65,7 @@ enum class eWaveGenerationMode_Tmr0
     fastPwm = 3,
 };
 
-enum class  ePrescaler_ext
+enum class ePrescaler_ext
 {
     noClkSrc,
     noPreScaler,
@@ -82,47 +83,26 @@ enum class ePrescaler
     prescaler32,
     prescaler64,
     prescaler128,
+    
     prescaler256,
     prescaler1024
 };
 
-struct registers_t
-{
-    volatile uint8_t * ocra;
-    volatile uint8_t * ocrb;
-    volatile uint8_t * tcnt;
-    volatile uint8_t * tccra;
-    volatile uint8_t * tccrb;
-
-    registers_t() {};
-
-    registers_t(volatile uint8_t * ocra, volatile uint8_t * ocrb,
-        volatile uint8_t * tcnt,
-        volatile uint8_t * tccra, volatile uint8_t * tccrb)
-    {
-        this->ocra = ocra;
-        this->ocrb = ocrb;
-        this->tcnt = tcnt;
-        this->tccra = tccra;
-        this->tccrb = tccrb;
-    }
-};
-
+template<class T>
 class iTimerHw
 {
 //functions
 public:
-    static iTimerHw * createCounter_CTC(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));
-    static iTimerHw * createCounter_FastPwm(eTimerHwId hwTimerId, uint16_t frequency, void (*callback)(void));
-    static iTimerHw * createPwm(eTimerHwId hwTimerId, uint16_t frequency);
-    static registers_t getRegisters(eTimerHwId hwTimerId);
+    static iTimerHw<T> * createCounter_CTC(eTimerHwId hwTimerId, T frequency, void (*callback)(void));
+    static iTimerHw<T> * createCounter_FastPwm(eTimerHwId hwTimerId, T frequency, void (*callback)(void));
+    static iTimerHw<T> * createPwm(eTimerHwId hwTimerId, T frequency);
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;
     virtual void stop() = 0;
-    virtual void setTop(uint16_t top) = 0;
-    virtual void setReload(uint16_t reload) = 0;
-    virtual uint16_t getCount() = 0;
+    virtual void setTop(T top) = 0;
+    virtual void setReload(T reload) = 0;
+    virtual void getCount(T &count) = 0;
 
 }; //iTimerHw
 

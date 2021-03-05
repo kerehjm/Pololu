@@ -1,5 +1,6 @@
 add_library(hwUart STATIC OBJECT
     src/uart.cpp
+    src/uartFactory.cpp
 )
 
 target_compile_options(hwUart PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

@@ -6,49 +6,55 @@
 */
 
 
-#ifndef __TIMER_HW_H__
-#define __TIMER_HW_H__
+#ifndef TIMER_HW_H
+#define TIMER_HW_H
 
 extern "C" void TIMER0_COMPA_vect(void) __attribute__ ((signal));
 extern "C" void TIMER1_COMPA_vect(void) __attribute__ ((signal));
 extern "C" void TIMER2_COMPA_vect(void) __attribute__ ((signal));
 
-class TimerHw : public iTimerHw
+template<class T, class P, class W>
+class TimerHw;
+
+template<class T, class P, class W>
+class TimerHw : public iTimerHw<T>
 {
 //variables
 public:
 protected:
 private:
-    registers_t registers;
-    volatile uint16_t top; 
-    volatile uint16_t reload;
-    ePrescaler prescaler;
-    static TimerHw * vector_table[(uint8_t)(eInterruptId::max)];
+    iTimerHwData<T, P> * registers;
+    static TimerHw * vector_table[static_cast<uint8_t>(eInterruptId::max)];
     void (*handler)(void);
 
 //functions
 public:
-    TimerHw(registers_t &registers, eoutputCompareMode AcompareMode,
-            eoutputCompareMode BcompareMode, eWaveGenerationMode waveGenMode, ePrescaler prescaler, eInterruptId intId, uint16_t frequency, void(*isr)(void) = nullptr);
-    TimerHw(registers_t &registers, eoutputCompareMode AcompareMode,
-            eoutputCompareMode BcompareMode, eWaveGenerationMode_Tmr0 waveGenMode, ePrescaler prescaler, eInterruptId intId, uint16_t frequency, void(*isr)(void) = nullptr);
+    TimerHw<T, P, W>(iTimerHwData<T, P> * registers, eoutputCompareMode AcompareMode,
+            eoutputCompareMode BcompareMode, W waveGenMode,
+            P prescaler, eInterruptId intId, T frequency, void(*isr)(void) = nullptr);
     ~TimerHw();
     void start();
     void startInverted();   
     void stop();
-    void setTop(uint16_t top);
-    void setReload(uint16_t reload);
-    uint16_t getCount();
+    void setTop(T top);
+    void setReload(T reload);
+    T getCount();
 protected:
 private:
     friend void TIMER0_COMPA_vect(void);
     friend void TIMER1_COMPA_vect(void);
     friend void TIMER2_COMPA_vect(void);
-    void selectClock(ePrescaler clockSource);
+    friend void TIMER0_COMPB_vect(void);
+    friend void TIMER1_COMPB_vect(void);
+    friend void TIMER2_COMPB_vect(void);
+    void selectClock(P clockSource);
     void selectCompareOutputMode(eOutput output, eoutputCompareMode compareMode);
-    void selectWaveGenerationMode(eWaveGenerationMode waveGenMode);
+    void selectWaveGenerationMode(W waveGenMode);
     void intHandler(eInterruptId intId);
 
 }; //Timer_Hw
 
-#endif //__TIMER_HW_H__
+// #include "../src/timerHw.cpp"
+// #include "../src/timerHwFactory.cpp"
+
+#endif //TIMER_HW_H

@@ -17,16 +17,16 @@ protected:
 private:
     iPin *direction;
     iPin *speed;
-    iTimer *timer;
+    iTimerHw<uint8_t> *timer;
     eMotorId motorId;
     iDebug * debug;
 
 //functions
 public:
     Motor();
-	~Motor();
-    Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed);
-    Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDebug* debug);
+    ~Motor();
+    Motor(eMotorId motorId, iTimerHw<uint8_t> *timer, iPin *direction, iPin *speed);
+    Motor(eMotorId motorId, iTimerHw<uint8_t> *timer, iPin *direction, iPin *speed, iDebug* debug);
     void off();
     void forward(uint8_t speed);
     void reverse(uint8_t speed);
