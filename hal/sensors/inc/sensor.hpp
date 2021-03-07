@@ -16,20 +16,21 @@ public:
 protected:
     iPin *power;
     iPin *sensor;
-    iTimer *timer;
+    iTimer<uint16_t> *timer;
 private:
 
 //functions
 public:
-	Sensor();
-	~Sensor();
-	uint8_t read();
-	void charge();
-	void discharge();
+    Sensor();
+    ~Sensor();
+    uint8_t read();
+    void charge();
+    void discharge();
+
 protected:
 private:
-	Sensor( const Sensor &c );
-	Sensor& operator=( const Sensor &c );
+    Sensor(const Sensor &c);
+    Sensor &operator=(const Sensor &c);
 
 }; //Sensor
 

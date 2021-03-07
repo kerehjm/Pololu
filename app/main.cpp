@@ -86,7 +86,7 @@ void pwm_init()
 void time(void);
 
 iLed * led;
-iTimer * timer;
+iTimer<uint16_t> * timer;
 iDebug * debugg;
 
 int main()
@@ -94,7 +94,7 @@ int main()
     led = iLed::create(eLedId::red);
     led->on();
 
-    timer = iTimer::create(eTimerId::counter, time);
+    timer = iTimer<uint16_t>::create(eTimerId::counter, time);
     // timer->start();
 
     // debugg = iDebug::create(eDebugLevel::all);

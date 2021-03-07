@@ -18,8 +18,8 @@ private:
 
 //functions
 public:
-	ProximitySensor(iPin *pin, iPin *power, iTimer *timer);
-	~ProximitySensor();
+    ProximitySensor(iPin *pin, iPin *power, iTimer<uint16_t> *timer);
+    ~ProximitySensor();
     uint8_t read();
 protected:
     void charge();

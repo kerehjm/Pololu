@@ -13,7 +13,7 @@
 #include "proximitySensor.hpp"
 
 // default constructor
-ProximitySensor::ProximitySensor(iPin *pin, iPin *power, iTimer *timer)
+ProximitySensor::ProximitySensor(iPin *pin, iPin *power, iTimer<uint16_t> *timer)
 {
     (void)(pin);
     this->sensor = sensor;

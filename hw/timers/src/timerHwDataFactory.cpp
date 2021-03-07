@@ -1,20 +1,26 @@
-#include "iTimerHw.hpp"
+#include <stdint.h>
+#include <avr/io.h>
 #include "iTimerHwData.hpp"
+#include "timerHwData.hpp"
 
-template<class T, class P>
-iTimerHwData<T, P> * iTimerHwData<T, P>::create(eTimerHwId hwId)
+template<>
+iTimerHwData<uint8_t, ePrescaler_ext> * iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0()
 {
-    // switch (hwId)
-    // {
-    //     registers_t reg0 = {
-    //     (uint16_t*)(&OCR0A), (uint16_t*)(&OCR0B), (uint16_t*)(&TCNT0), &TCCR0A, &TCCR0B
-    //     };
-    //     registers_t reg1 = {
-    //         &OCR1A, &OCR1B, &TCNT1, &TCCR1A, &TCCR1B,
-    //     };
-    //     registers_t reg2 = {
-    //         (uint16_t*)(&OCR2A), (uint16_t*)(&OCR2B), (uint16_t*)(&TCNT2), &TCCR2A, &TCCR2B
-    //     };
-
-    // }
+    return new TimerHwData<uint8_t, ePrescaler_ext>(&OCR0A, &OCR0B, &TCNT0, &TCCR0A, &TCCR0B, &TIMSK0);
 }
+
+template<>
+iTimerHwData<uint16_t, ePrescaler_ext> * iTimerHwData<uint16_t, ePrescaler_ext>::createTimer1()
+{
+    return new TimerHwData<uint16_t, ePrescaler_ext>(&OCR1A, &OCR1B, &TCNT1, &TCCR1A, &TCCR1B, &TIMSK1);
+}
+
+template<>
+iTimerHwData<uint8_t, ePrescaler> * iTimerHwData<uint8_t, ePrescaler>::createTimer2()
+{
+    return new TimerHwData<uint8_t, ePrescaler>(&OCR2A, &OCR2B, &TCNT2, &TCCR2A, &TCCR2B, &TIMSK2);
+}
+
+template iTimerHwData<uint8_t, ePrescaler_ext> * iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0();
+template iTimerHwData<uint16_t, ePrescaler_ext> * iTimerHwData<uint16_t, ePrescaler_ext>::createTimer1();
+template iTimerHwData<uint8_t, ePrescaler> * iTimerHwData<uint8_t, ePrescaler>::createTimer2();

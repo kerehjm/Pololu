@@ -3,28 +3,19 @@
 #include "iTimer.hpp"
 #include "timer.hpp"
 
-iTimer * iTimer::create(eTimerId timerId, void (*callback)(void))
+template <>
+iTimer<uint16_t> * iTimer<uint16_t>::create(eTimerId timerId, void (*callback)(void))
 {
     static const uint16_t frequency = 55; //1hz
-    iTimer * timer = nullptr;
-    iTimerHw<uint16_t> * timerHw = nullptr;
+    iTimer<uint16_t> * timer = nullptr;
+
     switch (timerId)
     {
     case eTimerId::counter:
-        timerHw = iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwId::tmr1, frequency, callback);
-        timer = new Timer(timerHw);
+        timer = new Timer<uint16_t>(iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwIdU16::tmr1, frequency, callback));
         break;
     case eTimerId::counter_2:
-        timerHw = iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwId::tmr1, frequency, callback);
-        timer = new Timer(timerHw);
-        break;
-    case eTimerId::pwm:
-        timerHw = iTimerHw<uint16_t>::createPwm(eTimerHwId::tmr1, frequency);
-        timer = new Timer(timerHw);
-        break;
-    case eTimerId::pwm2:
-        timerHw = iTimerHw<uint16_t>::createPwm(eTimerHwId::tmr1, frequency);
-        timer = new Timer(timerHw);
+        timer = new Timer<uint16_t>(iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwIdU16::tmr1, frequency, callback));
         break;
     default:
         break;

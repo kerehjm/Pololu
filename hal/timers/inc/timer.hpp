@@ -9,23 +9,24 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
-class Timer : public iTimer
+template <class T>
+class Timer : public iTimer<T>
 {
 //variables
 public:
 protected:
 private:
-    iTimerHw<uint16_t> * timerHw;
+    iTimerHw<T> * timerHw;
 
 //functions
 public:
-    Timer(iTimerHw<uint16_t> * timerHw);
+    Timer<T>(iTimerHw<T> * timerHw);
     ~Timer();
     void start();
     void stop();
-    void setFrequency(uint16_t frequency);
-    void setDutyCycle(uint16_t dutyCycle);
-    uint16_t getCount();
+    void setFrequency(T frequency);
+    void setDutyCycle(T dutyCycle);
+    T getCount();
 protected:
 private:
 

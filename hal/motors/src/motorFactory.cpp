@@ -15,13 +15,13 @@ iMotor * iMotor::create(eMotorId motorId)
     switch (motorId)
     {
     case eMotorId::motor_1:
-        timer = iTimerHw<uint8_t>::createPwm(eTimerHwId::tmr0, 0);
+        timer = iTimerHw<uint8_t>::createPwm(eTimerHwIdU8::tmr0, 0);
         directionPin = iPin::create(ePinId::PD6_MOTOR1_DIRECTION, ePinDir::OUTPUT, ePinState::HIGH);
         speedPin = iPin::create(ePinId::PD5_MOTOR1_SPEED, ePinDir::OUTPUT, ePinState::LOW);
         motor = new Motor(motorId, timer, directionPin, speedPin);
         break;
     case eMotorId::motor_2:
-        timer = iTimerHw<uint8_t>::createPwm(eTimerHwId::tmr2, 0);
+        timer = iTimerHw<uint8_t>::createPwm(eTimerHwIdU8::tmr2, 0);
         directionPin = iPin::create(ePinId::PB3_MOTOR2_DIRECTION, ePinDir::OUTPUT, ePinState::HIGH);
         speedPin = iPin::create(ePinId::PD3_MOTOR2_SPEED, ePinDir::OUTPUT, ePinState::LOW);
         motor = new Motor(motorId, timer, directionPin, speedPin);

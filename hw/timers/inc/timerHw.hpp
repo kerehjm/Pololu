@@ -14,9 +14,6 @@ extern "C" void TIMER1_COMPA_vect(void) __attribute__ ((signal));
 extern "C" void TIMER2_COMPA_vect(void) __attribute__ ((signal));
 
 template<class T, class P, class W>
-class TimerHw;
-
-template<class T, class P, class W>
 class TimerHw : public iTimerHw<T>
 {
 //variables
@@ -29,9 +26,15 @@ private:
 
 //functions
 public:
-    TimerHw<T, P, W>(iTimerHwData<T, P> * registers, eoutputCompareMode AcompareMode,
-            eoutputCompareMode BcompareMode, W waveGenMode,
-            P prescaler, eInterruptId intId, T frequency, void(*isr)(void) = nullptr);
+    TimerHw<T, P, W>(
+        iTimerHwData<T, P> * registers,
+        eoutputCompareMode AcompareMode,
+        eoutputCompareMode BcompareMode,
+        W waveGenMode,
+        P prescaler,
+        eInterruptId intId,
+        T frequency,
+        void(*isr)(void) = nullptr);
     ~TimerHw();
     void start();
     void startInverted();   
@@ -53,8 +56,5 @@ private:
     void intHandler(eInterruptId intId);
 
 }; //Timer_Hw
-
-// #include "../src/timerHw.cpp"
-// #include "../src/timerHwFactory.cpp"
 
 #endif //TIMER_HW_H

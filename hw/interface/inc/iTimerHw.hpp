@@ -9,12 +9,16 @@
 #ifndef __ITIMERHW_H__
 #define __ITIMERHW_H__
 
-enum class eTimerHwId
+enum class eTimerHwIdU8
 {
     tmr0,
-    tmr1,
     tmr2
-}; //eTimerId
+}; //eTimerHwIdU8
+
+enum class eTimerHwIdU16
+{
+    tmr1,
+}; //eTimerHwIdU16
 
 enum class eInterruptId
 {
@@ -93,16 +97,19 @@ class iTimerHw
 {
 //functions
 public:
-    static iTimerHw<T> * createCounter_CTC(eTimerHwId hwTimerId, T frequency, void (*callback)(void));
-    static iTimerHw<T> * createCounter_FastPwm(eTimerHwId hwTimerId, T frequency, void (*callback)(void));
-    static iTimerHw<T> * createPwm(eTimerHwId hwTimerId, T frequency);
+    static iTimerHw<uint8_t> * createCounter_CTC(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void));
+    static iTimerHw<uint16_t> * createCounter_CTC(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void));
+    static iTimerHw<uint8_t> * createCounter_FastPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void));
+    static iTimerHw<uint16_t> * createCounter_FastPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void));
+    static iTimerHw<uint8_t> * createPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency);
+    static iTimerHw<uint16_t> * createPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency);
     virtual ~iTimerHw(){}
     virtual void start() = 0;
     virtual void startInverted() = 0;
     virtual void stop() = 0;
     virtual void setTop(T top) = 0;
     virtual void setReload(T reload) = 0;
-    virtual void getCount(T &count) = 0;
+    virtual T getCount() = 0;
 
 }; //iTimerHw
 

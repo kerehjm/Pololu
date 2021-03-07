@@ -18,16 +18,16 @@ private:
 
 //functions
 public:
-	ReflectanceSensor();
-	~ReflectanceSensor();
-    ReflectanceSensor(iPin *sensor, iPin *power, iTimer *timer);
+    ReflectanceSensor();
+    ~ReflectanceSensor();
+    ReflectanceSensor(iPin *sensor, iPin *power, iTimer<uint16_t> *timer);
     uint8_t read();
 protected:
     void charge();
     void discharge();
 private:
-	ReflectanceSensor( const ReflectanceSensor &c );
-	ReflectanceSensor& operator=( const ReflectanceSensor &c );
+    ReflectanceSensor( const ReflectanceSensor &c );
+    ReflectanceSensor& operator=( const ReflectanceSensor &c );
 
 }; //ReflectanceSensor
 

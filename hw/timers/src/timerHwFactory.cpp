@@ -1,19 +1,19 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "iTimerHw.hpp"
 #include "iTimerHwData.hpp"
+#include "iTimerHw.hpp"
 #include "timerHw.hpp"
 
-template<class T>
-iTimerHw<T> * iTimerHw<T>::createCounter_CTC(eTimerHwId hwTimerId, T frequency, void (*callback)(void))
+template<>
+iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_CTC(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void))
 {
-    iTimerHw<T> * timer = nullptr;
+    iTimerHw<uint8_t> * timer = nullptr;
 
     switch (hwTimerId)
     {
-    case eTimerHwId::tmr0:
+    case eTimerHwIdU8::tmr0:
         timer = new TimerHw<uint8_t, ePrescaler_ext, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler_ext>::create(hwTimerId),
+                            iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0(),
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::ctc,
@@ -22,9 +22,33 @@ iTimerHw<T> * iTimerHw<T>::createCounter_CTC(eTimerHwId hwTimerId, T frequency, 
                             frequency,
                             callback);
         break;
-    case eTimerHwId::tmr1:
+    case eTimerHwIdU8::tmr2:
+        timer = new TimerHw<uint8_t, ePrescaler, eWaveGenerationMode_Tmr0>(
+                            iTimerHwData<uint8_t, ePrescaler>::createTimer2(),
+                            eoutputCompareMode::normalCompare,
+                            eoutputCompareMode::normalCompare,
+                            eWaveGenerationMode_Tmr0::ctc,
+                            ePrescaler::prescaler256,
+                            eInterruptId::timer2_compa,
+                            frequency,
+                            callback);
+        break;
+    default:
+        break;
+    }
+    return timer;
+}
+
+template<>
+iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_CTC(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void))
+{
+    iTimerHw<uint16_t> * timer = nullptr;
+
+    switch (hwTimerId)
+    {
+    case eTimerHwIdU16::tmr1:
         timer = new TimerHw<uint16_t, ePrescaler_ext, eWaveGenerationMode>(
-                            iTimerHwData<uint16_t, ePrescaler_ext>::create(hwTimerId),
+                            iTimerHwData<uint16_t, ePrescaler_ext>::createTimer1(),
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode::ctc,
@@ -33,12 +57,36 @@ iTimerHw<T> * iTimerHw<T>::createCounter_CTC(eTimerHwId hwTimerId, T frequency, 
                             frequency,
                             callback);
         break;
-    case eTimerHwId::tmr2:
+    default:
+        break;
+    }
+    return timer;
+}
+
+template<>
+iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_FastPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void))
+{
+    iTimerHw<uint8_t> * timer = nullptr;
+
+    switch (hwTimerId)
+    {
+    case eTimerHwIdU8::tmr0:
+        timer = new TimerHw<uint8_t, ePrescaler_ext, eWaveGenerationMode_Tmr0>(
+                        iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0(),
+                        eoutputCompareMode::normalCompare,
+                        eoutputCompareMode::normalCompare,
+                        eWaveGenerationMode_Tmr0::fastPwm,
+                        ePrescaler_ext::prescaler256,
+                        eInterruptId::timer0_compa,
+                        frequency,
+                        callback);
+        break;
+    case eTimerHwIdU8::tmr2:
         timer = new TimerHw<uint8_t, ePrescaler, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler>::create(hwTimerId),
+                            iTimerHwData<uint8_t, ePrescaler>::createTimer2(),
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
-                            eWaveGenerationMode_Tmr0::ctc,
+                            eWaveGenerationMode_Tmr0::fastPwm,
                             ePrescaler::prescaler256,
                             eInterruptId::timer2_compa,
                             frequency,
@@ -50,27 +98,16 @@ iTimerHw<T> * iTimerHw<T>::createCounter_CTC(eTimerHwId hwTimerId, T frequency, 
     return timer;
 }
 
-template<class T>
-iTimerHw<T> * iTimerHw<T>::createCounter_FastPwm(eTimerHwId hwTimerId, T frequency, void (*callback)(void))
+template<>
+iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void))
 {
-    iTimerHw<T> * timer = nullptr;
+    iTimerHw<uint16_t> * timer = nullptr;
 
     switch (hwTimerId)
     {
-    case eTimerHwId::tmr0:
-        timer = new TimerHw<uint8_t, ePrescaler_ext, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler_ext>::create(hwTimerId),
-                            eoutputCompareMode::normalCompare,
-                            eoutputCompareMode::normalCompare,
-                            eWaveGenerationMode_Tmr0::fastPwm,
-                            ePrescaler_ext::prescaler256,
-                            eInterruptId::timer0_compa,
-                            frequency,
-                            callback);
-        break;
-    case eTimerHwId::tmr1:
+    case eTimerHwIdU16::tmr1:
         timer = new TimerHw<uint16_t, ePrescaler_ext, eWaveGenerationMode>(
-                            iTimerHwData<uint16_t, ePrescaler_ext>::create(hwTimerId),
+                            iTimerHwData<uint16_t, ePrescaler_ext>::createTimer1(),
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode::fastPwm,
@@ -79,33 +116,22 @@ iTimerHw<T> * iTimerHw<T>::createCounter_FastPwm(eTimerHwId hwTimerId, T frequen
                             frequency,
                             callback);
         break;
-    case eTimerHwId::tmr2:
-        timer = new TimerHw<uint8_t, ePrescaler, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler>::create(hwTimerId),
-                            eoutputCompareMode::normalCompare,
-                            eoutputCompareMode::normalCompare,
-                            eWaveGenerationMode_Tmr0::fastPwm,
-                            ePrescaler::prescaler256,
-                            eInterruptId::timer2_compa,
-                            frequency,
-                            callback);
-        break;
     default:
         break;
     }
     return timer;
 }
 
-template<class T>
-iTimerHw<T> * iTimerHw<T>::createPwm(eTimerHwId hwTimerId, T frequency)
+template<>
+iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency)
 {
-    iTimerHw<T> * timer = nullptr;
+    iTimerHw<uint8_t> * timer = nullptr;
 
     switch (hwTimerId)
     {
-    case eTimerHwId::tmr0:
+    case eTimerHwIdU8::tmr0:
         timer = new TimerHw<uint8_t, ePrescaler_ext, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler_ext>::create(hwTimerId),
+                            iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0(),
                             eoutputCompareMode::setOnCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
@@ -113,17 +139,9 @@ iTimerHw<T> * iTimerHw<T>::createPwm(eTimerHwId hwTimerId, T frequency)
                             eInterruptId::timer0_compa,
                             frequency);
         break;
-    case eTimerHwId::tmr1:
-        timer = new TimerHw<uint16_t, ePrescaler_ext, eWaveGenerationMode>(
-                            iTimerHwData<uint16_t, ePrescaler_ext>::create(hwTimerId),
-                            eoutputCompareMode::setOnCompare,
-                            eoutputCompareMode::normalCompare,
-                            eWaveGenerationMode::fastPwm,
-                            ePrescaler_ext::prescaler256, eInterruptId::timer1_compa, frequency, nullptr);
-        break;
-    case eTimerHwId::tmr2:
+    case eTimerHwIdU8::tmr2:
         timer = new TimerHw<uint8_t, ePrescaler, eWaveGenerationMode_Tmr0>(
-                            iTimerHwData<uint8_t, ePrescaler>::create(hwTimerId),
+                            iTimerHwData<uint8_t, ePrescaler>::createTimer2(),
                             eoutputCompareMode::setOnCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
@@ -134,6 +152,33 @@ iTimerHw<T> * iTimerHw<T>::createPwm(eTimerHwId hwTimerId, T frequency)
     default:
         break;
     }
-
     return timer;
 }
+
+template<>
+iTimerHw<uint16_t> * iTimerHw<uint16_t>::createPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency)
+{
+    iTimerHw<uint16_t> * timer = nullptr;
+
+    switch (hwTimerId)
+    {
+    case eTimerHwIdU16::tmr1:
+        timer = new TimerHw<uint16_t, ePrescaler_ext, eWaveGenerationMode>(
+                            iTimerHwData<uint16_t, ePrescaler_ext>::createTimer1(),
+                            eoutputCompareMode::setOnCompare,
+                            eoutputCompareMode::normalCompare,
+                            eWaveGenerationMode::fastPwm,
+                            ePrescaler_ext::prescaler256, eInterruptId::timer1_compa, frequency, nullptr);
+        break;
+    default:
+        break;
+    }
+    return timer;
+}
+
+template iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_CTC(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void));
+template iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_CTC(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void));
+template iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_FastPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency, void (*callback)(void));
+template iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency, void (*callback)(void));
+template iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t frequency);
+template iTimerHw<uint16_t> * iTimerHw<uint16_t>::createPwm(eTimerHwIdU16 hwTimerId, uint16_t frequency);
