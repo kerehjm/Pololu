@@ -94,8 +94,8 @@ int main()
     led = iLed::create(eLedId::red);
     led->on();
 
-    timer = iTimer<uint16_t>::create(eTimerId::counter, time);
-    // timer->start();
+    timer = iTimer<uint16_t>::create(time);
+    timer->start();
 
     // debugg = iDebug::create(eDebugLevel::all);
     // debugg->log(eDebugLevel::debug, "motor [%d] off", 1);
