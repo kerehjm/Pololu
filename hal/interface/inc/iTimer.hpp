@@ -9,6 +9,12 @@
 #ifndef __ITIMER_H__
 #define __ITIMER_H__
 
+enum class eTimerIdU8
+{
+    counter_1,
+    counter_2,
+}; //eTimerIdU8
+
 template <class T>
 class iTimer
 {
@@ -16,6 +22,7 @@ class iTimer
 public:
     virtual ~iTimer(){}
     static iTimer<uint16_t> * create(void (*callback)(void)= nullptr);
+    static iTimer<uint8_t> * createU8(eTimerIdU8 timerId, void (*callback)(void)= nullptr);
     virtual void start() = 0;
     virtual void stop() = 0;
     virtual void setFrequency(T frequency) = 0;

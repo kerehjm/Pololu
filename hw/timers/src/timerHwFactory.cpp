@@ -76,7 +76,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_FastPwm(eTimerHwIdU8 hwTime
                         eoutputCompareMode::normalCompare,
                         eoutputCompareMode::normalCompare,
                         eWaveGenerationMode_Tmr0::fastPwm,
-                        ePrescaler_ext::prescaler256,
+                        ePrescaler_ext::prescaler1024,
                         eInterruptId::timer0_compa,
                         frequency,
                         callback);
@@ -87,7 +87,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createCounter_FastPwm(eTimerHwIdU8 hwTime
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::fastPwm,
-                            ePrescaler::prescaler256,
+                            ePrescaler::prescaler1024,
                             eInterruptId::timer2_compa,
                             frequency,
                             callback);
