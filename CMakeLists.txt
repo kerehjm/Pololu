@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.5)
 set(AVR_MCU atmega328p)
 set(MCU_FREQ 20000000UL)
 set(AVR_PROGRAMMER stk500)
-set(AVR_PROGRAMMER_PORT /dev/tty.usbmodem000844701)
+set(AVR_PROGRAMMER_PORT /dev/tty.usbmodem000700031)
 set(AVR_PROGRAMMER_BAUDRATE 115200)
 set(PROGRAM_EEPROM False)
 
