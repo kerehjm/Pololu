@@ -23,6 +23,7 @@ public:
     Timer<T>(iTimerHw<T> * timerHw);
     ~Timer();
     void start();
+    void startInverted();
     void stop();
     void setFrequency(T frequency);
     void setDutyCycle(T dutyCycle);

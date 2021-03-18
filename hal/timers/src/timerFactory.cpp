@@ -30,3 +30,23 @@ iTimer<uint8_t> * iTimer<uint8_t>::createU8(eTimerIdU8 timerId, void (*callback)
     }
     return timer;
 }
+
+template <>
+iTimer<uint8_t> * iTimer<uint8_t>::createPwm(ePwmId pwmId)
+{
+    static const uint8_t frequency = 1; //40hz
+    iTimer<uint8_t> * timer = nullptr;
+
+    switch (pwmId)
+    {
+    case ePwmId::pwm_1:
+        timer = new Timer<uint8_t>(iTimerHw<uint8_t>::createPwm(eTimerHwIdU8::tmr0, frequency));
+        break;
+    case ePwmId::pwm_2:
+        timer = new Timer<uint8_t>(iTimerHw<uint8_t>::createPwm(eTimerHwIdU8::tmr2, frequency));
+        break;
+    default:
+        break;
+    }
+    return timer;
+}

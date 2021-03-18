@@ -86,19 +86,40 @@ void pwm_init()
 void time(void);
 
 iLed * led;
-iTimer<uint16_t> * timer;
 iDebug * debugg;
+iMotor * motor_1;
+iMotor * motor_2;
 
 int main()
 {
-    led = iLed::create(eLedId::red);
-    led->on();
+    static const uint8_t speed = 30;
+    static const uint8_t direction = 4;
+    // led = iLed::create(eLedId::red);
+    // led->on();
 
-    timer = iTimer<uint16_t>::create(time);
-    timer->start();
+    motor_1 = iMotor::create(eMotorId::motor_1);
+    motor_2 = iMotor::create(eMotorId::motor_2);
 
-    // debugg = iDebug::create(eDebugLevel::all);
-    // debugg->log(eDebugLevel::debug, "motor [%d] off", 1);
+    if (direction == 0)
+    {
+        motor_1->forward(speed);
+        motor_2->forward(speed);
+    }
+    else if(direction == 1)
+    {
+        motor_1->reverse(speed);
+        motor_2->reverse(speed);
+    }
+    else
+    {
+
+    }
+
+
+    // iPin::create(ePinId::PD6_MOTOR1_DIRECTION, ePinDir::OUTPUT, ePinState::LOW);
+    // iPin::create(ePinId::PD5_MOTOR1_SPEED, ePinDir::OUTPUT, ePinState::LOW);
+    // iPin::create(ePinId::PB3_MOTOR2_DIRECTION, ePinDir::OUTPUT, ePinState::LOW);
+    // iPin::create(ePinId::PD3_MOTOR2_SPEED, ePinDir::OUTPUT, ePinState::LOW);
 
     while (1)
     {

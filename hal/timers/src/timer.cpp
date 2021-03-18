@@ -31,6 +31,12 @@ void Timer<T>::start()
 }
 
 template <class T>
+void Timer<T>::startInverted()
+{
+    timerHw->start();
+}
+
+template <class T>
 void Timer<T>::stop()
 {
     timerHw->stop();

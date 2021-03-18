@@ -6,6 +6,7 @@
 */
 
 #include <stdint.h>
+#include <util/delay.h>
 #include "iSensor.hpp"
 #include "iTimer.hpp"
 #include "iPin.hpp"
@@ -37,7 +38,7 @@ uint8_t ReflectanceSensor::read()
     uint8_t reading = 0;
 
     charge();    //Charge sensor
-    // _delay_us(13);      //Delay 13 microseconds
+    _delay_us(13);      //Delay 13 microseconds
     discharge(); //Discharge sensors
 
     last_time = timer->getCount();

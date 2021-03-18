@@ -135,7 +135,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t
                             eoutputCompareMode::setOnCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
-                            ePrescaler_ext::prescaler1024,
+                            ePrescaler_ext::prescaler8,
                             eInterruptId::timer0_compa,
                             frequency);
         break;
@@ -145,7 +145,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t
                             eoutputCompareMode::setOnCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
-                            ePrescaler::prescaler1024,
+                            ePrescaler::prescaler8,
                             eInterruptId::timer2_compa,
                             frequency);
         break;

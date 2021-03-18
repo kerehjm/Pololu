@@ -46,12 +46,15 @@ TimerHw<T, P, W>::~TimerHw()
 template<class T, class P, class W>
 void TimerHw<T, P, W>::start()
 {
+    selectCompareOutputMode(eOutput::A, eoutputCompareMode::setOnCompare);
     selectClock(this->registers->getPrescaler());
 }
 
 template<class T, class P, class W>
 void TimerHw<T, P, W>::startInverted()
 {
+    selectCompareOutputMode(eOutput::B, eoutputCompareMode::clearClearOnCompare);
+    selectClock(this->registers->getPrescaler());
 }
 
 template<class T, class P, class W>
@@ -121,7 +124,6 @@ void TIMER0_COMPA_vect(void)
 void TIMER1_COMPA_vect(void)
 {
     TimerHw<uint16_t, ePrescaler_ext, eWaveGenerationMode>::vector_table[1]->intHandler(eInterruptId::timer1_compa);
-    // PORTD ^= (1U << PD1);
 }
 
 void TIMER2_COMPA_vect(void)
