@@ -67,6 +67,7 @@ target_link_libraries(3pi.elf PRIVATE
     pins
     sensors
     timers
+    pwm
 )
 
 add_subdirectory(hw/interface)
@@ -83,3 +84,4 @@ add_subdirectory(hal/myDebug)
 add_subdirectory(hal/pins)
 add_subdirectory(hal/sensors)
 add_subdirectory(hal/timers)
+add_subdirectory(hal/pwm)

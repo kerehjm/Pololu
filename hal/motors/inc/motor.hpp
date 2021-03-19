@@ -15,9 +15,9 @@ class Motor : public iMotor
 public:
 protected:
 private:
-    iPin *direction;
-    iPin *speed;
-    iTimer<uint8_t> *timer;
+    iPin * direction;
+    iPin * speed;
+    iPwm * pwm;
     eMotorId motorId;
     iDebug * debug;
 
@@ -25,8 +25,8 @@ private:
 public:
     Motor();
     ~Motor();
-    Motor(eMotorId motorId, iTimer<uint8_t> *timer, iPin *direction, iPin *speed);
-    Motor(eMotorId motorId, iTimer<uint8_t> *timer, iPin *direction, iPin *speed, iDebug* debug);
+    Motor(eMotorId motorId, iPwm *pwm, iPin *direction, iPin *speed);
+    Motor(eMotorId motorId, iPwm *pwm, iPin *direction, iPin *speed, iDebug* debug);
     void off();
     void forward(uint8_t speed);
     void reverse(uint8_t speed);

@@ -31,12 +31,6 @@ void Timer<T>::start()
 }
 
 template <class T>
-void Timer<T>::startInverted()
-{
-    timerHw->start();
-}
-
-template <class T>
 void Timer<T>::stop()
 {
     timerHw->stop();
@@ -46,12 +40,6 @@ template <class T>
 void Timer<T>::setFrequency(T frequency)
 {
     timerHw->setTop(frequency);
-}
-
-template <class T>
-void Timer<T>::setDutyCycle(T dutyCycle)
-{
-    timerHw->setReload(dutyCycle);
 }
 
 template <class T>

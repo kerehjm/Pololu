@@ -42,6 +42,7 @@ public:
     void setTop(T top);
     void setReload(T reload);
     T getCount();
+    void selectCompareOutputMode(eOutput output, eoutputCompareMode compareMode);
 protected:
 private:
     friend void TIMER0_COMPA_vect(void);
@@ -51,7 +52,6 @@ private:
     friend void TIMER1_COMPB_vect(void);
     friend void TIMER2_COMPB_vect(void);
     void selectClock(P clockSource);
-    void selectCompareOutputMode(eOutput output, eoutputCompareMode compareMode);
     void selectWaveGenerationMode(W waveGenMode);
     void intHandler(eInterruptId intId);
 

@@ -132,7 +132,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t
     case eTimerHwIdU8::tmr0:
         timer = new TimerHw<uint8_t, ePrescaler_ext, eWaveGenerationMode_Tmr0>(
                             iTimerHwData<uint8_t, ePrescaler_ext>::createTimer0(),
-                            eoutputCompareMode::setOnCompare,
+                            eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
                             ePrescaler_ext::prescaler8,
@@ -142,7 +142,7 @@ iTimerHw<uint8_t> * iTimerHw<uint8_t>::createPwm(eTimerHwIdU8 hwTimerId, uint8_t
     case eTimerHwIdU8::tmr2:
         timer = new TimerHw<uint8_t, ePrescaler, eWaveGenerationMode_Tmr0>(
                             iTimerHwData<uint8_t, ePrescaler>::createTimer2(),
-                            eoutputCompareMode::setOnCompare,
+                            eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode_Tmr0::pwmPhaseCorrect,
                             ePrescaler::prescaler8,

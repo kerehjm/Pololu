@@ -110,7 +110,7 @@ public:
     virtual void setTop(T top) = 0;
     virtual void setReload(T reload) = 0;
     virtual T getCount() = 0;
-
+    virtual void selectCompareOutputMode(eOutput output, eoutputCompareMode compareMode) = 0;
 }; //iTimerHw
 
 #endif //__ITIMERHW_H__
