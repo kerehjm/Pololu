@@ -7,16 +7,15 @@
 
 #include <stdint.h>
 #include <util/delay.h>
-#include "iSensor.hpp"
 #include "iTimer.hpp"
+#include "iSensor.hpp"
 #include "iPin.hpp"
-#include "sensor.hpp"
 #include "reflectanceSensor.hpp"
 
 #define MAX_VALUE 110
 
 // default constructor
-ReflectanceSensor::ReflectanceSensor(iPin *sensor, iPin *power, iTimer<uint16_t> *timer)
+ReflectanceSensor::ReflectanceSensor(iPin * sensor, iPin * power, iTimer<uint16_t> * timer)
 {
     this->sensor = sensor;
     this->power = power;

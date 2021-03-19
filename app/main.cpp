@@ -11,9 +11,9 @@
 #include "iPin.hpp"
 #include "iLed.hpp"
 #include "iMotor.hpp"
+#include "iTimer.hpp"
 #include "iSensor.hpp"
 #include "iButton.hpp"
-#include "iTimer.hpp"
 #include "iDebug.hpp"
 #include "iPwm.hpp"
 #include <util/delay.h>
@@ -45,27 +45,30 @@ void operator delete(void* ptr, unsigned int size)
     free(ptr);
 }
 
-#include <avr/io.h>
-#include <util/delay.h>
-#include <avr/interrupt.h>
+void tick(void);
 
-iMotor * motor_1;
-iMotor * motor_2;
-iPwm * pwm_1;
-iPwm * pwm_2;
+iTimer<uint16_t> * timer;
+iSensor * reflax_0;
+iSensor * reflax_1;
+iDebug * debug;
 
 int main()
 {
-    static const uint8_t speed = 30;
+    iDebug::init(eDebugLevel::all);
+    timer = iTimer<uint16_t>::create(tick);
+    timer->start();
 
-    motor_1 = iMotor::create(eMotorId::motor_1);
-    motor_2 = iMotor::create(eMotorId::motor_2);
-
-    motor_1->forward(speed);
-    motor_2->forward(speed);
+    reflax_0 = iSensor::createReflectance(eSensorId::rl0, timer);
+    reflax_1 = iSensor::createReflectance(eSensorId::rl4, timer);
 
     while (1)
     {
         
     }
+}
+
+void tick(void)
+{
+    iDebug::log(eDebugLevel::debug, "Sensor data: %d", reflax_0->read());
+    iDebug::log(eDebugLevel::debug, "Sensor data: %d", reflax_1->read());
 }

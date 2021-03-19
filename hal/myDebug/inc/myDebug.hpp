@@ -13,18 +13,13 @@ class Debug : public iDebug
 {
 //variables
 public:
+    static eDebugLevel debugLevel;
+    static iUart * uart;
 protected:
-    void checkInit();
-    void init();
 private:
-    eDebugLevel debugLevel;
-    iUart * uart;
 
 //functions
 public:
-    Debug(iUart * uart, eDebugLevel level);
-    ~Debug();
-    void log(eDebugLevel level, const char *format, ...);
 protected:
 private:
 

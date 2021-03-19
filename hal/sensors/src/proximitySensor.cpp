@@ -6,16 +6,15 @@
 */
 
 #include <stdint.h>
-#include "iSensor.hpp"
+#include <util/delay.h>
 #include "iTimer.hpp"
+#include "iSensor.hpp"
 #include "iPin.hpp"
-#include "sensor.hpp"
 #include "proximitySensor.hpp"
 
 // default constructor
-ProximitySensor::ProximitySensor(iPin *pin, iPin *power, iTimer<uint16_t> *timer)
+ProximitySensor::ProximitySensor(iPin *pin, iPin * power, iTimer<uint16_t> * timer)
 {
-    (void)(pin);
     this->sensor = sensor;
     this->power = power;
     this->timer = timer;
@@ -28,18 +27,18 @@ ProximitySensor::~ProximitySensor()
 
 uint8_t ProximitySensor::read()
 {
-    sensor->set();
-    // _delay_us(10); //TODO create a delay class
-    sensor->reset();
+    charge();
+    _delay_us(10);
+    discharge();
     return 0;
 }
 
 void ProximitySensor::charge()
 {
-    
+    sensor->set();
 }
 
 void ProximitySensor::discharge()
 {
-    
+    sensor->reset();
 }

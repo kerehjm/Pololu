@@ -1,7 +1,7 @@
 add_library(sensors STATIC OBJECT
     src/proximitySensor.cpp
     src/reflectanceSensor.cpp
-    src/sensor.cpp
+    src/sensorFactory.cpp
 )
 
 target_compile_options(sensors PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

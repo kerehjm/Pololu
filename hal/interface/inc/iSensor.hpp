@@ -16,17 +16,16 @@ enum class eSensorId
     rl2,
     rl3,
     rl4,
-    prx
 }; //eSensorId
 
 class iSensor
 {
 //functions
 public:
-	virtual ~iSensor(){}
-	virtual uint8_t read() = 0;
-    virtual void charge() = 0;
-    virtual void discharge() = 0;
+    static iSensor * createReflectance(eSensorId sensorId, iTimer<uint16_t> * timer);
+    static iSensor * createProximity(iTimer<uint16_t> * timer);
+    virtual ~iSensor(){}
+    virtual uint8_t read() = 0;
 }; //iSensor
 
 #endif //__ISENSOR_H__

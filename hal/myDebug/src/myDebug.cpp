@@ -12,40 +12,38 @@
 #include "iDebug.hpp"
 #include "myDebug.hpp"
 
-Debug::Debug(iUart *uart, eDebugLevel level)
+eDebugLevel Debug::debugLevel = eDebugLevel::none;
+iUart * Debug::uart = nullptr;
+
+void iDebug::init(eDebugLevel level)
 {
-    this->uart = uart;
-    this->debugLevel = level;
-    uart->enable();
+    Debug::uart = iUart::create();
+    Debug::debugLevel = level;
+    Debug::uart->enable();
 }
 
-Debug::~Debug()
+void iDebug::log(eDebugLevel level, const char *format, ...)
 {
-}
-
-void Debug::log(eDebugLevel level, const char *format, ...)
-{
-    if (this->debugLevel >= level)
+    if ((Debug::debugLevel == eDebugLevel::none) || (Debug::uart == nullptr))
     {
-        //cli();
+        return;
+    }
+
+    if (Debug::debugLevel >= level)
+    {
         char buffer[256];
         va_list args;
         va_start (args, format);
         memset(buffer, '\0', sizeof(buffer));
         vsnprintf (buffer, sizeof(buffer), format, args);
-        
-        //print buffer
-        //--------------
+
         int i =0;
         while (buffer[i] != '\0')
         {
-            uart->write(buffer[i++]);
+            Debug::uart->write(buffer[i++]);
         }
-        uart->write('\n');
-        //--------------
+        Debug::uart->write('\n');
         
         va_end (args);
-        
-        //sei();
     }
 }
