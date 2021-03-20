@@ -15,19 +15,22 @@ class ReflectanceSensor : public iSensor
 public:
 protected:
 private:
-    iPin * sensor;
+    uint8_t count;
     iPin * power;
     iTimer<uint16_t> * timer;
+    uint8_t * readings;
+    iPin * sensor[];
 
 //functions
 public:
     ~ReflectanceSensor();
-    ReflectanceSensor(iPin * sensor, iPin * power, iTimer<uint16_t> * timer);
-    uint8_t read();
+    ReflectanceSensor(iPin * sensor[], uint8_t count, iPin * power, iTimer<uint16_t> * timer, uint8_t * readings);
+    SensorData read();
 protected:
 private:
     void charge();
     void discharge();
+    uint8_t getSensorsState();
 
 }; //ReflectanceSensor
 

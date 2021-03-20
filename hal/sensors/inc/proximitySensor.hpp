@@ -23,7 +23,7 @@ private:
 public:
     ProximitySensor(iPin *pin, iPin *power, iTimer<uint16_t> *timer);
     ~ProximitySensor();
-    uint8_t read();
+    SensorData read();
 protected:
 private:
     void charge();

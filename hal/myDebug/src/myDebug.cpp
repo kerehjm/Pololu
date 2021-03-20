@@ -14,6 +14,7 @@
 
 eDebugLevel Debug::debugLevel = eDebugLevel::none;
 iUart * Debug::uart = nullptr;
+static void log(eDebugLevel level, const char *format, va_list args);
 
 void iDebug::init(eDebugLevel level)
 {
@@ -22,7 +23,7 @@ void iDebug::init(eDebugLevel level)
     Debug::uart->enable();
 }
 
-void iDebug::log(eDebugLevel level, const char *format, ...)
+void log(eDebugLevel level, const char *format, va_list args)
 {
     if ((Debug::debugLevel == eDebugLevel::none) || (Debug::uart == nullptr))
     {
@@ -32,8 +33,7 @@ void iDebug::log(eDebugLevel level, const char *format, ...)
     if (Debug::debugLevel >= level)
     {
         char buffer[256];
-        va_list args;
-        va_start (args, format);
+        
         memset(buffer, '\0', sizeof(buffer));
         vsnprintf (buffer, sizeof(buffer), format, args);
 
@@ -43,7 +43,29 @@ void iDebug::log(eDebugLevel level, const char *format, ...)
             Debug::uart->write(buffer[i++]);
         }
         Debug::uart->write('\n');
-        
-        va_end (args);
     }
+}
+
+void iDebug::error(const char *format, ...)
+{
+    va_list args;
+    va_start (args, format);
+    log(eDebugLevel::Error, format, args);
+    va_end (args);
+}
+
+void iDebug::debug(const char *format, ...)
+{
+    va_list args;
+    va_start (args, format);
+    log(eDebugLevel::debug, format, args);
+    va_end (args);
+}
+
+void iDebug::info(const char *format, ...)
+{
+    va_list args;
+    va_start (args, format);
+    log(eDebugLevel::info, format, args);
+    va_end (args);
 }

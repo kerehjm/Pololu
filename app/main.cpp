@@ -48,8 +48,7 @@ void operator delete(void* ptr, unsigned int size)
 void tick(void);
 
 iTimer<uint16_t> * timer;
-iSensor * reflax_0;
-iSensor * reflax_1;
+iSensor * sensor;
 iDebug * debug;
 
 int main()
@@ -58,17 +57,18 @@ int main()
     timer = iTimer<uint16_t>::create(tick);
     timer->start();
 
-    reflax_0 = iSensor::createReflectance(eSensorId::rl0, timer);
-    reflax_1 = iSensor::createReflectance(eSensorId::rl4, timer);
+    sensor = iSensor::createReflectance(timer);
 
     while (1)
     {
-        
     }
 }
 
 void tick(void)
 {
-    iDebug::log(eDebugLevel::debug, "Sensor data: %d", reflax_0->read());
-    iDebug::log(eDebugLevel::debug, "Sensor data: %d", reflax_1->read());
+    SensorData data = sensor->read();
+    for (uint8_t i = 0; i < data.size; i++)
+    {
+        iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
+    }
 }

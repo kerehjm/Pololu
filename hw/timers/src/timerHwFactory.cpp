@@ -52,7 +52,7 @@ iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_CTC(eTimerHwIdU16 hwTimer
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode::ctc,
-                            ePrescaler_ext::prescaler256,
+                            ePrescaler_ext::noPreScaler,
                             eInterruptId::timer1_compa,
                             frequency,
                             callback);
@@ -111,7 +111,7 @@ iTimerHw<uint16_t> * iTimerHw<uint16_t>::createCounter_FastPwm(eTimerHwIdU16 hwT
                             eoutputCompareMode::normalCompare,
                             eoutputCompareMode::normalCompare,
                             eWaveGenerationMode::fastPwm,
-                            ePrescaler_ext::prescaler1024,
+                            ePrescaler_ext::prescaler256,
                             eInterruptId::timer1_compa,
                             frequency,
                             callback);

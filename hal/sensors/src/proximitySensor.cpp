@@ -25,12 +25,15 @@ ProximitySensor::~ProximitySensor()
 {
 } //~ProximitySensor
 
-uint8_t ProximitySensor::read()
+SensorData ProximitySensor::read()
 {
     charge();
     _delay_us(10);
     discharge();
-    return 0;
+    uint8_t readings[1];
+
+    SensorData data(1, readings);
+    return data;
 }
 
 void ProximitySensor::charge()

@@ -23,8 +23,10 @@ class iDebug
 public:
     ~iDebug(){}
     static void init(eDebugLevel level);
-    static void log(eDebugLevel level, const char *format, ...);
     static void setLevel(eDebugLevel level);
+    static void error(const char *format, ...);
+    static void debug(const char *format, ...);
+    static void info(const char *format, ...);
 protected:
 private:
 

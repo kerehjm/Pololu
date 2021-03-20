@@ -5,36 +5,24 @@
 #include "reflectanceSensor.hpp"
 #include "proximitySensor.hpp"
 
-iSensor * iSensor::createReflectance(eSensorId sensorId, iTimer<uint16_t> * timer)
+iSensor * iSensor::createReflectance(iTimer<uint16_t> * timer)
 {
-    iPin * sensorPin = nullptr;
-    
-    switch (sensorId)
-    {
-    case eSensorId::rl0:
-        sensorPin = iPin::create(ePinId::PC0_SENSOR0, ePinDir::OUTPUT, ePinState::LOW);
-        break;
-    case eSensorId::rl1:
-        sensorPin = iPin::create(ePinId::PC1_SENSOR1, ePinDir::OUTPUT, ePinState::LOW);
-        break;
-    case eSensorId::rl2:
-        sensorPin = iPin::create(ePinId::PC2_SENSOR2, ePinDir::OUTPUT, ePinState::LOW);
-        break;
-    case eSensorId::rl3:
-        sensorPin = iPin::create(ePinId::PC3_SENSOR3, ePinDir::OUTPUT, ePinState::LOW);
-        break;
-    case eSensorId::rl4:
-        sensorPin = iPin::create(ePinId::PC4_SENSOR4, ePinDir::OUTPUT, ePinState::LOW);
-        break;
-    default:
-        break;
-    }
+    static const uint8_t COUNT = 5;
+    static uint8_t readings[COUNT];
+    iPin * sensorPin[COUNT] = {};
+    sensorPin[0] = iPin::create(ePinId::PC0_SENSOR0, ePinDir::OUTPUT, ePinState::HIGH);
+    sensorPin[1] = iPin::create(ePinId::PC1_SENSOR1, ePinDir::OUTPUT, ePinState::HIGH);
+    sensorPin[2] = iPin::create(ePinId::PC2_SENSOR2, ePinDir::OUTPUT, ePinState::HIGH);
+    sensorPin[3] = iPin::create(ePinId::PC3_SENSOR3, ePinDir::OUTPUT, ePinState::HIGH);
+    sensorPin[4] = iPin::create(ePinId::PC4_SENSOR4, ePinDir::OUTPUT, ePinState::HIGH);
 
     iPin * power = iPin::create(ePinId::PC5_SENSOR_POWER, ePinDir::OUTPUT, ePinState::LOW);
     iSensor * sensor = new ReflectanceSensor(
         sensorPin,
+        COUNT,
         power,
-        timer);
+        timer,
+        readings);
     return sensor;
 }
 
