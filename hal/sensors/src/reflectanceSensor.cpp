@@ -14,8 +14,9 @@
 #include "iDebug.hpp"
 
 // #include <avr/io.h>
+#include <string.h>
 
-#define MAX_VALUE 255
+#define MAX_VALUE 110
 
 // default constructor  
 ReflectanceSensor::ReflectanceSensor(
@@ -46,9 +47,8 @@ SensorData ReflectanceSensor::read()
     uint8_t last_time;
     uint8_t time = 0;
     uint8_t last_c = getSensorsState();
+    memset(readings, 0, count);
     SensorData data = SensorData(count, readings);
-
-    // iDebug::debug("last c: %d", last_c);
 
     charge();    //Charge sensor
     _delay_us(13);      //Delay 13 microseconds
@@ -65,7 +65,9 @@ SensorData ReflectanceSensor::read()
         // continue immediately if there is no change
         uint8_t state = getSensorsState();
         if (state == last_c)
+        {
             continue;
+        }
 
         // save the last observed values
         last_c = state;
@@ -75,7 +77,6 @@ SensorData ReflectanceSensor::read()
             if (readings[i] == 0 && !sensor[i]->isSet())
             {
                 readings[i] = time;
-                // iDebug::debug("last c: %d", time);
             }
         }
     }
@@ -111,7 +112,7 @@ void ReflectanceSensor::discharge()
     }
 }
 
-uint8_t ReflectanceSensor::getSensorsState(void)
+uint8_t ReflectanceSensor::getSensorsState()
 {
     uint8_t state = 0;
     for (uint8_t i = 0; i < count; i++)
