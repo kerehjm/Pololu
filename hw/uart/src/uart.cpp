@@ -29,13 +29,13 @@ ISR(USART_RX_vect)
     //serial.rxHandler();
 }
 
-void Uart::init()
+Uart::Uart()
 {
     if (!isInitialised)
     {
         //Set baud rate
         UBRR0H = 0;
-        UBRR0L = 129;
+        UBRR0L = 64;
 
         //Select frame format
         UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01); //Select 8 data bits in a frame
@@ -52,6 +52,8 @@ void Uart::init()
         // Uart::txd = PinFactory::create(ePinId::PD1_UART0_TXD);
         
         enable();
+
+        isInitialised = true;
     }
 } //Uart
 

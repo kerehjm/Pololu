@@ -71,11 +71,13 @@ function(avr_add_executable_upload ${EXECUTABLE})
 	
 	# upload target
 	if(PROGRAM_EEPROM)
+		message(STATUS "uploading to device 2")
 		add_custom_target(upload_${EXECUTABLE} 
 			COMMAND ${AVRDUDE} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} ${AVR_PROGRAMMER_OPTIONS} -U flash:w:${EXECUTABLE}.hex -U eeprom:w:${EXECUTABLE}_eeprom.hex
 			DEPENDS ${EXECUTABLE})
 	else(PROGRAM_EEPROM)
-		add_custom_target(upload_${EXECUTABLE} 
+		message(STATUS "uploading to device")
+		add_custom_target(upload_${EXECUTABLE}
 			COMMAND ${AVRDUDE} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} ${AVR_PROGRAMMER_OPTIONS} -U flash:w:${EXECUTABLE}.hex
 			DEPENDS ${EXECUTABLE})
 	endif(PROGRAM_EEPROM)

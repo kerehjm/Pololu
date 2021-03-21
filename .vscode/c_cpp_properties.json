@@ -4,8 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/local/Cellar/avr-gcc/9.3.0/avr/include",
-                "/Users/kere/jarvis/pololu/pololu/unitTest/build/googletest-src/googlemock/include"
+                "/usr/local/Cellar/avr-gcc@9/9.3.0_2/avr/include"
             ],
             "defines": [],
             "macFrameworkPath": [],

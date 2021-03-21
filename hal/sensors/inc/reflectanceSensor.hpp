@@ -9,25 +9,28 @@
 #ifndef __REFLECTANCESENSOR_H__
 #define __REFLECTANCESENSOR_H__
 
-class ReflectanceSensor : public Sensor
+class ReflectanceSensor : public iSensor
 {
 //variables
 public:
 protected:
 private:
+    uint8_t count;
+    iPin * power;
+    iTimer<uint16_t> * timer;
+    uint8_t * readings;
+    iPin * sensor[];
 
 //functions
 public:
-	ReflectanceSensor();
-	~ReflectanceSensor();
-    ReflectanceSensor(iPin *sensor, iPin *power, iTimer *timer);
-    uint8_t read();
+    ~ReflectanceSensor();
+    ReflectanceSensor(iPin * sensor[], uint8_t count, iPin * power, iTimer<uint16_t> * timer, uint8_t * readings);
+    SensorData read();
 protected:
+private:
     void charge();
     void discharge();
-private:
-	ReflectanceSensor( const ReflectanceSensor &c );
-	ReflectanceSensor& operator=( const ReflectanceSensor &c );
+    uint8_t getSensorsState();
 
 }; //ReflectanceSensor
 

@@ -26,7 +26,8 @@ private:
 
 //functions
 public:
-	~Uart();
+    Uart();
+    ~Uart();
     void init();
     void enable();
     void disable();

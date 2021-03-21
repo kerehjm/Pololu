@@ -9,24 +9,26 @@
 #ifndef __ISENSOR_H__
 #define __ISENSOR_H__
 
-enum class eSensorId
+typedef struct _SensorData
 {
-    rl0,
-    rl1,
-    rl2,
-    rl3,
-    rl4,
-    prx
-}; //eSensorId
+    uint8_t size;
+    uint8_t * readings;
+
+    _SensorData(uint8_t size, uint8_t * readings)
+    {
+        this->size = size;
+        this->readings = readings;
+    }
+} SensorData;
 
 class iSensor
 {
 //functions
 public:
-	virtual ~iSensor(){}
-	virtual uint8_t read() = 0;
-    virtual void charge() = 0;
-    virtual void discharge() = 0;
+    static iSensor * createReflectance(iTimer<uint16_t> * timer);
+    static iSensor * createProximity(iTimer<uint16_t> * timer);
+    virtual ~iSensor(){}
+    virtual SensorData read() = 0;
 }; //iSensor
 
 #endif //__ISENSOR_H__

@@ -9,15 +9,24 @@
 #ifndef __ITIMER_H__
 #define __ITIMER_H__
 
+enum class eTimerIdU8
+{
+    counter_1,
+    counter_2,
+}; //eTimerIdU8
+
+template <class T>
 class iTimer
 {
 //functions
 public:
     virtual ~iTimer(){}
-    virtual void start(uint8_t count) = 0;
+    static iTimer<uint16_t> * create(void (*callback)(void)= nullptr);
+    static iTimer<uint8_t> * createU8(eTimerIdU8 timerId, void (*callback)(void)= nullptr);
+    virtual void start() = 0;
     virtual void stop() = 0;
-    virtual void reload(uint8_t count) = 0;
-    virtual uint8_t getCount() = 0;
+    virtual void setFrequency(T frequency) = 0;
+    virtual T getCount() = 0;
 }; //iTimer
 
 #endif //__ITIMER_H__

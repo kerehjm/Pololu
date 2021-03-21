@@ -11,30 +11,42 @@
 #include "timer.hpp"
 
 // default constructor
-Timer::Timer()
+template <class T>
+Timer<T>::Timer(iTimerHw<T> * timerHw)
 {
-} //Timer_0
+    this->timerHw = timerHw;
+}
 
 // default destructor
-Timer::~Timer()
+template <class T>
+Timer<T>::~Timer()
 {
+    delete(timerHw);
 } //~Timer
 
-void Timer::start(uint8_t count)
+template <class T>
+void Timer<T>::start()
 {
-    (void)(count);
+    timerHw->start();
 }
 
-void Timer::stop()
+template <class T>
+void Timer<T>::stop()
 {
+    timerHw->stop();
 }
 
-void Timer::reload(uint8_t count)
+template <class T>
+void Timer<T>::setFrequency(T frequency)
 {
-    (void)(count);
+    timerHw->setTop(frequency);
 }
 
-uint8_t Timer::getCount()
+template <class T>
+T Timer<T>::getCount()
 {
-    return 0;
+    return timerHw->getCount();
 }
+
+template class Timer<uint8_t>;
+template class Timer<uint16_t>;

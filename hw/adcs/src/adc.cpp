@@ -57,7 +57,7 @@ uint8_t Adc::read(eAdcId channel)
     uint8_t reading = 0;
     
     //Select adc channel b4 starting conversion
-    ADMUX = (ADMUX & 0b11111000) | channel; //Select channel
+    ADMUX = (ADMUX & 0b11111000) | ((uint8_t)channel); //Select channel
     
     //Start first conversion
     ADCSRA |= (1 << ADSC); //High to start conversion bit

@@ -6,21 +6,35 @@
 */
 
 #include <stdint.h>
-#include "iSensor.hpp"
+#include <util/delay.h>
 #include "iTimer.hpp"
+#include "iSensor.hpp"
 #include "iPin.hpp"
-#include "sensor.hpp"
 #include "reflectanceSensor.hpp"
+#include "iDebug.hpp"
+
+// #include <avr/io.h>
+#include <string.h>
 
 #define MAX_VALUE 110
 
-// default constructor
-ReflectanceSensor::ReflectanceSensor(iPin *sensor, iPin *power, iTimer *timer)
+// default constructor  
+ReflectanceSensor::ReflectanceSensor(
+    iPin * sensor[],
+    uint8_t count,
+    iPin * power,
+    iTimer<uint16_t> * timer,
+    uint8_t * readings)
 {
-    this->sensor = sensor;
+    this->count = count;
     this->power = power;
     this->timer = timer;
-    power->set();
+    this->readings = readings;
+
+    for (uint8_t i = 0; i < count; i++)
+    {
+        this->sensor[i] = sensor[i];
+    }
 } //ReflectanceSensor
 
 // default destructor
@@ -28,55 +42,82 @@ ReflectanceSensor::~ReflectanceSensor()
 {
 } //~ReflectanceSensor
 
-uint8_t ReflectanceSensor::read()
+SensorData ReflectanceSensor::read()
 {
     uint8_t last_time;
-    uint8_t delta_time;
     uint8_t time = 0;
-    uint8_t last_c = sensor->isSet();
-    uint8_t reading = 0;
+    uint8_t last_c = getSensorsState();
+    memset(readings, 0, count);
+    SensorData data = SensorData(count, readings);
 
     charge();    //Charge sensor
-    // _delay_us(13);      //Delay 13 microseconds
+    _delay_us(13);      //Delay 13 microseconds
     discharge(); //Discharge sensors
 
     last_time = timer->getCount();
 
     while (time < MAX_VALUE)
     {
-        delta_time = timer->getCount() - last_time;
+        uint8_t delta_time = timer->getCount() - last_time;
         time += delta_time;
         last_time += delta_time;
 
         // continue immediately if there is no change
-        if (sensor->isSet() == last_c)
+        uint8_t state = getSensorsState();
+        if (state == last_c)
+        {
             continue;
+        }
 
         // save the last observed values
-        last_c = sensor->isSet();
+        last_c = state;
 
-        if (reading == 0 && sensor->isSet() == 0)
+        for (uint8_t i = 0; i < count; i++)
         {
-            reading = time;
+            if (readings[i] == 0 && !sensor[i]->isSet())
+            {
+                readings[i] = time;
+            }
         }
     }
 
     //Set to max if time elapsed with pin still high
-    if (!reading)
+    for(uint8_t i = 0; i < count; i++)
     {
-        reading = MAX_VALUE;
+        if (!readings[i])
+        {
+            readings[i] = MAX_VALUE;
+        }
     }
-    return reading;
+    data.size = count;
+    data.readings = readings;
+    return data;
 }
 
 void ReflectanceSensor::charge()
 {
-    sensor->output();
-    sensor->set();
+    for (uint8_t i = 0; i < count; i++)
+    {
+        sensor[i]->output();
+        sensor[i]->set();
+    }
 }
 
 void ReflectanceSensor::discharge()
 {
-    sensor->input();
-    sensor->reset(); //Turn off pullups
+    for (uint8_t i = 0; i < count; i++)
+    {
+        sensor[i]->input();
+        sensor[i]->reset(); //Turn off pullups
+    }
+}
+
+uint8_t ReflectanceSensor::getSensorsState()
+{
+    uint8_t state = 0;
+    for (uint8_t i = 0; i < count; i++)
+    {
+        state |= (sensor[i]->isSet() << i);
+    }
+    return state;
 }

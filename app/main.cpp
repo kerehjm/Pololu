@@ -11,10 +11,11 @@
 #include "iPin.hpp"
 #include "iLed.hpp"
 #include "iMotor.hpp"
+#include "iTimer.hpp"
 #include "iSensor.hpp"
 #include "iButton.hpp"
-#include "iTimer.hpp"
 #include "iDebug.hpp"
+#include "iPwm.hpp"
 #include <util/delay.h>
 
 void * operator new(size_t size);
@@ -44,9 +45,30 @@ void operator delete(void* ptr, unsigned int size)
     free(ptr);
 }
 
+void tick(void);
+
+iTimer<uint16_t> * timer;
+iSensor * sensor;
+iDebug * debug;
+
 int main()
 {
+    iDebug::init(eDebugLevel::all);
+    timer = iTimer<uint16_t>::create(tick);
+    timer->start();
+
+    sensor = iSensor::createReflectance(timer);
+
     while (1)
     {
+    }
+}
+
+void tick(void)
+{
+    SensorData data = sensor->read();
+    for (uint8_t i = 0; i < data.size; i++)
+    {
+        iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
     }
 }

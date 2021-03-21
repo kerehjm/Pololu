@@ -19,7 +19,8 @@ class iMotor
 {
 //functions
 public:
-	virtual ~iMotor(){}
+    static iMotor * create(eMotorId motorId);
+    virtual ~iMotor(){}
     virtual void off() = 0;
     virtual void forward(uint8_t speed) = 0;
     virtual void reverse(uint8_t speed) = 0;

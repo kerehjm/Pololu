@@ -46,5 +46,5 @@ inline void PinHw::input()
 
 inline bool PinHw::isSet()
 {
-    return (*pinPortMap->port & (1U << pinPortMap->num));
+    return (*pinPortMap->pin & (1U << pinPortMap->num));
 }

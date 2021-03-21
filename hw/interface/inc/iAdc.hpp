@@ -9,7 +9,7 @@
 #ifndef __IADC_H__
 #define __IADC_H__
 
-enum eAdcId
+enum class eAdcId
 {
     adcChannel0,
     adcChannel1,

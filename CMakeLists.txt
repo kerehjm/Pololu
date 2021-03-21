@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.5)
 set(AVR_MCU atmega328p)
 set(MCU_FREQ 20000000UL)
 set(AVR_PROGRAMMER stk500)
-set(AVR_PROGRAMMER_PORT /dev/ttyACM0)
-#set(AVR_PROGRAMMER_BAUDRATE 19200)
+set(AVR_PROGRAMMER_PORT /dev/tty.usbmodem000700031)
+set(AVR_PROGRAMMER_BAUDRATE 115200)
 set(PROGRAM_EEPROM False)
 
 #set build options
@@ -59,7 +59,7 @@ target_link_libraries(3pi.elf PRIVATE
     hwAdc
     hwPin
     hwTimer
-    HwUart
+    hwUart
     buttons
     leds
     motors
@@ -67,6 +67,7 @@ target_link_libraries(3pi.elf PRIVATE
     pins
     sensors
     timers
+    pwm
 )
 
 add_subdirectory(hw/interface)
@@ -83,3 +84,4 @@ add_subdirectory(hal/myDebug)
 add_subdirectory(hal/pins)
 add_subdirectory(hal/sensors)
 add_subdirectory(hal/timers)
+add_subdirectory(hal/pwm)

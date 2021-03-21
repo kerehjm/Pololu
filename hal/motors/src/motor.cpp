@@ -7,10 +7,10 @@
 
 #include <string.h>
 #include <stdint.h>
-#include "iTimer.hpp"
 #include "iPin.hpp"
 #include "iMotor.hpp"
 #include "iDebug.hpp"
+#include "iPwm.hpp"
 #include "motor.hpp"
 
 // default destructor
@@ -18,63 +18,51 @@ Motor::~Motor()
 {
 } //~Motor
 
-Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed)
+Motor::Motor(eMotorId motorId, iPwm * pwm, iPin * direction, iPin * speed)
 {
     this->motorId = motorId;
     this->direction = direction;
     this->speed = speed;
-    this->timer = timer;
+    this->pwm = pwm;
     //this->off();
-    
-    debug->log(eDebugLevel::debug, "Motor [%d] init", motorId);
-} //MotorPinControl
-
-Motor::Motor(eMotorId motorId, iTimer *timer, iPin *direction, iPin *speed, iDebug * debug)
-{
-    this->motorId = motorId;
-    this->direction = direction;
-    this->speed = speed;
-    this->timer = timer;
-    //this->off();
-    
-    debug->log(eDebugLevel::debug, "Motor [%d] init", motorId);
-} //MotorPinControl
+}
 
 void Motor::off()
 {
-    this->direction->reset();
-    this->speed->reset();
-    timer->stop();
-    
-    debug->log(eDebugLevel::debug, "motor [%d] off", motorId);
+    pwm->stop();
+    pwm->selectChannel(ePwmChannel::channel_none);
+    pwm->setDutyCycle(ePwmChannel::channel_1, 0);
+    pwm->setDutyCycle(ePwmChannel::channel_2, 0);
+    direction->reset();
+    speed->reset();
 }
 
-void Motor::forward(uint8_t speed)
+void Motor::forward(uint8_t dc)
 {
-    this->direction->set();
-    this->speed->reset();
-    timer->reload(speed);
-    //timer->start();
-    
-    debug->log(eDebugLevel::debug, "motor [%d] forward", motorId);
+    pwm->stop();
+    speed->set();
+    pwm->setDutyCycle(ePwmChannel::channel_1, 0); //TODO find out why
+    pwm->setDutyCycle(ePwmChannel::channel_2, dc);
+    pwm->selectChannel(ePwmChannel::channel_2);
+    pwm->start();
 }
 
-void Motor::reverse(uint8_t speed)
+void Motor::reverse(uint8_t dc)
 {
-    this->direction->reset();
-    this->speed->set();
-    timer->reload(speed);
-    //timer->startInverted();
-    
-    debug->log(eDebugLevel::debug, "motor [%d] reverse", motorId);
+    pwm->stop();
+    direction->set();
+    pwm->setDutyCycle(ePwmChannel::channel_1, dc);
+    pwm->setDutyCycle(ePwmChannel::channel_2, 0);
+    pwm->selectChannel(ePwmChannel::channel_1);
+    pwm->start();
 }
 
 void Motor::brake()
 {
-    this->direction->set();
-    this->speed->set();
-    timer->reload(0);
-    timer->stop();
-    
-    debug->log(eDebugLevel::debug, "motor [%d] brake", motorId);
+    pwm->stop();
+    pwm->selectChannel(ePwmChannel::channel_none);
+    pwm->setDutyCycle(ePwmChannel::channel_1, 0);
+    pwm->setDutyCycle(ePwmChannel::channel_2, 0);
+    direction->set();
+    speed->set();
 }
