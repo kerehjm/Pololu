@@ -168,6 +168,8 @@
       <Value>../hw/pins/inc</Value>
       <Value>../hw/timers/inc</Value>
       <Value>../hw/uart/inc</Value>
+      <Value>../hal/lcd/inc</Value>
+      <Value>../hw/lcd/inc</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize for size (-Os)</avrgcccpp.compiler.optimization.level>
@@ -197,6 +199,8 @@
     <Folder Include="hal\buttons\src\" />
     <Folder Include="hal\interface\" />
     <Folder Include="hal\interface\inc\" />
+    <Folder Include="hal\lcd\inc" />
+    <Folder Include="hal\lcd\src" />
     <Folder Include="hal\leds\" />
     <Folder Include="hal\leds\inc\" />
     <Folder Include="hal\leds\src\" />
@@ -206,6 +210,7 @@
     <Folder Include="hal\myDebug\" />
     <Folder Include="hal\myDebug\inc\" />
     <Folder Include="hal\myDebug\src\" />
+    <Folder Include="hal\lcd" />
     <Folder Include="hal\pins\" />
     <Folder Include="hal\pins\inc\" />
     <Folder Include="hal\pins\src\" />
@@ -224,6 +229,9 @@
     <Folder Include="hw\adcs\src\" />
     <Folder Include="hw\interface\" />
     <Folder Include="hw\interface\inc\" />
+    <Folder Include="hw\lcd" />
+    <Folder Include="hw\lcd\inc" />
+    <Folder Include="hw\lcd\src" />
     <Folder Include="hw\pins\" />
     <Folder Include="hw\pins\inc\" />
     <Folder Include="hw\pins\src\" />
@@ -250,6 +258,9 @@
     <Compile Include="hal\interface\inc\iDebug.hpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="hal\interface\inc\iLcd.hpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hal\interface\inc\iLed.hpp">
       <SubType>compile</SubType>
     </Compile>
@@ -266,6 +277,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\interface\inc\iTimer.hpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\lcd\inc\lcd.hpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\lcd\src\lcd.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\lcd\src\lcdFactory.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\leds\inc\led.hpp">
@@ -343,6 +363,9 @@
     <Compile Include="hw\interface\inc\iAdc.hpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="hw\interface\inc\iLcdHw.hpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hw\interface\inc\iPinHw.hpp">
       <SubType>compile</SubType>
     </Compile>
@@ -350,6 +373,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hw\interface\inc\iUart.hpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hw\lcd\inc\LcdHw.hpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hw\lcd\src\lcdHw.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hw\lcd\src\lcdHwFactory.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hw\pins\inc\pinHw.hpp">
@@ -430,6 +462,9 @@
       <SubType>compile</SubType>
     </None>
     <None Include="hw\interface\CMakeLists.txt">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="hw\lcd\CMakeLists.txt">
       <SubType>compile</SubType>
     </None>
     <None Include="hw\pins\CMakeLists.txt">

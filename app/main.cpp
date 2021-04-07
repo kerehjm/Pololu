@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "iPin.hpp"
 #include "iLed.hpp"
 #include "iMotor.hpp"
@@ -16,7 +17,7 @@
 #include "iButton.hpp"
 #include "iDebug.hpp"
 #include "iPwm.hpp"
-#include <util/delay.h>
+#include "iLcd.hpp"
 
 void * operator new(size_t size);
 void operator delete(void * ptr);
@@ -50,11 +51,14 @@ void tick(void);
 iTimer<uint16_t> * timer;
 iSensor * sensor;
 iDebug * debug;
+iLcd * lcd;
 
 int main()
 {
     iDebug::init(eDebugLevel::all);
     timer = iTimer<uint16_t>::create(tick);
+    lcd = iLcd::create();
+
     timer->start();
 
     sensor = iSensor::createReflectance(timer);
@@ -71,4 +75,7 @@ void tick(void)
     {
         iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
     }
+    
+    uint8_t lcd_data[] = "hello";
+    lcd->write( lcd_data, sizeof(lcd_data) );
 }
