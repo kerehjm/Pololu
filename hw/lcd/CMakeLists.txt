@@ -1,6 +1,6 @@
 add_library(hwLcd STATIC OBJECT
     src/lcdHw.cpp
-    src/hwLcdFactory.cpp
+    src/lcdHwFactory.cpp
 )
 
 target_compile_options(hwLcd PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

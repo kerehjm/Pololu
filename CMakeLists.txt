@@ -60,6 +60,8 @@ target_link_libraries(3pi.elf PRIVATE
     hwPin
     hwTimer
     hwUart
+    hwLcd
+    halLcd
     buttons
     leds
     motors
@@ -75,6 +77,7 @@ add_subdirectory(hw/adcs)
 add_subdirectory(hw/pins)
 add_subdirectory(hw/timers)
 add_subdirectory(hw/uart)
+add_subdirectory(hw/lcd)
 
 add_subdirectory(hal/buttons)
 add_subdirectory(hal/interface)
@@ -85,3 +88,4 @@ add_subdirectory(hal/pins)
 add_subdirectory(hal/sensors)
 add_subdirectory(hal/timers)
 add_subdirectory(hal/pwm)
+add_subdirectory(hal/lcd)
