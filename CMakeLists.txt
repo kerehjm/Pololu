@@ -55,37 +55,9 @@ include(cmake/setup.cmake)
 avr_add_executable(3pi app/main.cpp)
 
 target_link_libraries(3pi.elf PRIVATE
-    iHal
-    hwAdc
-    hwPin
-    hwTimer
-    hwUart
-    hwLcd
-    halLcd
-    buttons
-    leds
-    motors
-    myDebug
-    pins
-    sensors
-    timers
-    pwm
+    hw
+    hal
 )
 
-add_subdirectory(hw/interface)
-add_subdirectory(hw/adcs)
-add_subdirectory(hw/pins)
-add_subdirectory(hw/timers)
-add_subdirectory(hw/uart)
-add_subdirectory(hw/lcd)
-
-add_subdirectory(hal/buttons)
-add_subdirectory(hal/interface)
-add_subdirectory(hal/leds)
-add_subdirectory(hal/motors)
-add_subdirectory(hal/myDebug)
-add_subdirectory(hal/pins)
-add_subdirectory(hal/sensors)
-add_subdirectory(hal/timers)
-add_subdirectory(hal/pwm)
-add_subdirectory(hal/lcd)
+add_subdirectory(hw)
+add_subdirectory(hal)
