@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 
+include(cmake/avr.cmake)
+
+project(pololu CXX)
+
 #device dependent config, here for arduino uno on linux
 set(AVR_MCU atmega328p)
 set(MCU_FREQ 20000000UL)
@@ -36,6 +40,7 @@ set(AVR_RELEASE_LINK_FLAGS
     -mrelax
     --data-sections
     -mmcu=${AVR_MCU}
+    -Wl,-Map=${PROJECT_NAME}.map
 )
 
 set(AVR_DEBUG_LINK_FLAGS
@@ -43,11 +48,8 @@ set(AVR_DEBUG_LINK_FLAGS
     -mrelax
     --data-sections
     -mmcu=${AVR_MCU}
+    -Wl,-Map=${PROJECT_NAME}.map
 )
-
-include(cmake/avr.cmake)
-
-project(pololu CXX)
 
 # call after project setup
 include(cmake/setup.cmake)
@@ -77,7 +79,8 @@ add_subdirectory(hw/adcs)
 add_subdirectory(hw/pins)
 add_subdirectory(hw/timers)
 add_subdirectory(hw/uart)
-add_subdirectory(hw/lcd)
+# add_subdirectory(hw/lcd)
+add_subdirectory(hw/hd44780)
 
 add_subdirectory(hal/buttons)
 add_subdirectory(hal/interface)

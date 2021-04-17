@@ -15,14 +15,13 @@ Lcd::~Lcd()
     delete(lcd_hw);
 }
 
-void Lcd::write(uint8_t * data, uint8_t len)
+void Lcd::write(uint8_t * data)
 {
-    uint8_t i;
-    
     lcd_hw->clear_display();
-    for ( i = 0; i < len; i++ )
+    while (*data != 0)
     {
-        lcd_hw->write_data(data[i]);
+        lcd_hw->write_data(*data++);
     }
+    
 }
 

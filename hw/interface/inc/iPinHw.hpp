@@ -48,6 +48,7 @@ public:
     virtual void output() = 0;
     virtual void input() = 0;
     virtual bool isSet() = 0;
+    virtual void write(bool state) = 0;
 }; //iPinHw
 
 #endif //__IPINHW_H__

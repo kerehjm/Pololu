@@ -11,9 +11,9 @@ private:
 
 //functions
 public:
-	Lcd(iLcdHw * lcd_hw);
-	~Lcd();
-	void write(uint8_t * data, uint8_t len);
+    Lcd(iLcdHw * lcd_hw);
+    ~Lcd();
+    void write(uint8_t * data);
 protected:
 private:
 };

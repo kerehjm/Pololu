@@ -27,6 +27,7 @@ public:
     void output();
     void input();
     bool isSet();
+    void write(bool state);
 protected:
 private:
 

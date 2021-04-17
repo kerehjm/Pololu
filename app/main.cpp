@@ -28,7 +28,9 @@ extern "C" int __cxa_guard_acquire(__guard *);
 extern "C" void __cxa_guard_release (__guard *);
 extern "C" void __cxa_guard_abort (__guard *);
 
-extern "C" void __cxa_pure_virtual(void);
+// extern "C" void __cxa_pure_virtual(void);
+
+extern "C" void __cxa_pure_virtual() { while (1); }
 
 void * operator new(size_t size)
 {
@@ -55,13 +57,16 @@ iLcd * lcd;
 
 int main()
 {
-    iDebug::init(eDebugLevel::all);
-    timer = iTimer<uint16_t>::create(tick);
+    // iDebug::init(eDebugLevel::all);
+    // timer = iTimer<uint16_t>::create(tick);
     lcd = iLcd::create();
 
-    timer->start();
+    uint8_t lcd_data[] = "hello";
+    lcd->write(lcd_data);
 
-    sensor = iSensor::createReflectance(timer);
+    // timer->start();
+
+    // sensor = iSensor::createReflectance(timer);
 
     while (1)
     {
@@ -77,5 +82,5 @@ void tick(void)
     }
     
     uint8_t lcd_data[] = "hello";
-    lcd->write( lcd_data, sizeof(lcd_data) );
+    lcd->write(lcd_data);
 }

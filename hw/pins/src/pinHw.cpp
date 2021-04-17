@@ -19,32 +19,44 @@ PinHw::~PinHw()
 
 }
 
-inline void PinHw::set()
+void PinHw::set()
 {
     *pinPortMap->port |= (1U << pinPortMap->num);
 }
 
-inline void PinHw::reset()
+void PinHw::reset()
 {
     *pinPortMap->port &= ~(1U << pinPortMap->num);
 }
 
-inline void PinHw::toggle()
+void PinHw::write(bool state)
+{
+    if (state == true)
+    {
+        set();
+    }
+    else
+    {
+        reset();
+    }
+}
+
+void PinHw::toggle()
 {
     *pinPortMap->port ^= (1U << pinPortMap->num);
 }
 
-inline void PinHw::output()
+void PinHw::output()
 {
     *pinPortMap->ddr |= (1U << pinPortMap->num);
 }
 
-inline void PinHw::input()
+void PinHw::input()
 {
     *pinPortMap->ddr &= ~(1U << pinPortMap->num);
 }
 
-inline bool PinHw::isSet()
+bool PinHw::isSet()
 {
     return (*pinPortMap->pin & (1U << pinPortMap->num));
 }
