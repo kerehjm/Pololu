@@ -13,7 +13,8 @@ private:
 public:
     Lcd(iLcdHw * lcd_hw);
     ~Lcd();
-    void write(uint8_t * data);
+    void write(const char * data);
+    void print(const char *format, ...);
 protected:
 private:
 };

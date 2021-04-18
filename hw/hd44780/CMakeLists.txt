@@ -1,6 +1,5 @@
 add_library(hwLcd STATIC OBJECT
     src/hd44780.cpp
-    src/hd44780Base.cpp
     src/hd44780Factory.cpp
 )
 

@@ -1,38 +1,60 @@
 #pragma once
 
-/*! \brief Main class for interfacing with the HD44780 LCDs.
- *
- * This class is suitable for controlling an HD44780 LCD assuming that the LCD's
- * RS, E, DB4, DB5, DB6, and DB7 pins are each connected to a pin on the
- * microcontroller, each of those six microcontroller pins is supported by the
- * Arduino's `pinMode` and `digitalWrite` functions, and those pins are not
- * being used for any other purpose that conflicts with the LCD.
- *
- * This class sets the E pin to be an output driving low the first time you use
- * the LCD, and it assumes that no other code will change that pin.  You cannot
- * use E for any other purposes because if the LCD sees a pulse on the E pin
- * then it might consider that to be a command or data, and the LCD state will
- * become corrupted.
- *
- * For the other pins (RS, DB4, DB5, and DB6), this library reconfigures them
- * each time they are used, so it is OK if you have other code that uses those
- * pins for other purposes.  Before writing to the LCD, you just need to disable
- * any peripherals (such as UARTs) that override the output values of those
- * pins.
- *
- * If you cannot meet these conditions, you might be able to control your LCD
- * using a custom subclass of PololuHD44780Base.  You can use this class as a
- * reference for how to do that. */
-class PololuHD44780 : public PololuHD44780Base, public iLcdHw
+#define LCD_CLEAR       0x01
+#define LCD_SHOW_BLINK  0x0F
+#define LCD_SHOW_SOLID  0x0E
+#define LCD_HIDE        0x0C
+#define LCD_CURSOR_L    0x10
+#define LCD_CURSOR_R    0x14
+#define LCD_SHIFT_L     0x18
+#define LCD_SHIFT_R     0x1C
+
+
+enum class command_4bit_e
+{
+    _4bit_interface = 0b0010,
+    function_set    = 0b0011,
+};
+
+//TODO check risk of doing this
+template<typename T, typename P>
+inline T operator|(T a, P b)
+{
+    return static_cast<T>(static_cast<uint8_t>(a) | static_cast<uint8_t>(b));
+}
+
+template<typename T, typename P>
+inline T operator&(T a, P b)
+{
+    return static_cast<T>(static_cast<uint8_t>(a) & static_cast<uint8_t>(b));
+}
+
+template<typename T>
+inline T operator~(T a)
+{
+    return ~static_cast<T>(static_cast<uint8_t>(a));
+}
+
+class PololuHD44780 : public iLcdHw
 {
 private:
     iPinHw *rs, *e, *db4, *db5, *db6, *db7;
+    bool initialized;
+    e_display_control display_control;
+    e_entry_mode entry_mode;
+    
 public:
     PololuHD44780(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5, iPinHw * db6, iPinHw * db7);
-    void initPins();
-    void send(uint8_t data, bool rsValue, bool only4bits);
+    void init();
     void write_data(uint8_t data);
-    void clear_display();
+    void set_entry_mode(bool set, e_entry_mode command);
+    void set_display_control(bool set, e_display_control command);
+    void set_command(e_command_mask command);
+    void gotoXY(uint8_t x, uint8_t y);
+
 private:
-    void sendNibble(uint8_t data);
+    void write_command(e_command_mask cmd);
+    void write_4bit_command(command_4bit_e cmd);
+    void push_4_bits(uint8_t bits);
+    void send_bits(uint8_t data, bool rsValue, bool only4bits);
 };

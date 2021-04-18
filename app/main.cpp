@@ -57,16 +57,14 @@ iLcd * lcd;
 
 int main()
 {
-    // iDebug::init(eDebugLevel::all);
-    // timer = iTimer<uint16_t>::create(tick);
+    iDebug::init(eDebugLevel::all);
+    timer = iTimer<uint16_t>::create(tick);
     lcd = iLcd::create();
 
-    uint8_t lcd_data[] = "hello";
-    lcd->write(lcd_data);
+    sensor = iSensor::createReflectance(timer);
+    SensorData data = sensor->read();
 
-    // timer->start();
-
-    // sensor = iSensor::createReflectance(timer);
+    timer->start();
 
     while (1)
     {
@@ -80,7 +78,5 @@ void tick(void)
     {
         iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
     }
-    
-    uint8_t lcd_data[] = "hello";
-    lcd->write(lcd_data);
+    lcd->print("Sensor:%d", data.readings[0]);
 }

@@ -6,7 +6,8 @@ class iLcd
 public:
     static iLcd * create();
     virtual ~iLcd() {}
-    virtual void write(uint8_t * data) = 0;
+    virtual void write(const char * data) = 0;
+    virtual void print(const char *format, ...) = 0;
 };
 
 #endif /* ILCD_H_ */

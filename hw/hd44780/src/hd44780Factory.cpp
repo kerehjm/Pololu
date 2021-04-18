@@ -2,7 +2,6 @@
 #include <stddef.h>
 #include "iPinHw.hpp"
 #include "ilcdHw.hpp"
-#include "hd44780Base.hpp"
 #include "hd44780.hpp"
 
 iLcdHw * iLcdHw::create()

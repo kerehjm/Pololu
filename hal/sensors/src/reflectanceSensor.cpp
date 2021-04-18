@@ -79,6 +79,11 @@ SensorData ReflectanceSensor::read()
                 readings[i] = time;
             }
         }
+        if (last_time == timer->getCount())
+        {
+            //not running exit TODO
+            break;
+        }
     }
 
     //Set to max if time elapsed with pin still high
