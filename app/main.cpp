@@ -62,7 +62,6 @@ int main()
     lcd = iLcd::create();
 
     sensor = iSensor::createReflectance(timer);
-    SensorData data = sensor->read();
 
     timer->start();
 

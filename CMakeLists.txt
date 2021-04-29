@@ -81,6 +81,7 @@ add_subdirectory(hw/timers)
 add_subdirectory(hw/uart)
 # add_subdirectory(hw/lcd)
 add_subdirectory(hw/hd44780)
+add_subdirectory(hw/parallel4bit)
 
 add_subdirectory(hal/buttons)
 add_subdirectory(hal/interface)
