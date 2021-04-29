@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.5)
+
+add_subdirectory(buttons)
+add_subdirectory(interface)
+add_subdirectory(leds)
+add_subdirectory(motors)
+add_subdirectory(myDebug)
+add_subdirectory(pins)
+add_subdirectory(sensors)
+add_subdirectory(timers)
+add_subdirectory(pwm)
+add_subdirectory(lcd)
