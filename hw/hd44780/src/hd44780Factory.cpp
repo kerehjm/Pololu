@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include "iPinHw.hpp"
 #include "ilcdHw.hpp"
+#include "iParallel4bit.hpp"
 #include "hd44780.hpp"
 
 iLcdHw * iLcdHw::create()
@@ -14,7 +15,8 @@ iLcdHw * iLcdHw::create()
     iPinHw * db5 = iPinHw::create(eHwPinId::PB4_LCD_DB5);
     iPinHw * db6 = iPinHw::create(eHwPinId::PB5_LCD_DB6);
     iPinHw * db7 = iPinHw::create(eHwPinId::PD7_LCD_DB7);
-    
-    iLcdHw * lcdHw = new PololuHD44780(reg_select, enable, db4, db5, db6, db7);
+
+    iParallel4bit * parallel4bit = iParallel4bit::create(reg_select, enable, db4, db5, db6, db7);
+    iLcdHw * lcdHw = new PololuHD44780(parallel4bit);
     return lcdHw;
 }

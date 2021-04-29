@@ -1,6 +1,6 @@
 add_library(hwParallel4bit STATIC OBJECT
     src/parallel4bit.cpp
-    # src/simpleParallelFactory.cpp
+    src/parallel4bitFactory.cpp
 )
 
 target_compile_options(hwParallel4bit PRIVATE "$<$<CONFIG:DEBUG>:${AVR_DEBUG_BUILD_FLAGS}>")

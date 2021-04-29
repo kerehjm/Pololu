@@ -38,13 +38,13 @@ inline T operator~(T a)
 class PololuHD44780 : public iLcdHw
 {
 private:
-    iPinHw *rs, *e, *db4, *db5, *db6, *db7;
+    iParallel4bit * parallel4bit;
     bool initialized;
     e_display_control display_control;
     e_entry_mode entry_mode;
     
 public:
-    PololuHD44780(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5, iPinHw * db6, iPinHw * db7);
+    PololuHD44780(iParallel4bit * Parallel4bit);
     void init();
     void write_data(uint8_t data);
     void set_entry_mode(bool set, e_entry_mode command);
@@ -54,7 +54,5 @@ public:
 
 private:
     void write_command(e_command_mask cmd);
-    void write_4bit_command(command_4bit_e cmd);
-    void push_4_bits(uint8_t bits);
-    void send_bits(uint8_t data, bool rsValue, bool only4bits);
+    void write_command(command_4bit_e cmd);
 };

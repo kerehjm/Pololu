@@ -63,6 +63,7 @@ target_link_libraries(3pi.elf PRIVATE
     hwTimer
     hwUart
     hwLcd
+    hwParallel4bit
     halLcd
     buttons
     leds

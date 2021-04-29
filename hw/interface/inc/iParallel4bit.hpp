@@ -1,5 +1,5 @@
-#ifndef ISIMPLEPARALLEL_H_
-#define ISIMPLEPARALLEL_H_
+#ifndef PARALLEL4BIT_H_
+#define PARALLEL4BIT_H_
 
 enum class e4or8Bits
 {
@@ -10,7 +10,8 @@ enum class e4or8Bits
 class iParallel4bit
 {
 public:
-    static iParallel4bit * create();
+    static iParallel4bit * create(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5,
+        iPinHw * db6, iPinHw * db7);
     virtual ~iParallel4bit() {}
     virtual void write_data(uint8_t data, e4or8Bits size) = 0;
     virtual void write_command(uint8_t data, e4or8Bits size) = 0;

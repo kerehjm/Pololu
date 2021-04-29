@@ -7,7 +7,7 @@
 #include "iParallel4bit.hpp"
 #include "parallel4bit.hpp"
 
-parallel4bit::parallel4bit(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5,
+Parallel4bit::Parallel4bit(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5,
         iPinHw * db6, iPinHw * db7)
 {
     this->rs = rs;
@@ -22,20 +22,20 @@ parallel4bit::parallel4bit(iPinHw * rs, iPinHw * e, iPinHw * db4, iPinHw * db5,
     e->output();
 }
 
-void parallel4bit::write_data(uint8_t data, e4or8Bits size)
+void Parallel4bit::write_data(uint8_t data, e4or8Bits size)
 {
     rs->set();
     send_bits(data, size);
 }
 
-void parallel4bit::write_command(uint8_t data, e4or8Bits size)
+void Parallel4bit::write_command(uint8_t data, e4or8Bits size)
 {
     rs->reset();
     send_bits(data, size);
 }
 
 //private
-void parallel4bit::send_bits(uint8_t data, e4or8Bits size)
+void Parallel4bit::send_bits(uint8_t data, e4or8Bits size)
 {
     rs->output();
     db4->output();
@@ -55,7 +55,7 @@ void parallel4bit::send_bits(uint8_t data, e4or8Bits size)
     _delay_us(37);
 }
 
-void parallel4bit::push_4_bits(uint8_t bits)
+void Parallel4bit::push_4_bits(uint8_t bits)
 {
     db4->write(bits >> 0 & 1);
     db5->write(bits >> 1 & 1);
