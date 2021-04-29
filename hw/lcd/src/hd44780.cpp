@@ -8,13 +8,13 @@
 #include "iParallel4bit.hpp"
 #include "hd44780.hpp"
 
-PololuHD44780::PololuHD44780(iParallel4bit * parallel4bit)
+Hd44780::Hd44780(iParallel4bit * parallel4bit)
 {
     initialized = false;
     this->parallel4bit = parallel4bit;
 }
 
-void PololuHD44780::init()
+void Hd44780::init()
 {
     _delay_ms(15);
     write_command(command_4bit_e::function_set);
@@ -32,12 +32,12 @@ void PololuHD44780::init()
     set_display_control(true, e_display_control::display_on);
 }
 
-void PololuHD44780::write_data(uint8_t data)
+void Hd44780::write_data(uint8_t data)
 {
     parallel4bit->write_data(data, e4or8Bits::_8_bits);
 }
 
-void PololuHD44780::gotoXY(uint8_t x, uint8_t y)
+void Hd44780::gotoXY(uint8_t x, uint8_t y)
 {
     // Each entry is the RAM address of a line, with its most
     // significant bit set for convenience.
@@ -52,7 +52,7 @@ void PololuHD44780::gotoXY(uint8_t x, uint8_t y)
     _delay_us(37);
 }
 
-void PololuHD44780::set_command(e_command_mask command)
+void Hd44780::set_command(e_command_mask command)
 {
     write_command(command);
     if (command == e_command_mask::clear)
@@ -68,7 +68,7 @@ void PololuHD44780::set_command(e_command_mask command)
     }
 }
 
-void PololuHD44780::set_entry_mode(bool set, e_entry_mode command)
+void Hd44780::set_entry_mode(bool set, e_entry_mode command)
 {
     e_entry_mode mode = this->entry_mode;
     if (set)
@@ -84,7 +84,7 @@ void PololuHD44780::set_entry_mode(bool set, e_entry_mode command)
     this->entry_mode = mode;
 }
 
-void PololuHD44780::set_display_control(bool set, e_display_control command)
+void Hd44780::set_display_control(bool set, e_display_control command)
 {
     e_display_control control = this->display_control;
     if (set)
@@ -101,12 +101,12 @@ void PololuHD44780::set_display_control(bool set, e_display_control command)
 }
 
 //private
-void PololuHD44780::write_command(e_command_mask cmd)
+void Hd44780::write_command(e_command_mask cmd)
 {
     parallel4bit->write_command(static_cast<uint8_t>(cmd), e4or8Bits::_8_bits);
 }
 
-void PololuHD44780::write_command(command_4bit_e cmd)
+void Hd44780::write_command(command_4bit_e cmd)
 {
     parallel4bit->write_command(static_cast<uint8_t>(cmd), e4or8Bits::_4_bits);
 }

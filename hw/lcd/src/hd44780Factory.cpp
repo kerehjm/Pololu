@@ -17,6 +17,6 @@ iLcdHw * iLcdHw::create()
     iPinHw * db7 = iPinHw::create(eHwPinId::PD7_LCD_DB7);
 
     iParallel4bit * parallel4bit = iParallel4bit::create(reg_select, enable, db4, db5, db6, db7);
-    iLcdHw * lcdHw = new PololuHD44780(parallel4bit);
+    iLcdHw * lcdHw = new Hd44780(parallel4bit);
     return lcdHw;
 }
