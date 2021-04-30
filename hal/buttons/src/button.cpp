@@ -1,25 +1,20 @@
-/* 
-* Button.cpp
-*
-* Created: 17/05/2020 12:40:38
-* Author: Mathew.Kuloba
-*/
-
+#include "iButtonHw.hpp"
 #include "iButton.hpp"
 #include "button.hpp"
 
 // default constructor
-Button::Button(eButtonId button)
+Button::Button(iButtonHw * buttonHw)
 {
-    this->button = button;
-} //Button
+    this->buttonHw = buttonHw;
+}
 
 // default destructor
 Button::~Button()
 {
-} //~Button
+    delete(buttonHw);
+}
 
 bool Button::isPressed()
 {
-    return false;
+    return buttonHw->is_pressed();
 }
