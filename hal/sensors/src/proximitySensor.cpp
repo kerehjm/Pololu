@@ -30,7 +30,7 @@ SensorData ProximitySensor::read()
     charge();
     _delay_us(10);
     discharge();
-    uint8_t readings[1];
+    uint16_t readings[1];
 
     SensorData data(1, readings);
     return data;

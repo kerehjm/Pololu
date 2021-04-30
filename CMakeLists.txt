@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 
+include(cmake/avr.cmake)
+
+project(pololu CXX)
+
 #device dependent config, here for arduino uno on linux
 set(AVR_MCU atmega328p)
 set(MCU_FREQ 20000000UL)
@@ -36,6 +40,7 @@ set(AVR_RELEASE_LINK_FLAGS
     -mrelax
     --data-sections
     -mmcu=${AVR_MCU}
+    -Wl,-Map=${PROJECT_NAME}.map
 )
 
 set(AVR_DEBUG_LINK_FLAGS
@@ -43,11 +48,8 @@ set(AVR_DEBUG_LINK_FLAGS
     -mrelax
     --data-sections
     -mmcu=${AVR_MCU}
+    -Wl,-Map=${PROJECT_NAME}.map
 )
-
-include(cmake/avr.cmake)
-
-project(pololu CXX)
 
 # call after project setup
 include(cmake/setup.cmake)
@@ -60,6 +62,9 @@ target_link_libraries(3pi.elf PRIVATE
     hwPin
     hwTimer
     hwUart
+    hwLcd
+    hwParallel4bit
+    halLcd
     buttons
     leds
     motors
@@ -70,18 +75,5 @@ target_link_libraries(3pi.elf PRIVATE
     pwm
 )
 
-add_subdirectory(hw/interface)
-add_subdirectory(hw/adcs)
-add_subdirectory(hw/pins)
-add_subdirectory(hw/timers)
-add_subdirectory(hw/uart)
-
-add_subdirectory(hal/buttons)
-add_subdirectory(hal/interface)
-add_subdirectory(hal/leds)
-add_subdirectory(hal/motors)
-add_subdirectory(hal/myDebug)
-add_subdirectory(hal/pins)
-add_subdirectory(hal/sensors)
-add_subdirectory(hal/timers)
-add_subdirectory(hal/pwm)
+add_subdirectory(hw)
+add_subdirectory(hal)
