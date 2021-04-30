@@ -16,7 +16,7 @@
 // #include <avr/io.h>
 #include <string.h>
 
-#define MAX_VALUE 110
+#define MAX_VALUE 2000 //800uS
 
 // default constructor  
 ReflectanceSensor::ReflectanceSensor(
@@ -24,7 +24,7 @@ ReflectanceSensor::ReflectanceSensor(
     uint8_t count,
     iPin * power,
     iTimer<uint16_t> * timer,
-    uint8_t * readings)
+    uint16_t * readings)
 {
     this->count = count;
     this->power = power;
@@ -44,8 +44,8 @@ ReflectanceSensor::~ReflectanceSensor()
 
 SensorData ReflectanceSensor::read()
 {
-    uint8_t last_time;
-    uint8_t time = 0;
+    uint16_t last_time;
+    uint16_t time = 0;
     uint8_t last_c = getSensorsState();
     memset(readings, 0, count);
     SensorData data = SensorData(count, readings);
@@ -58,7 +58,7 @@ SensorData ReflectanceSensor::read()
 
     while (time < MAX_VALUE)
     {
-        uint8_t delta_time = timer->getCount() - last_time;
+        uint16_t delta_time = timer->getCount() - last_time;
         time += delta_time;
         last_time += delta_time;
 

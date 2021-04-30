@@ -42,6 +42,7 @@ void log(eDebugLevel level, const char *format, va_list args)
         {
             Debug::uart->write(buffer[i++]);
         }
+        Debug::uart->write('\r');
         Debug::uart->write('\n');
     }
 }

@@ -12,9 +12,9 @@
 typedef struct _SensorData
 {
     uint8_t size;
-    uint8_t * readings;
+    uint16_t * readings;
 
-    _SensorData(uint8_t size, uint8_t * readings)
+    _SensorData(uint8_t size, uint16_t * readings)
     {
         this->size = size;
         this->readings = readings;

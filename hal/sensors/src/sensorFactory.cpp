@@ -12,7 +12,7 @@ iSensor * iSensor::createReflectance(iTimer<uint16_t> * timer)
     if (timer != nullptr)
     {
         static const uint8_t COUNT = 5;
-        static uint8_t readings[COUNT];
+        static uint16_t readings[COUNT];
         static iPin * sensorPin[COUNT] = {};
         sensorPin[0] = iPin::create(ePinId::PC0_SENSOR0, ePinDir::OUTPUT, ePinState::HIGH);
         sensorPin[1] = iPin::create(ePinId::PC0_SENSOR0, ePinDir::OUTPUT, ePinState::HIGH);
