@@ -3,9 +3,9 @@
 
 enum class eButtonHwId
 {
-    a,
-    b,
-    c
+    pb1,
+    pb4,
+    pb5
 };
 
 class iButtonHw
