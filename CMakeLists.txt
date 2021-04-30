@@ -19,7 +19,7 @@ set(AVR_RELEASE_BUILD_FLAGS
     -Werror
     -std=c++11
     -mmcu=${AVR_MCU}
-    -DF_CPU=${MCU_FREQ} 
+    -DF_CPU=${MCU_FREQ}
 )
 
 set(AVR_DEBUG_BUILD_FLAGS
@@ -32,7 +32,7 @@ set(AVR_DEBUG_BUILD_FLAGS
     -Werror
     -std=c++11
     -mmcu=${AVR_MCU}
-    -DF_CPU=${MCU_FREQ} 
+    -DF_CPU=${MCU_FREQ}
 )
 
 set(AVR_RELEASE_LINK_FLAGS
@@ -64,8 +64,8 @@ target_link_libraries(3pi.elf PRIVATE
     hwUart
     hwLcd
     hwParallel4bit
+    hwButton
     halLcd
-    buttons
     leds
     motors
     myDebug
