@@ -21,6 +21,7 @@ Lcd::~Lcd()
 
 void Lcd::write(const char * data)
 {
+    lcd_hw->set_command(e_command_mask::clear);
     while (*data != 0)
     {
         lcd_hw->write_data(*data++);
@@ -29,6 +30,7 @@ void Lcd::write(const char * data)
 
 void Lcd::print(const char *format, ...)
 {
+    lcd_hw->set_command(e_command_mask::clear);
     va_list args;
     va_start (args, format);
     char buffer[16];

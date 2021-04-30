@@ -17,11 +17,13 @@ Pwm::~Pwm()
 
 void Pwm::start()
 {
+    timerHw->selectCompareOutputMode(eOutput::A, eoutputCompareMode::setOnCompare);
     timerHw->start();
 }
 
 void Pwm::startInverted()
 {
+    timerHw->selectCompareOutputMode(eOutput::B, eoutputCompareMode::clearClearOnCompare);
     timerHw->start();
 }
 

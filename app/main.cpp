@@ -54,16 +54,21 @@ iTimer<uint16_t> * timer;
 iSensor * sensor;
 iDebug * debug;
 iLcd * lcd;
+iMotor * motor1;
+iMotor * motor2;
 
 int main()
 {
     iDebug::init(eDebugLevel::all);
     timer = iTimer<uint16_t>::create(tick);
     lcd = iLcd::create();
-
+    motor1 = iMotor::create(eMotorId::motor_1);
+    motor2 = iMotor::create(eMotorId::motor_2);
     sensor = iSensor::createReflectance(timer);
 
     timer->start();
+    motor1->forward(100);
+    motor2->reverse(100);
 
     while (1)
     {
@@ -72,10 +77,12 @@ int main()
 
 void tick(void)
 {
+    motor1->off();
+    motor2->off();
     SensorData data = sensor->read();
     for (uint8_t i = 0; i < data.size; i++)
     {
         iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
     }
-    lcd->print("Sensor:%d", data.readings[0]);
+    lcd->print("S:%d", data.readings[0]);
 }

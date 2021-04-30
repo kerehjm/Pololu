@@ -32,7 +32,7 @@ TimerHw<T, P, W>::TimerHw(
  
     TimerHw::vector_table[static_cast<uint8_t>(intId)] = this;
     this->handler = isr;
-    this->registers->setTimsk((this->registers->getTimsk() & 0b11111101) | (1 << 1));
+    this->registers->setTimsk(this->registers->getTimsk() | (1 << 1));
 
     sei(); //  Enable global interrupts
 }
@@ -46,14 +46,12 @@ TimerHw<T, P, W>::~TimerHw()
 template<class T, class P, class W>
 void TimerHw<T, P, W>::start()
 {
-    selectCompareOutputMode(eOutput::A, eoutputCompareMode::setOnCompare);
     selectClock(this->registers->getPrescaler());
 }
 
 template<class T, class P, class W>
 void TimerHw<T, P, W>::startInverted()
 {
-    selectCompareOutputMode(eOutput::B, eoutputCompareMode::clearClearOnCompare);
     selectClock(this->registers->getPrescaler());
 }
 
