@@ -1,5 +1,4 @@
 add_library(sensors STATIC OBJECT
-    src/proximitySensor.cpp
     src/reflectanceSensor.cpp
     src/sensorFactory.cpp
 )

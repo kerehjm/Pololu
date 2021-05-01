@@ -20,7 +20,7 @@
 
 // default constructor  
 ReflectanceSensor::ReflectanceSensor(
-    iPin * sensor[],
+    iPin ** sensor,
     uint8_t count,
     iPin * power,
     iTimer<uint16_t> * timer,
@@ -30,11 +30,7 @@ ReflectanceSensor::ReflectanceSensor(
     this->power = power;
     this->timer = timer;
     this->readings = readings;
-
-    for (uint8_t i = 0; i < count; i++)
-    {
-        this->sensor[i] = sensor[i];
-    }
+    this->sensor = sensor;
 } //ReflectanceSensor
 
 // default destructor
@@ -47,7 +43,7 @@ SensorData ReflectanceSensor::read()
     uint16_t last_time;
     uint16_t time = 0;
     uint8_t last_c = getSensorsState();
-    memset(readings, 0, count);
+    memset(readings, 0, count*sizeof(readings[0]));
     SensorData data = SensorData(count, readings);
 
     charge();    //Charge sensor
@@ -81,7 +77,7 @@ SensorData ReflectanceSensor::read()
         }
         if (last_time == timer->getCount())
         {
-            //not running exit TODO
+            //not running exit TODO check if timer is running
             break;
         }
     }

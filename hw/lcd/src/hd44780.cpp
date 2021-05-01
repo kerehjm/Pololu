@@ -45,6 +45,7 @@ void Hd44780::gotoXY(uint8_t x, uint8_t y)
 
     // Avoid out-of-bounds array access.
     if (y > 3) { y = 3; }
+    (void)x;
 
     // write_command(line_mem[y] + x); //TODO
 

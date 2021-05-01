@@ -19,12 +19,12 @@ private:
     iPin * power;
     iTimer<uint16_t> * timer;
     uint16_t * readings;
-    iPin * sensor[];
+    iPin ** sensor;
 
 //functions
 public:
     ~ReflectanceSensor();
-    ReflectanceSensor(iPin * sensor[], uint8_t count, iPin * power, iTimer<uint16_t> * timer, uint16_t * readings);
+    ReflectanceSensor(iPin ** sensor, uint8_t count, iPin * power, iTimer<uint16_t> * timer, uint16_t * readings);
     SensorData read();
 protected:
 private:

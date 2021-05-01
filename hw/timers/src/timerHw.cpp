@@ -25,6 +25,7 @@ TimerHw<T, P, W>::TimerHw(
     this->registers->setOcra(frequency);
     this->registers->setOcrb(frequency);
     this->registers->setPrescaler(prescaler);
+    this->intId = intId;
 
     selectCompareOutputMode(eOutput::A, AcompareMode);
     selectCompareOutputMode(eOutput::B, BcompareMode);
@@ -108,7 +109,7 @@ void TimerHw<T, P, W>::selectWaveGenerationMode(W eWavegen)
 template<class T, class P, class W>
 void TimerHw<T, P, W>::intHandler(eInterruptId intId)
 {
-    if (handler != nullptr)
+    if (handler != nullptr && this->intId == intId)
     {
         handler();
     }

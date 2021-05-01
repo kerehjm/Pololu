@@ -32,7 +32,7 @@ TimerHwData<T, P>::TimerHwData(
     *(this->timsk) = 0;
 
     // this->prescaler = P::noClkSrc;
-};
+}
 
 template<class T, class P>
 void TimerHwData<T, P>::setOcra(T ocra)
