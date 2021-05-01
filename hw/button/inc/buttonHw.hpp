@@ -44,6 +44,7 @@ public:
 protected:
 private:
     iPinHw * buttonPin;
+    eButtonIntId intId;
     void(*callback)(void);
 
     volatile uint8_t * pcicr;

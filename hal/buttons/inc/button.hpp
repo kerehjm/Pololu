@@ -16,7 +16,6 @@ public:
     bool isPressed();
 protected:
 private:
-
 }; //Button
 
 #endif //__BUTTON_H__

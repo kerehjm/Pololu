@@ -53,6 +53,11 @@ void Parallel4bit::send_bits(uint8_t data, e4or8Bits size)
     // connected, then this delay and others like it should be disabled, and we
     // should instead wait for the busy flag before sending the next command.
     _delay_us(37);
+
+    db4->input();
+    db5->input();
+    db6->input();
+    db7->input();
 }
 
 void Parallel4bit::push_4_bits(uint8_t bits)

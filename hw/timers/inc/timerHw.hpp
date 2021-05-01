@@ -23,6 +23,7 @@ private:
     iTimerHwData<T, P> * registers;
     static TimerHw * vector_table[static_cast<uint8_t>(eInterruptId::max)];
     void (*handler)(void);
+    eInterruptId intId;
 
 //functions
 public:

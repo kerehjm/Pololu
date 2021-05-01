@@ -49,6 +49,9 @@ void operator delete(void* ptr, unsigned int size)
 }
 
 void tick(void);
+void button_a_callback(void);
+void button_b_callback(void);
+void button_c_callback(void);
 
 iTimer<uint16_t> * timer;
 iSensor * sensor;
@@ -56,19 +59,22 @@ iDebug * debug;
 iLcd * lcd;
 iMotor * motor1;
 iMotor * motor2;
+iButton * button_a;
+iButton * button_b;
+iButton * button_c;
 
 int main()
 {
     iDebug::init(eDebugLevel::all);
+    iDebug::debug("Init");
     timer = iTimer<uint16_t>::create(tick);
     lcd = iLcd::create();
     motor1 = iMotor::create(eMotorId::motor_1);
     motor2 = iMotor::create(eMotorId::motor_2);
     sensor = iSensor::createReflectance(timer);
-
-    timer->start();
-    motor1->forward(100);
-    motor2->reverse(100);
+    button_a = iButton::create(eButtonId::a, button_a_callback);
+    button_b = iButton::create(eButtonId::b, button_b_callback);
+    button_c = iButton::create(eButtonId::c, button_c_callback);
 
     while (1)
     {
@@ -77,12 +83,29 @@ int main()
 
 void tick(void)
 {
-    motor1->off();
-    motor2->off();
     SensorData data = sensor->read();
     for (uint8_t i = 0; i < data.size; i++)
     {
         iDebug::debug("Sensor[%d]: %d", i, data.readings[i] );
     }
     lcd->print("S:%d", data.readings[0]);
+}
+
+void button_a_callback(void)
+{
+    motor1->forward(100);
+    motor2->forward(100);
+}
+
+void button_b_callback(void)
+{
+    timer->start();
+    motor1->off();
+    motor2->off();
+}
+
+void button_c_callback(void)
+{
+    motor1->reverse(100);
+    motor2->reverse(100);
 }

@@ -26,7 +26,6 @@ class iSensor
 //functions
 public:
     static iSensor * createReflectance(iTimer<uint16_t> * timer);
-    static iSensor * createProximity(iTimer<uint16_t> * timer);
     virtual ~iSensor(){}
     virtual SensorData read() = 0;
 }; //iSensor

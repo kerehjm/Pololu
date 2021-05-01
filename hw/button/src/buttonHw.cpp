@@ -14,9 +14,13 @@ ButtonHw::ButtonHw(iPinHw * buttonPin, eButtonIntId intId, volatile uint8_t * pc
     ButtonHw::vector_table[static_cast<uint8_t>(intId)] = this;
     this->callback = callback;
     this->buttonPin = buttonPin;
+    this->intId = intId;
 
     *(this->pcicr) |= static_cast<uint8_t>(ePcie::pcie0);
     *(this->pcmsk) |= static_cast<uint8_t>(ePcmsk::_1 | ePcmsk::_4 | ePcmsk::_5);
+
+    buttonPin->input();
+    buttonPin->reset();
 }
 
 ButtonHw::~ButtonHw(void)
@@ -35,7 +39,7 @@ void ButtonHw::intHandler(eButtonIntId intId)
 {
     if (callback != nullptr)
     {
-        if ((intId == eButtonIntId::pcint0) && (buttonPin->isSet() == false))
+        if ((intId == this->intId) && (buttonPin->isSet() == false))
         {
             callback();
         }
@@ -46,16 +50,16 @@ void ButtonHw::intHandler(eButtonIntId intId)
 void PCINT0_vect(void)
 {
     ButtonHw::vector_table[static_cast<uint8_t>(eButtonIntId::pcint0)]->intHandler(eButtonIntId::pcint0);
+    ButtonHw::vector_table[static_cast<uint8_t>(eButtonIntId::pcint1)]->intHandler(eButtonIntId::pcint1);
+    ButtonHw::vector_table[static_cast<uint8_t>(eButtonIntId::pcint2)]->intHandler(eButtonIntId::pcint2);
 }
 
 //PCINT14-8 PCMSK1
 void PCINT1_vect(void)
 {
-    ButtonHw::vector_table[static_cast<uint8_t>(eButtonIntId::pcint1)]->intHandler(eButtonIntId::pcint1);
 }
 
 //PCINT23-16 PCMSK2
 void PCINT2_vect(void)
 {
-    ButtonHw::vector_table[static_cast<uint8_t>(eButtonIntId::pcint2)]->intHandler(eButtonIntId::pcint2);
 }

@@ -73,6 +73,7 @@ target_link_libraries(3pi.elf PRIVATE
     sensors
     timers
     pwm
+    buttons
 )
 
 add_subdirectory(hw)
